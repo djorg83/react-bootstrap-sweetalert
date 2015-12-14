@@ -1,0 +1,41 @@
+{
+  "name": "react-bootstrap-sweetalert",
+  "version": "1.0.0",
+  "description": "A variant of sweetalert for use with React and Bootstrap",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack --watch | nodemon ./server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://djorg83@github.com/djorg83/react-bootstrap-sweetalert.git"
+  },
+  "keywords": [
+    "react",
+    "bootstrap",
+    "alert",
+    "sweetalert",
+    "confirm",
+    "modal"
+  ],
+  "author": "Daniel Jorgensen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/djorg83/react-bootstrap-sweetalert/issues"
+  },
+  "homepage": "https://github.com/djorg83/react-bootstrap-sweetalert#readme",
+  "dependencies": {
+    "radium": "^0.15.3",
+    "react": "0.14.3",
+    "react-dom": "0.14.3"
+  },
+  "devDependencies": {
+    "express": "4.4.5",
+    "babel-core": "6.2.1",
+    "babel-loader": "6.2.0",
+    "babel-preset-react": "6.1.18",
+    "react-bootstrap": "0.28.1",
+    "webpack": "1.9.10"
+  }
+}
