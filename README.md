@@ -5,6 +5,10 @@ SweetAlert for React/Boostrap
 
 An awesome replacement for JavaScript's alert.
 
+Demo
+
+[See the demo site here!](http://djorg.info/react-bootstrap-sweet-alert-demo/)
+
 Usage
 -----
 
