@@ -1,1 +1,1 @@
-module.exports = require('./dist/SweetAlert.js');
+module.exports = require('./lib/dist/SweetAlert.js');

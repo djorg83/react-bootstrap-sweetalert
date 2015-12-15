@@ -6,5 +6,5 @@ gulp.task('default', function() {
         .pipe(babel({
         	presets: ['react']
         }))
-        .pipe(gulp.dest('dist'));
+        .pipe(gulp.dest('lib/dist'));
 });
