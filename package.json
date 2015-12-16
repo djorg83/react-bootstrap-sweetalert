@@ -1,6 +1,6 @@
 {
   "name": "react-bootstrap-sweetalert",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A variant of sweetalert for use with React and Bootstrap",
   "main": "index.js",
   "scripts": {
@@ -25,9 +25,9 @@
     "url": "https://github.com/djorg83/react-bootstrap-sweetalert/issues"
   },
   "homepage": "https://github.com/djorg83/react-bootstrap-sweetalert#readme",
-  "dependencies": {
-    "radium": "0.15.3",
-    "react": "0.14.3"
+  "peerDependencies": {
+    "radium": ">=0.15.3",
+    "react": ">=0.14.0"
   },
   "devDependencies": {
     "babel-core": "6.2.1",
