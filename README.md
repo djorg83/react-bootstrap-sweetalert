@@ -1,6 +1,6 @@
 # react-bootstrap-sweetalert
 
-SweetAlert for React/Boostrap
+SweetAlert for React/Bootstrap
 ==========
 
 An awesome replacement for JavaScript's alert.
