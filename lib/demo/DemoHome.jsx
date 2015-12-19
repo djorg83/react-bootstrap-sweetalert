@@ -4,6 +4,7 @@ var Button = BS.Button;
 var Row = BS.Row;
 var Col = BS.Col;
 var SweetAlert = require('../components/SweetAlert');
+var reactTools = require('react-tools');
 
 var examples = [{
 	title: 'A basic message'
@@ -25,7 +26,8 @@ var DemoHome = React.createClass({
 
 	getInitialState: function() {
 		return {
-			alert: null
+			alert: null,
+			textareaValue: '<SweetAlert \n \ttype="success" \n \ttitle="Woot!" \n \tcontent="I did it!" \n \tonConfirm={this.hideAlert} />'
 		};
 	},
 
@@ -70,6 +72,18 @@ var DemoHome = React.createClass({
 		});
 	},
 
+	onConfirm: function() {
+		this.setState({
+			alert: null
+		});
+	},
+
+	onCancel: function() {
+		this.setState({
+			alert: null
+		});
+	},
+
 	deleteFile: function() {
 		this.setState({
 			alert: (
@@ -103,7 +117,7 @@ var DemoHome = React.createClass({
 					content={'You wrote: ' + value}
 					onConfirm={this.hideAlert} />
 			)
-		});
+		});		
 	},
 
 	runExample: function(i) {
@@ -303,12 +317,46 @@ var DemoHome = React.createClass({
 		);
 	},
 
+	onChangeTextarea: function(e) {
+		this.setState({
+			textareaValue: e.target.value
+		});
+	},
+
+	runInputExample: function() {
+
+		try {
+			var input = this.refs.jsxInput.value;
+			console.log(input);
+			var code = reactTools.transform(input);
+			this.setState({
+				alert: eval(code)
+			});
+		} catch (e) {
+			var hideAlert = this.hideAlert;
+			this.setState({
+				alert: (
+					<SweetAlert 
+						type="danger"
+						title="Whoops!" 
+						content="That didn't work."
+						onConfirm={hideAlert} />
+				)
+			});
+		}
+		
+	},
+
 	render: function() {
 		return (
 			<div>
 				{this.renderHeader()}
 
 				<div className="container">
+
+					<h2>Install via npm</h2>
+
+					<pre className="text-center lead">$ npm install react-bootstrap-sweetalert</pre>
 
 					<h1>Try these buttons!</h1>
 					
@@ -349,14 +397,43 @@ var DemoHome = React.createClass({
 						</Button>
 					</div>
 
-					<h2>Install via npm</h2>
+					<h1>or create your own here...</h1>
+					<p className="text-muted text-center lead">Be sure to use &#123;this.hideAlert&#125; for onConfirm and onCancel.</p>
 
-					<pre className="text-center lead">$ npm install react-bootstrap-sweetalert</pre>
-
-					<p className="text-muted text-center lead">
-						<span>Continue playing with the examples or check how to use it on </span>
-						<a href="https://github.com/djorg83/react-bootstrap-sweetalert">GitHub</a>.
-					</p>
+					<div>
+						<h4></h4>
+						<Row>
+							<Col sm={2} className="text-center">
+								<p>
+									<Button 
+										bsStyle="primary"
+										onClick={this.runInputExample}>
+										Try it
+									</Button>
+								</p>
+							</Col>
+							<Col sm={10}>
+								<textarea spellcheck="false" ref="jsxInput" onChange={this.onChangeTextarea} style={{
+									height: 300, 
+									width: '100%',
+									display: 'block',
+								    padding: 9.5,
+								    margin: '0 0 10px',
+								    fontSize: 15,
+								    lineHeight: '1.6',
+								    color: '#B7EC80',
+								    wordBreak: 'break-all',
+								    wordWrap: 'normal',
+								    backgroundColor: '#424140',
+								    border: '1px solid #ccc',
+								    borderRadius: 4,
+    								overflow: 'auto',
+    								whiteSpace: 'pre',
+    								resize: 'none'
+								}}>{this.state.textareaValue}</textarea>
+							</Col>
+						</Row>
+					</div>
 
 					<h2>Examples</h2>
 
