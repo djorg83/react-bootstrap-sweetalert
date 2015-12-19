@@ -3,6 +3,7 @@ var BS = require('react-bootstrap');
 var Button = BS.Button;
 var Row = BS.Row;
 var Col = BS.Col;
+var Alert = BS.Alert;
 var SweetAlert = require('../components/SweetAlert');
 var reactTools = require('react-tools');
 
@@ -20,6 +21,8 @@ var examples = [{
 	title: 'An HTML message'
 }, {
 	title: 'A replacement for the "prompt" function'
+}, {
+	title: 'Custom style'
 }];
 
 var DemoHome = React.createClass({
@@ -51,19 +54,56 @@ var DemoHome = React.createClass({
 	},
 
 	buttonExample: function(type) {
-		this.setState({
-			alert: (
-				<SweetAlert 
-					showCancel
-					confirmBtnText="Continue"
-					confirmBtnBsStyle={type}
-					type={type}
-					title="Are you sure?" 
-					content="You will not be able to recover this imaginary file!"
-					onCancel={this.hideAlert}
-					onConfirm={this.hideAlert} />
-			)
-		});
+		switch (type) {
+			case 'custom':
+				this.setState({
+					alert: (
+						<SweetAlert 
+							showCancel
+							confirmBtnText="Yes"
+							cancelBtnText="No"
+							confirmBtnBsStyle="primary"
+							cancelBtnBsStyle="default"
+							type="custom"
+							customIcon="thumbs-up.jpg"
+							title="Do you like thumbs?" 
+							content="You will find they are up!"
+							onConfirm={this.hideAlert}
+							onCancel={this.hideAlert} />
+					)
+				});
+				break;
+			case 'input':
+				this.setState({
+					alert: (
+						<SweetAlert 
+							showCancel
+							cancelBtnBsStyle="default"
+							type="input"
+							title="An input!" 
+							content="Write something interesting:"
+							inputPlaceHolder="Write something"
+							onConfirm={this.onRecieveInput}
+							onCancel={this.hideAlert} />
+					)
+				});
+				break;
+			default:
+				this.setState({
+				alert: (
+						<SweetAlert 
+							showCancel
+							confirmBtnText="Continue"
+							confirmBtnBsStyle={type}
+							type={type}
+							title="Are you sure?" 
+							content="You will not be able to recover this imaginary file!"
+							onCancel={this.hideAlert}
+							onConfirm={this.hideAlert} />
+					)
+				});
+				break;
+		}
 	},
 
 	hideAlert: function() {
@@ -211,6 +251,17 @@ var DemoHome = React.createClass({
 					)
 				});
 				break;
+			case 7:
+				this.setState({
+					alert: (
+						<SweetAlert 
+							style={{backgroundColor:'blue'}}
+							title="Yay!" 
+							content="Its blue!"
+							onConfirm={this.hideAlert} />
+					)
+				});
+				break;
 		}
 	},
 
@@ -292,6 +343,15 @@ var DemoHome = React.createClass({
 						<span style={indent}>onCancel=&#123;this.onCancel&#125; /&gt;</span>
 					</pre>
 				);
+			case 7:
+				return (
+					<pre>&lt;SweetAlert<br/>
+						<span style={indent}>title="Yay!"</span><br/>
+						<span style={indent}>content="It's blue!"</span><br/>
+						<span style={indent}>style=&#123;&#123;backgroundColor:'blue'&#125;&#125;</span><br/>
+						<span style={indent}>onConfirm=&#123;this.onConfirm&#125; /&gt;</span>
+					</pre>
+				);
 		}
 	},
 
@@ -315,12 +375,6 @@ var DemoHome = React.createClass({
 				</Row>
 			</div>
 		);
-	},
-
-	onChangeTextarea: function(e) {
-		this.setState({
-			textareaValue: e.target.value
-		});
 	},
 
 	runInputExample: function() {
@@ -358,62 +412,29 @@ var DemoHome = React.createClass({
 
 					<pre className="text-center lead">$ npm install react-bootstrap-sweetalert</pre>
 
-					<h1>Try these buttons!</h1>
-					
-					<div className="examples">
-						<Button 
-							bsSize="large"
-							style={{marginRight:8}} 
-							bsStyle="primary"
-							onClick={this.buttonExample.bind(null, 'primary')}>
-							Primary
-						</Button>
-						<Button 
-							bsSize="large"
-							style={{marginRight:8}} 
-							bsStyle="info"
-							onClick={this.buttonExample.bind(null, 'info')}>
-							Info
-						</Button>
-						<Button 
-							bsSize="large"
-							style={{marginRight:8}} 
-							bsStyle="success"
-							onClick={this.buttonExample.bind(null, 'success')}>
-							Success
-						</Button>
-						<Button 
-							bsSize="large"
-							style={{marginRight:8}} 
-							bsStyle="warning"
-							onClick={this.buttonExample.bind(null, 'warning')}>
-							Warning
-						</Button>
-						<Button 
-							bsSize="large"
-							bsStyle="danger"
-							onClick={this.buttonExample.bind(null, 'danger')}>
-							Danger
-						</Button>
-					</div>
+					<hr style={{
+						marginTop: 50,
+					    marginBottom: 50,
+					    borderTopColor: '#BBBBBB'
+					}} />
 
-					<h1>or create your own here...</h1>
-					<p className="text-muted text-center lead">Be sure to use &#123;this.hideAlert&#125; for onConfirm and onCancel.</p>
+					<h1>Sandbox</h1>
+
+					<Alert bsStyle="info">Modify the code below to make a SweetAlert. Be sure to use &#123;this.hideAlert&#125; for onConfirm and onCancel.</Alert>
 
 					<div>
-						<h4></h4>
 						<Row>
 							<Col sm={2} className="text-center">
 								<p>
 									<Button 
 										bsStyle="primary"
 										onClick={this.runInputExample}>
-										Try it
+										Run it!
 									</Button>
 								</p>
 							</Col>
 							<Col sm={10}>
-								<textarea spellcheck="false" ref="jsxInput" onChange={this.onChangeTextarea} style={{
+								<textarea spellCheck="false" ref="jsxInput" defaultValue={this.state.textareaValue} style={{
 									height: 300, 
 									width: '100%',
 									display: 'block',
@@ -430,12 +451,67 @@ var DemoHome = React.createClass({
     								overflow: 'auto',
     								whiteSpace: 'pre',
     								resize: 'none'
-								}}>{this.state.textareaValue}</textarea>
+								}}></textarea>
 							</Col>
 						</Row>
 					</div>
 
+					<hr style={{
+						marginTop: 50,
+					    marginBottom: 50,
+					    borderTopColor: '#BBBBBB'
+					}} />
+
 					<h2>Examples</h2>
+
+					<h4>Different types</h4>
+					
+					<Row>
+						<Col sm={12} className="text-center">
+							<Button 
+								style={{marginRight:8}} 
+								bsStyle="primary"
+								onClick={this.buttonExample.bind(null, 'primary')}>
+								Primary
+							</Button>
+							<Button 
+								style={{marginRight:8}} 
+								bsStyle="info"
+								onClick={this.buttonExample.bind(null, 'info')}>
+								Info
+							</Button>
+							<Button 
+								style={{marginRight:8}} 
+								bsStyle="success"
+								onClick={this.buttonExample.bind(null, 'success')}>
+								Success
+							</Button>
+							<Button 
+								style={{marginRight:8}} 
+								bsStyle="warning"
+								onClick={this.buttonExample.bind(null, 'warning')}>
+								Warning
+							</Button>
+							<Button 
+								style={{marginRight:8}} 
+								bsStyle="danger"
+								onClick={this.buttonExample.bind(null, 'danger')}>
+								Danger
+							</Button>
+							<Button 
+								style={{marginRight:8}} 
+								bsStyle="default"
+								onClick={this.buttonExample.bind(null, 'custom')}>
+								Custom
+							</Button>
+							<Button 
+								style={{marginRight:8}} 
+								bsStyle="default"
+								onClick={this.buttonExample.bind(null, 'input')}>
+								Input
+							</Button>
+						</Col>
+					</Row>
 
 					{examples.map(this.renderExample)}
 
