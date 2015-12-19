@@ -8,12 +8,10 @@ An awesome replacement for JavaScript's alert.
 Demo
 ----
 
-[See the demo site here!](http://djorg.info/react-bootstrap-sweet-alert-demo/)
+[See the demo site here, with basic examples, and a sandbox for testing your own!](http://djorg.info/react-bootstrap-sweet-alert-demo/)
 
 Usage
 -----
-
-**Be sure to include lib/css/animations.css in your app.**
 
 You can install SweetAlert through npm:
 
@@ -23,6 +21,10 @@ npm install react-bootstrap-sweetalert
 
 ```javascript
 var SweetAlert = require('react-bootstrap-sweetalert');
+```
+
+```javascript
+Be sure to include lib/css/animations.css in your app.
 ```
 
 
