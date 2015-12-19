@@ -111,6 +111,29 @@ A replacement for the "prompt" function:
 	onCancel={this.hideAlert} />
 ```
 
+Configuration
+-------------
+
+| Property               | Is required? | Prop Type    | Default Value              | Description |
+| :--------------------- | :----------- | :----------- | :------------------------- | :---------- |
+| type                   | no           | string       | 'default'                  | The type of alert to sidplay. Allowed values: 'default', 'info', 'success', 'warning', 'danger', 'error', 'input', 'custom' |
+| title                  | yes          | string, node | undefined                  | The text to display for the title. JSX/ReactNode allowed. |
+| content                | no           | string, node | undefined                  | The text to display for the content section. JSX/ReactNode allowed. |
+| onCancel               | no           | func         | undefined                  | Invoked when user clicks cancel button. Also invoked if allowEscape is true and user hits ESCAPE key. |
+| onConfirm              | yes          | func         | undefined                  | Invoked when user clicks confirm button. Also invoked user hits ENTER key. |
+| confirmBtnText         | no           | string       | 'OK'                       | Text of confirm button. |
+| cancelBtnText          | no           | string       | 'Cancel'                   | Text of cancel button. |
+| cancelBtnBsStyle       | no           | string       | 'link'                     | Bootstrap style of cancel button. Allowed values: 'default', 'primary', 'link', 'info', 'success', 'warning', 'danger' |
+| confirmBtnBsStyle      | no           | string       | 'primary'                  | Bootstrap style of confirm button. Allowed values: 'default', 'primary', 'link', 'info', 'success', 'warning', 'danger' |
+| customIcon             | no           | string, node | undefined                  | Either a string url for an image to use as the icon, or JSX/ReactNode. |
+| inputPlaceHolder       | no           | string       | undefined                  | If type is input, this is the placeholder for the input field. |
+| inputValidationMsg     | no           | string       | 'Please enter a response!' | If type is input, this is the message to diplay when the user clicks confirm without entering a value. |
+| style                  | no           | object       | undefined                  | Style overrides applied to the sweetalert wrapper. |
+| customClass            | no           | string       | undefined                  | Custom CSS class applied to the sweetalert wrapper. |
+| showCancel             | no           | bool         | false                      | If true, the cancel button will show. |
+| allowEscape            | no           | bool         | true                       | If true, the onCancel function will be invoked when the user hits the ESCAPE key. |
+| hideOverlay            | no           | bool         | false                      | If true, then the modal overlay will not be rendered. |
+
 Related projects
 ----------------
 
