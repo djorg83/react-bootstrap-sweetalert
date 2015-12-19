@@ -114,13 +114,13 @@ A replacement for the "prompt" function:
 Configuration
 -------------
 
-| Property               | Is required? | Prop Type    | Default Value              | Description |
+| Property               | Required?    | Prop Type    | Default Value              | Description |
 | :--------------------- | :----------- | :----------- | :------------------------- | :---------- |
-| type                   | no           | string       | 'default'                  | The type of alert to sidplay. Allowed values: 'default', 'info', 'success', 'warning', 'danger', 'error', 'input', 'custom' |
+| type                   | no           | string       | 'default'                  | The type of alert to display. Allowed values: 'default', 'info', 'success', 'warning', 'danger', 'error', 'input', 'custom' |
 | title                  | yes          | string, node | undefined                  | The text to display for the title. JSX/ReactNode allowed. |
 | content                | no           | string, node | undefined                  | The text to display for the content section. JSX/ReactNode allowed. |
 | onCancel               | no           | func         | undefined                  | Invoked when user clicks cancel button. Also invoked if allowEscape is true and user hits ESCAPE key. |
-| onConfirm              | yes          | func         | undefined                  | Invoked when user clicks confirm button. Also invoked user hits ENTER key. |
+| onConfirm              | yes          | func         | undefined                  | Invoked when user clicks confirm button. Also invoked if user hits ENTER key. |
 | confirmBtnText         | no           | string       | 'OK'                       | Text of confirm button. |
 | cancelBtnText          | no           | string       | 'Cancel'                   | Text of cancel button. |
 | cancelBtnBsStyle       | no           | string       | 'link'                     | Bootstrap style of cancel button. Allowed values: 'default', 'primary', 'link', 'info', 'success', 'warning', 'danger' |
