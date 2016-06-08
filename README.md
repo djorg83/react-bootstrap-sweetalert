@@ -129,6 +129,7 @@ Configuration
 | confirmBtnBsStyle      | no           | string       | 'primary'                  | Bootstrap style of confirm button. Allowed values: 'default', 'primary', 'link', 'info', 'success', 'warning', 'danger' |
 | customIcon             | no           | string, node | undefined                  | Either a string url for an image to use as the icon, or JSX/ReactNode. |
 | inputPlaceHolder       | no           | string       | undefined                  | If type is input, this is the placeholder for the input field. |
+| required               | no           | bool         | true                       | If true, requires the input field to have a value. |
 | inputValidationMsg     | no           | string       | 'Please enter a response!' | If type is input, this is the message to diplay when the user clicks confirm without entering a value. |
 | style                  | no           | object       | undefined                  | Style overrides applied to the sweetalert wrapper. |
 | customClass            | no           | string       | undefined                  | Custom CSS class applied to the sweetalert wrapper. |
