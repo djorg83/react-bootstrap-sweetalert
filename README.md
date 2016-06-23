@@ -128,9 +128,13 @@ Configuration
 | cancelBtnBsStyle       | no           | string       | 'link'                     | Bootstrap style of cancel button. Allowed values: 'default', 'primary', 'link', 'info', 'success', 'warning', 'danger' |
 | confirmBtnBsStyle      | no           | string       | 'primary'                  | Bootstrap style of confirm button. Allowed values: 'default', 'primary', 'link', 'info', 'success', 'warning', 'danger' |
 | customIcon             | no           | string, node | undefined                  | Either a string url for an image to use as the icon, or JSX/ReactNode. |
-| inputPlaceHolder       | no           | string       | undefined                  | If type is input, this is the placeholder for the input field. |
+| inputPlaceHolder       | no           | string       | undefined                  | Deprecated, use placeholder. |
+| placeholder            | no           | string       | undefined                  | If type is input, this is the placeholder for the input field. |
 | required               | no           | bool         | true                       | If true, requires the input field to have a value. |
-| inputValidationMsg     | no           | string       | 'Please enter a response!' | If type is input, this is the message to diplay when the user clicks confirm without entering a value. |
+| inputValidationMsg     | no           | string       | 'Please enter a response!' | Deprecated, use validationMsg |
+| validationMsg          | no           | string       | 'Please enter a response!' | If type is input, this is the message to diplay when the user clicks confirm without entering a value. |
+| defaultValue           | no           | string       | undefined                  | If type is input, this is the default value for the input field. |
+| inputType              | no           | string       | 'text'                     | If type is input, this is the input type (text, textarea, password, number, etc...) |
 | style                  | no           | object       | undefined                  | Style overrides applied to the sweetalert wrapper. |
 | customClass            | no           | string       | undefined                  | Custom CSS class applied to the sweetalert wrapper. |
 | showCancel             | no           | bool         | false                      | If true, the cancel button will show. |

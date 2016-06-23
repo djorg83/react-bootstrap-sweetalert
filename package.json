@@ -1,6 +1,6 @@
 {
   "name": "react-bootstrap-sweetalert",
-  "version": "1.1.13",
+  "version": "2.0.0",
   "description": "A variant of sweetalert for use with React and Bootstrap",
   "main": "index.js",
   "scripts": {
@@ -26,13 +26,14 @@
   },
   "homepage": "https://github.com/djorg83/react-bootstrap-sweetalert#readme",
   "peerDependencies": {
-    "radium": ">=0.15.3",
     "react": ">=0.14.0"
   },
   "devDependencies": {
     "babel-core": "6.2.1",
     "babel-loader": "6.2.0",
+    "babel-preset-es2016": "6.0.11",
     "babel-preset-react": "6.1.18",
+    "babel-preset-stage-1": "6.5.0",
     "express": "4.4.5",
     "gulp": "3.9.0",
     "gulp-babel": "6.1.1",
@@ -40,5 +41,8 @@
     "react-dom": "0.14.3",
     "react-tools": "0.13.3",
     "webpack": "1.9.10"
+  },
+  "dependencies": {
+    "object-assign": "^4.1.0"
   }
 }

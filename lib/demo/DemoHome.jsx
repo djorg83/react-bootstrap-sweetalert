@@ -1,13 +1,12 @@
-var React = require('react');
-var BS = require('react-bootstrap');
-var Button = BS.Button;
-var Row = BS.Row;
-var Col = BS.Col;
-var Alert = BS.Alert;
-var SweetAlert = require('../components/SweetAlert');
-var reactTools = require('react-tools');
+import React from 'react';
+import SweetAlert from '../dist/SweetAlert';
+import reactTools from 'react-tools';
+import { Button, Row, Col, Alert } from 'react-bootstrap';
 
-var examples = [{
+window.React = React;
+window.SweetAlert = SweetAlert;
+
+const examples = [{
 	title: 'A basic message'
 }, {
 	title: 'A title with text under'
@@ -38,7 +37,7 @@ var DemoHome = React.createClass({
 		return (
 			<div className="jumbotron">
 				<h1>SweetAlert for React/Bootstrap</h1>
-				<p>A beautiful replacement for JavaScript's "alert"</p>
+				<p>{'A beautiful replacement for JavaScript\'s "alert"'}</p>
 				<p className="small">
 					<span>This is just a rewrite for React/Bootstrap of the original </span>
 					<a href="http://tristanedwards.me/sweetalert" target="_blank">SweetAlert</a>.
@@ -387,6 +386,7 @@ var DemoHome = React.createClass({
 				alert: eval(code)
 			});
 		} catch (e) {
+			console.log(e);
 			var hideAlert = this.hideAlert;
 			this.setState({
 				alert: (
