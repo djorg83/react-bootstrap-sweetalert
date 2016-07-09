@@ -5,8 +5,6 @@
 
 [![NPM](https://nodei.co/npm/react-bootstrap-sweetalert.png?downloads=true&stars=true)](https://nodei.co/npm/react-bootstrap-sweetalert/)
 
-[![NPM](https://nodei.co/npm-dl/react-bootstrap-sweetalert.png?months=3)](https://nodei.co/npm/react-bootstrap-sweetalert/)
-
 SweetAlert for React/Bootstrap
 ==========
 
