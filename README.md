@@ -1,5 +1,12 @@
 # react-bootstrap-sweetalert
 
+[![NPM version](http://img.shields.io/npm/v/react-bootstrap-sweetalert.svg)](https://www.npmjs.com/package/react-bootstrap-sweetalert)
+[![Downloads](https://img.shields.io/npm/dm/react-bootstrap-sweetalert.svg)](https://www.npmjs.com/package/react-bootstrap-sweetalert)
+
+[![NPM](https://nodei.co/npm/react-bootstrap-sweetalert.png?downloads=true&stars=true)](https://nodei.co/npm/react-bootstrap-sweetalert/)
+
+[![NPM](https://nodei.co/npm-dl/react-bootstrap-sweetalert.png?months=3)](https://nodei.co/npm/react-bootstrap-sweetalert/)
+
 SweetAlert for React/Bootstrap
 ==========
 
