@@ -1,11 +1,12 @@
 {
   "name": "react-bootstrap-sweetalert",
-  "version": "2.0.3",
+  "version": "2.1.0",
   "description": "A variant of sweetalert for use with React and Bootstrap",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack --watch | nodemon ./server.js"
+    "test"  : "echo \"Error: no test specified\" && exit 1",
+    "build" : "gulp",
+    "dev"   : "webpack --watch | nodemon ./server.js"
   },
   "repository": {
     "type": "git",
