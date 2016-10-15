@@ -29,7 +29,7 @@ var DemoHome = React.createClass({
 	getInitialState: function() {
 		return {
 			alert: null,
-			textareaValue: '<SweetAlert \n \ttype="success" \n \ttitle="Woot!" \n \tcontent="I did it!" \n \tonConfirm={this.hideAlert} />'
+			textareaValue: '<SweetAlert \n \ttype="success" \n \ttitle="Woot!" \n \tcontent="I did it!" \n \tonConfirm={this.hideAlert} \n />'
 		};
 	},
 
@@ -68,7 +68,8 @@ var DemoHome = React.createClass({
 							title="Do you like thumbs?" 
 							content="You will find they are up!"
 							onConfirm={this.hideAlert}
-							onCancel={this.hideAlert} />
+							onCancel={this.hideAlert}
+						/>
 					)
 				});
 				break;
@@ -83,7 +84,8 @@ var DemoHome = React.createClass({
 							content="Write something interesting:"
 							inputPlaceHolder="Write something"
 							onConfirm={this.onRecieveInput}
-							onCancel={this.hideAlert} />
+							onCancel={this.hideAlert}
+						/>
 					)
 				});
 				break;
@@ -98,7 +100,8 @@ var DemoHome = React.createClass({
 							title="Are you sure?" 
 							content="You will not be able to recover this imaginary file!"
 							onCancel={this.hideAlert}
-							onConfirm={this.hideAlert} />
+							onConfirm={this.hideAlert}
+						/>
 					)
 				});
 				break;
@@ -130,7 +133,8 @@ var DemoHome = React.createClass({
 					type="success"
 					title="Deleted!" 
 					content="Your imaginary file has been deleted."
-					onConfirm={this.hideAlert} />
+					onConfirm={this.hideAlert}
+				/>
 			)
 		});
 	},
@@ -142,7 +146,8 @@ var DemoHome = React.createClass({
 					type="danger"
 					title="Cancelled" 
 					content="Your imaginary file is safe :)"
-					onConfirm={this.hideAlert} />
+					onConfirm={this.hideAlert}
+				/>
 			)
 		});
 	},
@@ -154,7 +159,8 @@ var DemoHome = React.createClass({
 					type="success"
 					title="Nice!" 
 					content={'You wrote: ' + value}
-					onConfirm={this.hideAlert} />
+					onConfirm={this.hideAlert}
+				/>
 			)
 		});		
 	},
@@ -166,7 +172,8 @@ var DemoHome = React.createClass({
 					alert: (
 						<SweetAlert 
 							title="Here's a message!" 
-							onConfirm={this.hideAlert} />
+							onConfirm={this.hideAlert}
+						/>
 					)
 				});
 				break;
@@ -176,7 +183,8 @@ var DemoHome = React.createClass({
 						<SweetAlert 
 							title="Here's a message!" 
 							content="It's pretty, isn't it?"
-							onConfirm={this.hideAlert} />
+							onConfirm={this.hideAlert}
+						/>
 					)
 				});
 				break;
@@ -187,7 +195,8 @@ var DemoHome = React.createClass({
 							type="success"
 							title="Good job!" 
 							content="You clicked the button!"
-							onConfirm={this.hideAlert} />
+							onConfirm={this.hideAlert}
+						/>
 					)
 				});
 				break;
@@ -203,7 +212,8 @@ var DemoHome = React.createClass({
 							title="Are you sure?" 
 							content="You will not be able to recover this imaginary file!"
 							onConfirm={this.deleteFile}
-							onCancel={this.cancelDelete} />
+							onCancel={this.cancelDelete}
+						/>
 					)
 				});
 				break;
@@ -221,7 +231,8 @@ var DemoHome = React.createClass({
 							title="Do you like thumbs?" 
 							content="You will find they are up!"
 							onConfirm={this.hideAlert}
-							onCancel={this.hideAlert} />
+							onCancel={this.hideAlert}
+						/>
 					)
 				});
 				break;
@@ -231,7 +242,8 @@ var DemoHome = React.createClass({
 						<SweetAlert 
 							title={<span>HTML <small>Title</small>!</span>} 
 							content={<span>A custom <span style={{color:'#F8BB86'}}>html</span> message.</span>}
-							onConfirm={this.hideAlert} />
+							onConfirm={this.hideAlert}
+						/>
 					)
 				});
 				break;
@@ -246,7 +258,8 @@ var DemoHome = React.createClass({
 							content="Write something interesting:"
 							inputPlaceHolder="Write something"
 							onConfirm={this.onRecieveInput}
-							onCancel={this.hideAlert} />
+							onCancel={this.hideAlert}
+						/>
 					)
 				});
 				break;
@@ -257,7 +270,8 @@ var DemoHome = React.createClass({
 							style={{backgroundColor:'blue'}}
 							title="Yay!" 
 							content="Its blue!"
-							onConfirm={this.hideAlert} />
+							onConfirm={this.hideAlert}
+						/>
 					)
 				});
 				break;
@@ -269,31 +283,38 @@ var DemoHome = React.createClass({
 		switch (i) {
 			case 0:
 				return (
-					<pre>&lt;SweetAlert<br/>
+					<pre>
+						&lt;SweetAlert<br/>
 						<span style={indent}>title="Here's a message!"</span><br/>
-						<span style={indent}>onConfirm=&#123;this.onConfirm&#125; /&gt;</span>
+						<span style={indent}>onConfirm=&#123;this.onConfirm&#125;</span>
+						<br/>/&gt;
 					</pre>
 				);
 			case 1:
 				return (
-					<pre>&lt;SweetAlert<br/>
+					<pre>
+						&lt;SweetAlert<br/>
 						<span style={indent}>title="Here's a message!"</span><br/>
 						<span style={indent}>content="It's pretty, isn't it?"</span><br/>
-						<span style={indent}>onConfirm=&#123;this.onConfirm&#125; /&gt;</span>
+						<span style={indent}>onConfirm=&#123;this.onConfirm&#125;</span>
+						<br/>/&gt;
 					</pre>
 				);
 			case 2:
 				return (
-					<pre>&lt;SweetAlert<br/>
+					<pre>
+						&lt;SweetAlert<br/>
 						<span style={indent}>type="success"</span><br/>
 						<span style={indent}>title="Good job!"</span><br/>
 						<span style={indent}>content="You clicked the button!"</span><br/>
-						<span style={indent}>onConfirm=&#123;this.onConfirm&#125; /&gt;</span>
+						<span style={indent}>onConfirm=&#123;this.onConfirm&#125;</span>
+						<br/>/&gt;
 					</pre>
 				);
 			case 3:
 				return (
-					<pre>&lt;SweetAlert<br/>
+					<pre>
+						&lt;SweetAlert<br/>
 						<span style={indent}>showCancel</span><br/>
 						<span style={indent}>confirmBtnText="Yes, delete it!"</span><br/>
 						<span style={indent}>confirmBtnBsStyle="danger"</span><br/>
@@ -302,13 +323,15 @@ var DemoHome = React.createClass({
 						<span style={indent}>title="Are you sure?"</span><br/>
 						<span style={indent}>content="You will not be able to recover this imaginary file!"</span><br/>
 						<span style={indent}>onConfirm=&#123;this.deleteFile&#125;</span><br/>
-						<span style={indent}>onCancel=&#123;this.onCancelDelete&#125; /&gt;</span>
+						<span style={indent}>onCancel=&#123;this.onCancelDelete&#125;</span>
+						<br/>/&gt;
 					</pre>
 				);
 			case 4:
 				return (
-					<pre>&lt;SweetAlert<br/>
-					<span style={indent}>showCancel</span><br/>
+					<pre>
+						&lt;SweetAlert<br/>
+						<span style={indent}>showCancel</span><br/>
 						<span style={indent}>confirmBtnText="Yes"</span><br/>
 						<span style={indent}>cancelBtnText="No"</span><br/>
 						<span style={indent}>confirmBtnBsStyle="primary"</span><br/>
@@ -318,20 +341,24 @@ var DemoHome = React.createClass({
 						<span style={indent}>title="Do you like thumbs?"</span><br/>
 						<span style={indent}>content="You will find they are up!"</span><br/>
 						<span style={indent}>onConfirm=&#123;this.onConfirm&#125;</span><br/>
-						<span style={indent}>onCancel=&#123;this.onCancel&#125; /&gt;</span>
+						<span style={indent}>onCancel=&#123;this.onCancel&#125;</span>
+						<br/>/&gt;
 					</pre>
 				);
 			case 5:
 				return (
-					<pre>&lt;SweetAlert<br/>
+					<pre>
+						&lt;SweetAlert<br/>
 						<span style={indent}>title=&#123;&lt;span&gt;HTML &lt;small&gt;Title&lt;/small&gt;!&lt;/span&gt;&#125;</span><br/>
 						<span style={indent}>content=&#123;&lt;span&gt;A custom &lt;span style=&#123;&#123;color:'#F8BB86'&#125;&#125;&gt;html&lt;/span&gt; message.&lt;/span&gt;&#125;</span><br/>
-						<span style={indent}>onConfirm=&#123;this.onConfirm&#125; /&gt;</span>
+						<span style={indent}>onConfirm=&#123;this.onConfirm&#125;</span>
+						<br/>/&gt;
 					</pre>
 				);
 			case 6:
 				return (
-					<pre>&lt;SweetAlert<br/>
+					<pre>
+						&lt;SweetAlert<br/>
 						<span style={indent}>showCancel</span><br/>
 						<span style={indent}>cancelBtnBsStyle="default"</span><br/>
 						<span style={indent}>type="input"</span><br/>
@@ -339,16 +366,19 @@ var DemoHome = React.createClass({
 						<span style={indent}>content="Write something interesting:"</span><br/>
 						<span style={indent}>inputPlaceHolder="Write something"</span><br/>
 						<span style={indent}>onConfirm=&#123;this.onRecieveInput&#125;</span><br/>
-						<span style={indent}>onCancel=&#123;this.onCancel&#125; /&gt;</span>
+						<span style={indent}>onCancel=&#123;this.onCancel&#125;</span>
+						<br/>/&gt;
 					</pre>
 				);
 			case 7:
 				return (
-					<pre>&lt;SweetAlert<br/>
+					<pre>
+						&lt;SweetAlert<br/>
 						<span style={indent}>title="Yay!"</span><br/>
 						<span style={indent}>content="It's blue!"</span><br/>
 						<span style={indent}>style=&#123;&#123;backgroundColor:'blue'&#125;&#125;</span><br/>
-						<span style={indent}>onConfirm=&#123;this.onConfirm&#125; /&gt;</span>
+						<span style={indent}>onConfirm=&#123;this.onConfirm&#125;</span>
+						<br/>/&gt;
 					</pre>
 				);
 		}
@@ -394,7 +424,8 @@ var DemoHome = React.createClass({
 						type="danger"
 						title="Whoops!" 
 						content="That didn't work."
-						onConfirm={hideAlert} />
+						onConfirm={hideAlert}
+					/>
 				)
 			});
 		}
@@ -412,11 +443,13 @@ var DemoHome = React.createClass({
 
 					<pre className="text-center lead">$ npm install react-bootstrap-sweetalert</pre>
 
-					<hr style={{
-						marginTop: 50,
-					    marginBottom: 50,
-					    borderTopColor: '#BBBBBB'
-					}} />
+					<hr
+						style={{
+							marginTop: 50,
+						    marginBottom: 50,
+						    borderTopColor: '#BBBBBB'
+						}}
+					/>
 
 					<h1>Sandbox</h1>
 
@@ -434,33 +467,40 @@ var DemoHome = React.createClass({
 								</p>
 							</Col>
 							<Col sm={10}>
-								<textarea spellCheck="false" ref="jsxInput" defaultValue={this.state.textareaValue} style={{
-									height: 300, 
-									width: '100%',
-									display: 'block',
-								    padding: 9.5,
-								    margin: '0 0 10px',
-								    fontSize: 15,
-								    lineHeight: '1.6',
-								    color: '#B7EC80',
-								    wordBreak: 'break-all',
-								    wordWrap: 'normal',
-								    backgroundColor: '#424140',
-								    border: '1px solid #ccc',
-								    borderRadius: 4,
-    								overflow: 'auto',
-    								whiteSpace: 'pre',
-    								resize: 'none'
-								}}></textarea>
+								<textarea
+									spellCheck="false"
+									ref="jsxInput"
+									defaultValue={this.state.textareaValue}
+									style={{
+										height: 300, 
+										width: '100%',
+										display: 'block',
+									    padding: 9.5,
+									    margin: '0 0 10px',
+									    fontSize: 15,
+									    lineHeight: '1.6',
+									    color: '#B7EC80',
+									    wordBreak: 'break-all',
+									    wordWrap: 'normal',
+									    backgroundColor: '#424140',
+									    border: '1px solid #ccc',
+									    borderRadius: 4,
+	    								overflow: 'auto',
+	    								whiteSpace: 'pre',
+	    								resize: 'none'
+									}}
+								></textarea>
 							</Col>
 						</Row>
 					</div>
 
-					<hr style={{
-						marginTop: 50,
-					    marginBottom: 50,
-					    borderTopColor: '#BBBBBB'
-					}} />
+					<hr
+						style={{
+							marginTop: 50,
+						    marginBottom: 50,
+						    borderTopColor: '#BBBBBB'
+						}}
+					/>
 
 					<h2>Examples</h2>
 
