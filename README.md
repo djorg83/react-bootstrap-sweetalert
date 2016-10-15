@@ -45,7 +45,8 @@ The most basic message:
 ```javascript
 <SweetAlert 
 	title="Here's a message!" 
-	onConfirm={this.hideAlert} />
+	onConfirm={this.hideAlert}
+/>
 ```
 
 A title with text under:
@@ -54,7 +55,8 @@ A title with text under:
 <SweetAlert 
 	title="Here's a message!" 
 	content="It's pretty, isn't it?"
-	onConfirm={this.hideAlert} />
+	onConfirm={this.hideAlert}
+/>
 ```
 
 A success message!:
@@ -64,7 +66,8 @@ A success message!:
 	type="success"
 	title="Good job!" 
 	content="You clicked the button!"
-	onConfirm={this.hideAlert} />
+	onConfirm={this.hideAlert}
+/>
 ```
 
 A warning message, with Cancel and Confirm callbacks:
@@ -79,7 +82,8 @@ A warning message, with Cancel and Confirm callbacks:
 	title="Are you sure?" 
 	content="You will not be able to recover this imaginary file!"
 	onConfirm={this.deleteFile}
-	onCancel={this.cancelDelete} />
+	onCancel={this.cancelDelete}
+/>
 ```
 
 A message with a custom icon:
@@ -96,7 +100,8 @@ A message with a custom icon:
 	title="Do you like thumbs?" 
 	content="You will find they are up!"
 	onConfirm={this.hideAlert}
-	onCancel={this.hideAlert} />
+	onCancel={this.hideAlert}
+/>
 ```
 
 An HTML message:
@@ -105,7 +110,8 @@ An HTML message:
 <SweetAlert 
 	title={<span>HTML <small>Title</small>!</span>} 
 	content={<span>A custom <span style={{color:'#F8BB86'}}>html</span> message.</span>}
-	onConfirm={this.hideAlert} />
+	onConfirm={this.hideAlert}
+/>
 ```
 
 A replacement for the "prompt" function:
@@ -119,7 +125,8 @@ A replacement for the "prompt" function:
 	content="Write something interesting:"
 	inputPlaceHolder="Write something"
 	onConfirm={this.onRecieveInput}
-	onCancel={this.hideAlert} />
+	onCancel={this.hideAlert}
+/>
 ```
 
 Configuration
