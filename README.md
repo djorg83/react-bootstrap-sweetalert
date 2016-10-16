@@ -43,65 +43,59 @@ Examples
 The most basic message:
 
 ```javascript
-<SweetAlert 
-	title="Here's a message!" 
-	onConfirm={this.hideAlert}
-/>
+<SweetAlert title="Here's a message!" onConfirm={this.hideAlert} />
 ```
 
 A title with text under:
 
 ```javascript
-<SweetAlert 
-	title="Here's a message!" 
-	content="It's pretty, isn't it?"
-	onConfirm={this.hideAlert}
-/>
+<SweetAlert title="Here's a message!" onConfirm={this.hideAlert}>
+	It's pretty, isn't it?
+</SweetAlert>
 ```
 
 A success message!:
 
 ```javascript
-<SweetAlert 
-	type="success"
-	title="Good job!" 
-	content="You clicked the button!"
-	onConfirm={this.hideAlert}
-/>
+<SweetAlert success title="Good job!" onConfirm={this.hideAlert}>
+	You clicked the button!
+</SweetAlert>
 ```
 
 A warning message, with Cancel and Confirm callbacks:
 
 ```javascript
 <SweetAlert 
+	warning
 	showCancel
 	confirmBtnText="Yes, delete it!"
 	confirmBtnBsStyle="danger"
 	cancelBtnBsStyle="default"
-	type="warning"
-	title="Are you sure?" 
-	content="You will not be able to recover this imaginary file!"
+	title="Are you sure?"
 	onConfirm={this.deleteFile}
 	onCancel={this.cancelDelete}
-/>
+>
+	You will not be able to recover this imaginary file!
+</SweetAlert>
 ```
 
 A message with a custom icon:
 
 ```javascript
-<SweetAlert 
+<SweetAlert
+	custom
 	showCancel
 	confirmBtnText="Yes"
 	cancelBtnText="No"
 	confirmBtnBsStyle="primary"
 	cancelBtnBsStyle="default"
-	type="custom"
 	customIcon="thumbs-up.jpg"
 	title="Do you like thumbs?" 
-	content="You will find they are up!"
 	onConfirm={this.hideAlert}
 	onCancel={this.hideAlert}
-/>
+>
+	You will find they are up!
+</SweetAlert>
 ```
 
 An HTML message:
@@ -109,24 +103,47 @@ An HTML message:
 ```javascript
 <SweetAlert 
 	title={<span>HTML <small>Title</small>!</span>} 
-	content={<span>A custom <span style={{color:'#F8BB86'}}>html</span> message.</span>}
 	onConfirm={this.hideAlert}
-/>
+>
+	<span>A custom <span style={{color:'#F8BB86'}}>html</span> message.</span>
+</SweetAlert>
 ```
 
 A replacement for the "prompt" function:
 
 ```javascript
-<SweetAlert 
+<SweetAlert
+	input
 	showCancel
 	cancelBtnBsStyle="default"
-	type="input"
-	title="An input!" 
-	content="Write something interesting:"
+	title="An input!"
 	inputPlaceHolder="Write something"
 	onConfirm={this.onRecieveInput}
 	onCancel={this.hideAlert}
+>
+	Write something interesting:
+</SweetAlert>
+```
+
+Password Prompt:
+
+```javascript
+<SweetAlert
+	input
+	inputType="password"
+	title="Enter Password"
+	required
+    validationMsg="You must enter your password!"
+	onConfirm={this.hideAlert}
 />
+```
+
+Custom Styles:
+
+```javascript
+<SweetAlert style={{backgroundColor:'blue'}} title="Yay!" onConfirm={this.hideAlert}>
+	Its blue!
+</SweetAlert>
 ```
 
 Configuration
@@ -136,7 +153,7 @@ Configuration
 | :--------------------- | :----------- | :----------- | :------------------------- | :---------- |
 | type                   | no           | string       | 'default'                  | The type of alert to display. Allowed values: 'default', 'info', 'success', 'warning', 'danger', 'error', 'input', 'custom' |
 | title                  | yes          | string, node | undefined                  | The text to display for the title. JSX/ReactNode allowed. |
-| content                | no           | string, node | undefined                  | The text to display for the content section. JSX/ReactNode allowed. |
+| content                | no           | string, node | undefined                  | Deprecated, use <SweetAlert>your content here</SweetAlert> |
 | onCancel               | no           | func         | undefined                  | Invoked when user clicks cancel button. Also invoked if allowEscape is true and user hits ESCAPE key. |
 | onConfirm              | yes          | func         | undefined                  | Invoked when user clicks confirm button. Also invoked if user hits ENTER key. |
 | confirmBtnText         | no           | string       | 'OK'                       | Text of confirm button. |

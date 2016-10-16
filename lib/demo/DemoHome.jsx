@@ -21,6 +21,8 @@ const examples = [{
 }, {
 	title: 'A replacement for the "prompt" function'
 }, {
+	title: 'Password Prompt'
+}, {
 	title: 'Custom style'
 }];
 
@@ -29,7 +31,7 @@ var DemoHome = React.createClass({
 	getInitialState: function() {
 		return {
 			alert: null,
-			textareaValue: '<SweetAlert \n \ttype="success" \n \ttitle="Woot!" \n \tcontent="I did it!" \n \tonConfirm={this.hideAlert} \n />'
+			textareaValue: '<SweetAlert \n\t success \n\t title="Woot!" \n\t onConfirm={this.hideAlert} \n> \n \tI did it! \n </SweetAlert>'
 		};
 	},
 
@@ -57,51 +59,54 @@ var DemoHome = React.createClass({
 			case 'custom':
 				this.setState({
 					alert: (
-						<SweetAlert 
+						<SweetAlert
+							custom
 							showCancel
 							confirmBtnText="Yes"
 							cancelBtnText="No"
 							confirmBtnBsStyle="primary"
 							cancelBtnBsStyle="default"
-							type="custom"
 							customIcon="thumbs-up.jpg"
 							title="Do you like thumbs?" 
-							content="You will find they are up!"
 							onConfirm={this.hideAlert}
 							onCancel={this.hideAlert}
-						/>
+						>
+							You will find they are up!
+						</SweetAlert>
 					)
 				});
 				break;
 			case 'input':
 				this.setState({
 					alert: (
-						<SweetAlert 
+						<SweetAlert
+							input
 							showCancel
 							cancelBtnBsStyle="default"
-							type="input"
-							title="An input!" 
-							content="Write something interesting:"
+							title="An input!"
 							inputPlaceHolder="Write something"
 							onConfirm={this.onRecieveInput}
 							onCancel={this.hideAlert}
-						/>
+						>
+							Write something interesting:
+						</SweetAlert>
 					)
 				});
 				break;
 			default:
 				this.setState({
 				alert: (
-						<SweetAlert 
+						<SweetAlert
 							showCancel
 							confirmBtnText="Continue"
 							confirmBtnBsStyle={type}
 							type={type}
-							title="Are you sure?" 
-							content="You will not be able to recover this imaginary file!"
+							title="Are you sure?"
 							onCancel={this.hideAlert}
 							onConfirm={this.hideAlert}
-						/>
+						>
+							You will not be able to recover this imaginary file!
+						</SweetAlert>
 					)
 				});
 				break;
@@ -129,12 +134,9 @@ var DemoHome = React.createClass({
 	deleteFile: function() {
 		this.setState({
 			alert: (
-				<SweetAlert 
-					type="success"
-					title="Deleted!" 
-					content="Your imaginary file has been deleted."
-					onConfirm={this.hideAlert}
-				/>
+				<SweetAlert success title="Deleted!" onConfirm={this.hideAlert}>
+					Your imaginary file has been deleted.
+				</SweetAlert>
 			)
 		});
 	},
@@ -142,12 +144,9 @@ var DemoHome = React.createClass({
 	cancelDelete: function() {
 		this.setState({
 			alert: (
-				<SweetAlert 
-					type="danger"
-					title="Cancelled" 
-					content="Your imaginary file is safe :)"
-					onConfirm={this.hideAlert}
-				/>
+				<SweetAlert danger title="Cancelled" onConfirm={this.hideAlert}>
+					Your imaginary file is safe :)
+				</SweetAlert>
 			)
 		});
 	},
@@ -155,12 +154,9 @@ var DemoHome = React.createClass({
 	onRecieveInput: function(value) {
 		this.setState({
 			alert: (
-				<SweetAlert 
-					type="success"
-					title="Nice!" 
-					content={'You wrote: ' + value}
-					onConfirm={this.hideAlert}
-				/>
+				<SweetAlert success title="Nice!" onConfirm={this.hideAlert}>
+					You wrote: {value}
+				</SweetAlert>
 			)
 		});		
 	},
@@ -170,33 +166,25 @@ var DemoHome = React.createClass({
 			case 0:
 				this.setState({
 					alert: (
-						<SweetAlert 
-							title="Here's a message!" 
-							onConfirm={this.hideAlert}
-						/>
+						<SweetAlert title="Here's a message!" onConfirm={this.hideAlert} />						
 					)
 				});
 				break;
 			case 1:
 				this.setState({
 					alert: (
-						<SweetAlert 
-							title="Here's a message!" 
-							content="It's pretty, isn't it?"
-							onConfirm={this.hideAlert}
-						/>
+						<SweetAlert title="Here's a message!" onConfirm={this.hideAlert}>
+							It's pretty, isn't it?
+						</SweetAlert>
 					)
 				});
 				break;
 			case 2:
 				this.setState({
 					alert: (
-						<SweetAlert 
-							type="success"
-							title="Good job!" 
-							content="You clicked the button!"
-							onConfirm={this.hideAlert}
-						/>
+						<SweetAlert success title="Good job!" onConfirm={this.hideAlert}>
+							You clicked the button!
+						</SweetAlert>
 					)
 				});
 				break;
@@ -204,35 +192,37 @@ var DemoHome = React.createClass({
 				this.setState({
 					alert: (
 						<SweetAlert 
+							warning
 							showCancel
 							confirmBtnText="Yes, delete it!"
 							confirmBtnBsStyle="danger"
 							cancelBtnBsStyle="default"
-							type="warning"
-							title="Are you sure?" 
-							content="You will not be able to recover this imaginary file!"
+							title="Are you sure?"
 							onConfirm={this.deleteFile}
 							onCancel={this.cancelDelete}
-						/>
+						>
+							You will not be able to recover this imaginary file!
+						</SweetAlert>
 					)
 				});
 				break;
 			case 4:
 				this.setState({
 					alert: (
-						<SweetAlert 
+						<SweetAlert
+							custom
 							showCancel
 							confirmBtnText="Yes"
 							cancelBtnText="No"
 							confirmBtnBsStyle="primary"
 							cancelBtnBsStyle="default"
-							type="custom"
 							customIcon="thumbs-up.jpg"
 							title="Do you like thumbs?" 
-							content="You will find they are up!"
 							onConfirm={this.hideAlert}
 							onCancel={this.hideAlert}
-						/>
+						>
+							You will find they are up!
+						</SweetAlert>
 					)
 				});
 				break;
@@ -241,37 +231,50 @@ var DemoHome = React.createClass({
 					alert: (
 						<SweetAlert 
 							title={<span>HTML <small>Title</small>!</span>} 
-							content={<span>A custom <span style={{color:'#F8BB86'}}>html</span> message.</span>}
 							onConfirm={this.hideAlert}
-						/>
+						>
+							<span>A custom <span style={{color:'#F8BB86'}}>html</span> message.</span>
+						</SweetAlert>
 					)
 				});
 				break;
 			case 6:
 				this.setState({
 					alert: (
-						<SweetAlert 
+						<SweetAlert
+							input
 							showCancel
 							cancelBtnBsStyle="default"
-							type="input"
-							title="An input!" 
-							content="Write something interesting:"
+							title="An input!"
 							inputPlaceHolder="Write something"
 							onConfirm={this.onRecieveInput}
 							onCancel={this.hideAlert}
-						/>
+						>
+							Write something interesting:
+						</SweetAlert>
 					)
 				});
 				break;
 			case 7:
 				this.setState({
 					alert: (
-						<SweetAlert 
-							style={{backgroundColor:'blue'}}
-							title="Yay!" 
-							content="Its blue!"
+						<SweetAlert
+							input
+							inputType="password"
+							title="Enter Password"
+							required
+					        validationMsg="You must enter your password!"
 							onConfirm={this.hideAlert}
 						/>
+					)
+				});
+				break;
+			case 8:
+				this.setState({
+					alert: (
+						<SweetAlert style={{backgroundColor:'blue'}} title="Yay!" onConfirm={this.hideAlert}>
+							Its blue!
+						</SweetAlert>
 					)
 				});
 				break;
@@ -284,101 +287,117 @@ var DemoHome = React.createClass({
 			case 0:
 				return (
 					<pre>
-						&lt;SweetAlert<br/>
-						<span style={indent}>title="Here's a message!"</span><br/>
-						<span style={indent}>onConfirm=&#123;this.onConfirm&#125;</span>
-						<br/>/&gt;
+						&lt;SweetAlert title="Here's a message!" onConfirm=&#123;this.onConfirm&#125; /&gt;
 					</pre>
 				);
 			case 1:
 				return (
 					<pre>
-						&lt;SweetAlert<br/>
-						<span style={indent}>title="Here's a message!"</span><br/>
-						<span style={indent}>content="It's pretty, isn't it?"</span><br/>
-						<span style={indent}>onConfirm=&#123;this.onConfirm&#125;</span>
-						<br/>/&gt;
+						&lt;SweetAlert title="Here's a message!" onConfirm=&#123;this.onConfirm&#125;&gt;<br/>
+						<span style={indent}>It's pretty, isn't it?</span><br/>
+						&lt;/SweetAlert&gt;
 					</pre>
 				);
 			case 2:
 				return (
 					<pre>
-						&lt;SweetAlert<br/>
-						<span style={indent}>type="success"</span><br/>
-						<span style={indent}>title="Good job!"</span><br/>
-						<span style={indent}>content="You clicked the button!"</span><br/>
-						<span style={indent}>onConfirm=&#123;this.onConfirm&#125;</span>
-						<br/>/&gt;
+						&lt;SweetAlert success title="Good job!" onConfirm=&#123;this.onConfirm&#125;&gt;<br/>
+						<span style={indent}>You clicked the button!</span><br/>
+						&lt;/SweetAlert&gt;
 					</pre>
 				);
 			case 3:
 				return (
 					<pre>
-						&lt;SweetAlert<br/>
+						&lt;SweetAlert
+						<br/>
+						<span style={indent}>warning</span><br/>
 						<span style={indent}>showCancel</span><br/>
 						<span style={indent}>confirmBtnText="Yes, delete it!"</span><br/>
 						<span style={indent}>confirmBtnBsStyle="danger"</span><br/>
 						<span style={indent}>cancelBtnBsStyle="default"</span><br/>
-						<span style={indent}>type="warning"</span><br/>
 						<span style={indent}>title="Are you sure?"</span><br/>
-						<span style={indent}>content="You will not be able to recover this imaginary file!"</span><br/>
 						<span style={indent}>onConfirm=&#123;this.deleteFile&#125;</span><br/>
-						<span style={indent}>onCancel=&#123;this.onCancelDelete&#125;</span>
-						<br/>/&gt;
+						<span style={indent}>onCancel=&#123;this.onCancelDelete&#125;</span><br/>
+						&gt;<br/>
+						<span style={indent}>You will not be able to recover this imaginary file!</span><br/>
+						&lt;/SweetAlert&gt;
 					</pre>
 				);
 			case 4:
 				return (
 					<pre>
-						&lt;SweetAlert<br/>
+						&lt;SweetAlert
+						<br/>
+						<span style={indent}>custom</span><br/>
 						<span style={indent}>showCancel</span><br/>
 						<span style={indent}>confirmBtnText="Yes"</span><br/>
 						<span style={indent}>cancelBtnText="No"</span><br/>
 						<span style={indent}>confirmBtnBsStyle="primary"</span><br/>
 						<span style={indent}>cancelBtnBsStyle="default"</span><br/>
-						<span style={indent}>type="custom"</span><br/>
 						<span style={indent}>customIcon="thumbs-up.jpg"</span><br/>
 						<span style={indent}>title="Do you like thumbs?"</span><br/>
-						<span style={indent}>content="You will find they are up!"</span><br/>
 						<span style={indent}>onConfirm=&#123;this.onConfirm&#125;</span><br/>
-						<span style={indent}>onCancel=&#123;this.onCancel&#125;</span>
-						<br/>/&gt;
+						<span style={indent}>onCancel=&#123;this.onCancel&#125;</span><br/>
+						&gt;<br/>
+						<span style={indent}>You will find they are up!</span><br/>
+						&lt;/SweetAlert&gt;
 					</pre>
 				);
 			case 5:
 				return (
 					<pre>
-						&lt;SweetAlert<br/>
+						&lt;SweetAlert
+						<br/>
 						<span style={indent}>title=&#123;&lt;span&gt;HTML &lt;small&gt;Title&lt;/small&gt;!&lt;/span&gt;&#125;</span><br/>
-						<span style={indent}>content=&#123;&lt;span&gt;A custom &lt;span style=&#123;&#123;color:'#F8BB86'&#125;&#125;&gt;html&lt;/span&gt; message.&lt;/span&gt;&#125;</span><br/>
-						<span style={indent}>onConfirm=&#123;this.onConfirm&#125;</span>
-						<br/>/&gt;
+						<span style={indent}>onConfirm=&#123;this.onConfirm&#125;</span><br/>
+						&gt;<br/>
+						<span style={indent}>&lt;span&gt;A custom &lt;span style=&#123;&#123;color:'#F8BB86'&#125;&#125;&gt;html&lt;/span&gt; message.&lt;/span&gt;</span><br/>
+						&lt;/SweetAlert&gt;
 					</pre>
 				);
 			case 6:
 				return (
 					<pre>
-						&lt;SweetAlert<br/>
+						&lt;SweetAlert
+						<br/>
+						<span style={indent}>input</span><br/>
 						<span style={indent}>showCancel</span><br/>
 						<span style={indent}>cancelBtnBsStyle="default"</span><br/>
-						<span style={indent}>type="input"</span><br/>
 						<span style={indent}>title="An input!"</span><br/>
-						<span style={indent}>content="Write something interesting:"</span><br/>
 						<span style={indent}>inputPlaceHolder="Write something"</span><br/>
 						<span style={indent}>onConfirm=&#123;this.onRecieveInput&#125;</span><br/>
-						<span style={indent}>onCancel=&#123;this.onCancel&#125;</span>
-						<br/>/&gt;
+						<span style={indent}>onCancel=&#123;this.onCancel&#125;</span><br/>
+						&gt;<br/>
+						<span style={indent}>Write something interesting:</span><br/>
+						&lt;/SweetAlert&gt;
 					</pre>
 				);
 			case 7:
 				return (
 					<pre>
-						&lt;SweetAlert<br/>
+						&lt;SweetAlert
+						<br/>
+						<span style={indent}>input</span><br/>
+						<span style={indent}>required</span><br/>
+						<span style={indent}>inputType="password"</span><br/>
+						<span style={indent}>title="Enter Password"</span><br/>
+				        <span style={indent}>validationMsg="You must enter your password!"</span><br/>
+						<span style={indent}>onConfirm=&#123;this.onConfirm&#125;</span><br/>
+						/&gt;
+					</pre>
+				);
+			case 8:
+				return (
+					<pre>
+						&lt;SweetAlert
+						<br/>
 						<span style={indent}>title="Yay!"</span><br/>
-						<span style={indent}>content="It's blue!"</span><br/>
 						<span style={indent}>style=&#123;&#123;backgroundColor:'blue'&#125;&#125;</span><br/>
-						<span style={indent}>onConfirm=&#123;this.onConfirm&#125;</span>
-						<br/>/&gt;
+						<span style={indent}>onConfirm=&#123;this.onConfirm&#125;</span><br/>
+						&gt;<br/>
+						<span style={indent}>It's blue!</span><br/>
+						&lt;/SweetAlert&gt;
 					</pre>
 				);
 		}
