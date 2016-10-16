@@ -29,7 +29,7 @@ npm install react-bootstrap-sweetalert
 ```
 
 ```javascript
-var SweetAlert = require('react-bootstrap-sweetalert');
+const SweetAlert = require('react-bootstrap-sweetalert');
 ```
 
 ```javascript
@@ -153,7 +153,7 @@ Configuration
 | :--------------------- | :----------- | :----------- | :------------------------- | :---------- |
 | type                   | no           | string       | 'default'                  | The type of alert to display. Allowed values: 'default', 'info', 'success', 'warning', 'danger', 'error', 'input', 'custom' |
 | title                  | yes          | string, node | undefined                  | The text to display for the title. JSX/ReactNode allowed. |
-| content                | no           | string, node | undefined                  | Deprecated, use <SweetAlert>your content here</SweetAlert> |
+| content                | no           | string, node | undefined                  | Deprecated, use &lt;SweetAlert&gt;your content here&lt;/SweetAlert&gt; |
 | onCancel               | no           | func         | undefined                  | Invoked when user clicks cancel button. Also invoked if allowEscape is true and user hits ESCAPE key. |
 | onConfirm              | yes          | func         | undefined                  | Invoked when user clicks confirm button. Also invoked if user hits ENTER key. |
 | confirmBtnText         | no           | string       | 'OK'                       | Text of confirm button. |
