@@ -17,7 +17,7 @@ An awesome replacement for JavaScript's alert.
 Demo
 ----
 
-[See the demo site here, with basic examples, and a sandbox for testing your own!](http://djorg.info/react-bootstrap-sweet-alert-demo/)
+[See the demo site here, with basic examples, and a sandbox for testing your own!](http://djorg83.github.io/react-bootstrap-sweetalert/)
 
 Usage
 -----

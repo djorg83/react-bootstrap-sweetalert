@@ -4,3 +4,4 @@ lib/components/
 server.js
 webpack.config.js
 gulpfile.js
+.babelrc
