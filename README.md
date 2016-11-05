@@ -32,10 +32,13 @@ npm install react-bootstrap-sweetalert
 const SweetAlert = require('react-bootstrap-sweetalert');
 ```
 
-```javascript
-YOU NO LONGER NEED TO INCLUDE lib/css/animations.css IN YOUR APP!.
-```
+Changes in version 3.0
+-----
 
+* You no longer need to inlcude lib/css/animations.css in your app.
+* Removed props.content (use props.children)
+* Removed props.inputPlaceHolder (use props.placeholder)
+* Removed props.inputValidationMsg (use props.validationMsg)
 
 Examples
 --------
@@ -153,7 +156,6 @@ Configuration
 | :--------------------- | :----------- | :----------- | :------------------------- | :---------- |
 | type                   | no           | string       | 'default'                  | The type of alert to display. Allowed values: 'default', 'info', 'success', 'warning', 'danger', 'error', 'input', 'custom' |
 | title                  | yes          | string, node | undefined                  | The text to display for the title. JSX/ReactNode allowed. |
-| content                | no           | string, node | undefined                  | Deprecated, use &lt;SweetAlert&gt;your content here&lt;/SweetAlert&gt; |
 | onCancel               | no           | func         | undefined                  | Invoked when user clicks cancel button. Also invoked if allowEscape is true and user hits ESCAPE key. |
 | onConfirm              | yes          | func         | undefined                  | Invoked when user clicks confirm button. Also invoked if user hits ENTER key. |
 | confirmBtnText         | no           | string, node | 'OK'                       | Text of confirm button, or JSX/ReactNode. |
@@ -161,10 +163,8 @@ Configuration
 | cancelBtnBsStyle       | no           | string       | 'link'                     | Bootstrap style of cancel button. Allowed values: 'default', 'primary', 'link', 'info', 'success', 'warning', 'danger' |
 | confirmBtnBsStyle      | no           | string       | 'primary'                  | Bootstrap style of confirm button. Allowed values: 'default', 'primary', 'link', 'info', 'success', 'warning', 'danger' |
 | customIcon             | no           | string, node | undefined                  | Either a string url for an image to use as the icon, or JSX/ReactNode. |
-| inputPlaceHolder       | no           | string       | undefined                  | Deprecated, use placeholder. |
 | placeholder            | no           | string       | undefined                  | If type is input, this is the placeholder for the input field. |
 | required               | no           | bool         | true                       | If true, requires the input field to have a value. |
-| inputValidationMsg     | no           | string       | 'Please enter a response!' | Deprecated, use validationMsg |
 | validationMsg          | no           | string       | 'Please enter a response!' | If type is input, this is the message to diplay when the user clicks confirm without entering a value. |
 | defaultValue           | no           | string       | undefined                  | If type is input, this is the default value for the input field. |
 | inputType              | no           | string       | 'text'                     | If type is input, this is the input type (text, textarea, password, number, etc...) |
