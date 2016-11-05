@@ -33,7 +33,7 @@ const SweetAlert = require('react-bootstrap-sweetalert');
 ```
 
 ```javascript
-Be sure to include lib/css/animations.css in your app.
+YOU NO LONGER NEED TO INCLUDE lib/css/animations.css IN YOUR APP!.
 ```
 
 
