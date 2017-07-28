@@ -27,7 +27,8 @@
   },
   "homepage": "https://github.com/djorg83/react-bootstrap-sweetalert#readme",
   "peerDependencies": {
-    "react": ">=0.14.0"
+    "react": ">=0.14.0",
+    "prop-types": "^15.5.10"
   },
   "devDependencies": {
     "babel-core": "^6.18.2",
