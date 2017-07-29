@@ -36,15 +36,16 @@ Changes in version 4.0
 -----
 
 * Added `prop-types` as peer dependency
-* Added props.showConfirm to allow hiding the confirm button
+* Added `props.showConfirm` to allow hiding the confirm button
+* Added `props.show` to allow hiding the confirm button
 
 Changes in version 3.0
 -----
 
-* You no longer need to inlcude lib/css/animations.css in your app.
-* Removed props.content (use props.children)
-* Removed props.inputPlaceHolder (use props.placeholder)
-* Removed props.inputValidationMsg (use props.validationMsg)
+* You no longer need to inlcude `lib/css/animations.css` in your app.
+* Removed `props.content` (use `props.children`)
+* Removed `props.inputPlaceHolder` (use `props.placeholder`)
+* Removed `props.inputValidationMsg` (use `props.validationMsg`)
 
 Examples
 --------
@@ -170,6 +171,7 @@ Configuration
 | confirmBtnBsStyle      | no           | string       | 'primary'                  | Bootstrap style of confirm button. Allowed values: 'default', 'primary', 'link', 'info', 'success', 'warning', 'danger' |
 | customIcon             | no           | string, node | undefined                  | Either a string url for an image to use as the icon, or JSX/ReactNode. |
 | placeholder            | no           | string       | undefined                  | If type is input, this is the placeholder for the input field. |
+| show                   | no           | bool         | true                       | If false, the alert will not be rendered. |
 | required               | no           | bool         | true                       | If true, requires the input field to have a value. |
 | validationMsg          | no           | string       | 'Please enter a response!' | If type is input, this is the message to diplay when the user clicks confirm without entering a value. |
 | defaultValue           | no           | string       | undefined                  | If type is input, this is the default value for the input field. |
