@@ -32,6 +32,12 @@ npm install react-bootstrap-sweetalert
 const SweetAlert = require('react-bootstrap-sweetalert');
 ```
 
+Changes in version 4.0
+-----
+
+* Added `prop-types` as peer dependency
+* Added props.showConfirm to allow hiding the confirm button
+
 Changes in version 3.0
 -----
 
@@ -170,6 +176,7 @@ Configuration
 | inputType              | no           | string       | 'text'                     | If type is input, this is the input type (text, textarea, password, number, etc...) |
 | style                  | no           | object       | undefined                  | Style overrides applied to the sweetalert wrapper. |
 | customClass            | no           | string       | undefined                  | Custom CSS class applied to the sweetalert wrapper. |
+| showConfirm            | no           | bool         | true                       | If false, the confirm button will not show. |
 | showCancel             | no           | bool         | false                      | If true, the cancel button will show. |
 | allowEscape            | no           | bool         | true                       | If true, the onCancel function will be invoked when the user hits the ESCAPE key. |
 | hideOverlay            | no           | bool         | false                      | If true, then the modal overlay will not be rendered. |
