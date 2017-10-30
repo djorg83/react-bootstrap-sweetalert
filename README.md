@@ -181,6 +181,7 @@ Configuration
 | showConfirm            | no           | bool         | true                       | If false, the confirm button will not show. |
 | showCancel             | no           | bool         | false                      | If true, the cancel button will show. |
 | allowEscape            | no           | bool         | true                       | If true, the onCancel function will be invoked when the user hits the ESCAPE key. |
+| closeOnClickOutside            | no           | bool         | true                       | If true, clicking outside the modal will trigger `onCancel`. |
 | hideOverlay            | no           | bool         | false                      | If true, then the modal overlay will not be rendered. |
 | disabled               | no           | bool         | false                      | If true, then the confirm button will be disabled. (NOTE: This does not effect the allowEscape prop behavior.)|
 | beforeMount            | no           | func         | noop                       | Hook which is invoked during componentWillMount. |
