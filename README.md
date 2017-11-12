@@ -32,6 +32,16 @@ npm install react-bootstrap-sweetalert
 const SweetAlert = require('react-bootstrap-sweetalert');
 ```
 
+Changes in version 4.1
+-----
+
+* Added `props.closeOnClickOutside` to trigger onClose when clicking outside. default=true
+* Added `props.btnSize` to allow custom button size
+* Added `props.confirmBtnCssClass` to allow custom class on confirm button
+* Added `props.cancelBtnCssClass` to allow custom class on cancel button
+* Added `props.confirmBtnStyle` to allow custom inline style on confirm button
+* Added `props.cancelBtnStyle` to allow custom inline style on cancel button
+
 Changes in version 4.0
 -----
 
@@ -165,10 +175,15 @@ Configuration
 | title                  | yes          | string, node | undefined                  | The text to display for the title. JSX/ReactNode allowed. |
 | onCancel               | no           | func         | undefined                  | Invoked when user clicks cancel button. Also invoked if allowEscape is true and user hits ESCAPE key. |
 | onConfirm              | yes          | func         | undefined                  | Invoked when user clicks confirm button. Also invoked if user hits ENTER key. |
+| btnSize          | no           | string         | 'lg'                       | Allow custom button size. `lg`, `sm`, `xs`. |
 | confirmBtnText         | no           | string, node | 'OK'                       | Text of confirm button, or JSX/ReactNode. |
+| confirmBtnBsStyle      | no           | string       | 'primary'                  | Bootstrap style of confirm button. Allowed values: 'default', 'primary', 'link', 'info', 'success', 'warning', 'danger' |
+| confirmBtnCssClass          | no           | string         | ''                       | CSS class added to confirm button. |
+| confirmBtnStyle          | no           | object         | {}                       | Inline style added to confirm button. |
 | cancelBtnText          | no           | string, node | 'Cancel'                   | Text of cancel button, or JSX/ReactNode. |
 | cancelBtnBsStyle       | no           | string       | 'link'                     | Bootstrap style of cancel button. Allowed values: 'default', 'primary', 'link', 'info', 'success', 'warning', 'danger' |
-| confirmBtnBsStyle      | no           | string       | 'primary'                  | Bootstrap style of confirm button. Allowed values: 'default', 'primary', 'link', 'info', 'success', 'warning', 'danger' |
+| cancelBtnCssClass          | no           | string         | ''                       | CSS class added to cancel button. |
+| cancelBtnStyle          | no           | object         | {}                       | Inline style added to cancel button. |
 | customIcon             | no           | string, node | undefined                  | Either a string url for an image to use as the icon, or JSX/ReactNode. |
 | placeholder            | no           | string       | undefined                  | If type is input, this is the placeholder for the input field. |
 | show                   | no           | bool         | true                       | If false, the alert will not be rendered. |
