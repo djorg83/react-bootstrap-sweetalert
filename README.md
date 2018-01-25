@@ -42,6 +42,7 @@ Changes in version 4.2
 * Fixed auto-focus on confirm button
 * Removed outline css from alert
 * Updated examples to not show deprecated params
+* Added `props.focusConfirmBtn` to control whether you want to focus on the button automatically. default: `true`
 
 Changes in version 4.1
 -----
@@ -190,6 +191,7 @@ Configuration
 | customIcon             | no           | string, node | undefined                  | Either a string url for an image to use as the icon, or JSX/ReactNode. |
 | placeholder            | no           | string       | undefined                  | If type is input, this is the placeholder for the input field. |
 | show                   | no           | bool         | true                       | If false, the alert will not be rendered. |
+| focusConfirmBtn        | no           | bool         | true                       | If true (and type != input) the comfirm button will receive focus automatically. |
 | required               | no           | bool         | true                       | If true, requires the input field to have a value. |
 | validationMsg          | no           | string       | 'Please enter a response!' | If type is input, this is the message to diplay when the user clicks confirm without entering a value. |
 | defaultValue           | no           | string       | undefined                  | If type is input, this is the default value for the input field. |
