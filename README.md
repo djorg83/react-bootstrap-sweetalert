@@ -25,12 +25,23 @@ Usage
 You can install SweetAlert through npm:
 
 ```bash
-npm install react-bootstrap-sweetalert
+# with npm
+npm install --save react-bootstrap-sweetalert
+
+# with yarn
+yarn add react-bootstrap-sweetalert
 ```
 
 ```javascript
 const SweetAlert = require('react-bootstrap-sweetalert');
 ```
+
+Changes in version 4.2
+-----
+
+* Fixed auto-focus on confirm button
+* Removed outline css from alert
+* Updated examples to not show deprecated params
 
 Changes in version 4.1
 -----
@@ -48,14 +59,6 @@ Changes in version 4.0
 * Added `prop-types` as peer dependency
 * Added `props.showConfirm` to allow hiding the confirm button
 * Added `props.show` to allow hiding the confirm button
-
-Changes in version 3.0
------
-
-* You no longer need to inlcude `lib/css/animations.css` in your app.
-* Removed `props.content` (use `props.children`)
-* Removed `props.inputPlaceHolder` (use `props.placeholder`)
-* Removed `props.inputValidationMsg` (use `props.validationMsg`)
 
 Examples
 --------
@@ -137,7 +140,7 @@ A replacement for the "prompt" function:
 	showCancel
 	cancelBtnBsStyle="default"
 	title="An input!"
-	inputPlaceHolder="Write something"
+	placeHolder="Write something"
 	onConfirm={this.onRecieveInput}
 	onCancel={this.hideAlert}
 >

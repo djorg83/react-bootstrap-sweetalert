@@ -84,7 +84,7 @@ var DemoHome = React.createClass({
 							showCancel
 							cancelBtnBsStyle="default"
 							title="An input!"
-							inputPlaceHolder="Write something"
+							placeHolder="Write something"
 							onConfirm={this.onRecieveInput}
 							onCancel={this.hideAlert}
 						>
@@ -246,7 +246,7 @@ var DemoHome = React.createClass({
 							showCancel
 							cancelBtnBsStyle="default"
 							title="An input!"
-							inputPlaceHolder="Write something"
+							placeHolder="Write something"
 							onConfirm={this.onRecieveInput}
 							onCancel={this.hideAlert}
 						>
@@ -365,7 +365,7 @@ var DemoHome = React.createClass({
 						<span style={indent}>showCancel</span><br/>
 						<span style={indent}>cancelBtnBsStyle="default"</span><br/>
 						<span style={indent}>title="An input!"</span><br/>
-						<span style={indent}>inputPlaceHolder="Write something"</span><br/>
+						<span style={indent}>placeHolder="Write something"</span><br/>
 						<span style={indent}>onConfirm=&#123;this.onRecieveInput&#125;</span><br/>
 						<span style={indent}>onCancel=&#123;this.onCancel&#125;</span><br/>
 						&gt;<br/>
@@ -439,16 +439,17 @@ var DemoHome = React.createClass({
 			var hideAlert = this.hideAlert;
 			this.setState({
 				alert: (
-					<SweetAlert 
+					<SweetAlert
 						type="danger"
-						title="Whoops!" 
-						content="That didn't work."
+						title="Whoops!"
 						onConfirm={hideAlert}
-					/>
+					>
+						That didn't work.
+					</SweetAlert>
 				)
 			});
 		}
-		
+
 	},
 
 	render: function() {
