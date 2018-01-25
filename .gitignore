@@ -1,2 +1,4 @@
 node_modules/
 .vscode/
+lib/dist
+lib/demo/dist
