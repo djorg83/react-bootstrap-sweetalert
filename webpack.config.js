@@ -1,16 +1,18 @@
-var path = require('path');
+const path = require('path');
+
+const absolutePath = (relativePath) => path.join(__dirname, relativePath);
 
 module.exports = [
 	{
 		entry: {
-			demo: './lib/demo/demo.js'
+			demo: absolutePath('./lib/demo/demo.js')
 		},
 		output: {
 			filename: '[name].js',
-			path: path.join(__dirname, '/lib/demo/dist')
+			path: absolutePath('./lib/demo/dist')
 		},
 		resolve: {
-			extensions: ['', '.js', '.jsx']
+			extensions: ['.js', '.jsx']
 		},
 		module: {
 			loaders: [{
