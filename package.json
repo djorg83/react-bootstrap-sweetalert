@@ -1,6 +1,6 @@
 {
   "name": "react-bootstrap-sweetalert",
-  "version": "4.2.2",
+  "version": "4.2.3",
   "description": "A variant of sweetalert for use with React and Bootstrap",
   "main": "index.js",
   "scripts": {
