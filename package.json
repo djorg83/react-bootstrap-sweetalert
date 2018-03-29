@@ -8,11 +8,12 @@
     "postversion": "git push && git push --tags && npm publish",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "gulp",
-    "dev": "webpack --watch | nodemon ./server.js",
+    "dev": "yarn watch",
     "watch-components": "nodemon --config ./nodemon.components.json ./compileComponents.js",
     "watch-build": "nodemon --config ./nodemon.build.json ./buildDemo.js",
     "watch-demo": "nodemon --config ./nodemon.demo.json ./server.js",
-    "watch": "concurrently \"yarn watch-components\" \"yarn watch-build\" \"yarn watch-demo\""
+    "watch": "concurrently \"yarn watch-components\" \"yarn watch-build\" \"yarn watch-demo\"",
+    "open": "open http://localhost:3000"
   },
   "repository": {
     "type": "git",

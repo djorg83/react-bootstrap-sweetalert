@@ -36,6 +36,11 @@ yarn add react-bootstrap-sweetalert
 const SweetAlert = require('react-bootstrap-sweetalert');
 ```
 
+Changes in version 4.3
+-----
+
+* Added `props.timeout` which calls onConfirm to close the alert automatically after a certain number of milliseconds. default: `0`
+
 Changes in version 4.2
 -----
 
@@ -201,7 +206,7 @@ Configuration
 | showConfirm            | no           | bool         | true                       | If false, the confirm button will not show. |
 | showCancel             | no           | bool         | false                      | If true, the cancel button will show. |
 | allowEscape            | no           | bool         | true                       | If true, the onCancel function will be invoked when the user hits the ESCAPE key. |
-| closeOnClickOutside            | no           | bool         | true                       | If true, clicking outside the modal will trigger `onCancel`. |
+| closeOnClickOutside    | no           | bool         | true                       | If true, clicking outside the modal will trigger `onCancel`. |
 | hideOverlay            | no           | bool         | false                      | If true, then the modal overlay will not be rendered. |
 | disabled               | no           | bool         | false                      | If true, then the confirm button will be disabled. (NOTE: This does not effect the allowEscape prop behavior.)|
 | beforeMount            | no           | func         | noop                       | Hook which is invoked during componentWillMount. |
@@ -209,6 +214,7 @@ Configuration
 | beforeUpdate           | no           | func         | noop                       | Hook which is invoked during componentWillUpdate. |
 | afterUpdate            | no           | func         | noop                       | Hook which is invoked during componentDidUpdate. |
 | beforeUnmount          | no           | func         | noop                       | Hook which is invoked during componentWillUnmount. |
+| timeout                | no           | number       | 0                          | Call props.onConfirm to close the alert automatically after a certain number of milliseconds. |
 
 Related projects
 ----------------
@@ -218,3 +224,11 @@ Related projects
 * [SweetAlert for Bootstrap](https://github.com/lipis/bootstrap-sweetalert)
 * [SweetAlert for AngularJS](https://github.com/oitozero/ngSweetAlert)
 * [SweetAlert for RubyOnRails](https://github.com/sharshenov/sweetalert-rails)
+
+Development
+--------
+
+``` bash
+yarn dev && open http://localhost:3000
+```
+
