@@ -36,6 +36,11 @@ yarn add react-bootstrap-sweetalert
 const SweetAlert = require('react-bootstrap-sweetalert');
 ```
 
+Changes in version 4.4
+-----
+
+* Added `props.validationRegex` for validating input. default: `/^.+$/`
+
 Changes in version 4.3
 -----
 
@@ -199,6 +204,7 @@ Configuration
 | focusConfirmBtn        | no           | bool         | true                       | If true (and type != input) the comfirm button will receive focus automatically. |
 | required               | no           | bool         | true                       | If true, requires the input field to have a value. |
 | validationMsg          | no           | string       | 'Please enter a response!' | If type is input, this is the message to diplay when the user clicks confirm without entering a value. |
+| validationRegex        | no           | object       | `/^.+$/`                   | Used to validate input value. |
 | defaultValue           | no           | string       | undefined                  | If type is input, this is the default value for the input field. |
 | inputType              | no           | string       | 'text'                     | If type is input, this is the input type (text, textarea, password, number, etc...) |
 | style                  | no           | object       | undefined                  | Style overrides applied to the sweetalert wrapper. |
