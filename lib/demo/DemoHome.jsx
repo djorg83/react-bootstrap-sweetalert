@@ -15,7 +15,7 @@ const examples = [{
 }, {
 	title: 'A warning message, with Cancel and Confirm callbacks'
 }, {
-	title: 'A message with a custom icon'
+	title: 'A message with a custom icon and close button'
 }, {
 	title: 'An HTML message'
 }, {
@@ -67,7 +67,7 @@ var DemoHome = React.createClass({
 							confirmBtnBsStyle="primary"
 							cancelBtnBsStyle="default"
 							customIcon="thumbs-up.jpg"
-							title="Do you like thumbs?" 
+							title="Do you like thumbs?"
 							onConfirm={this.hideAlert}
 							onCancel={this.hideAlert}
 						>
@@ -158,7 +158,7 @@ var DemoHome = React.createClass({
 					You wrote: {value}
 				</SweetAlert>
 			)
-		});		
+		});
 	},
 
 	runExample: function(i) {
@@ -166,7 +166,7 @@ var DemoHome = React.createClass({
 			case 0:
 				this.setState({
 					alert: (
-						<SweetAlert title="Here's a message!" onConfirm={this.hideAlert} />						
+						<SweetAlert title="Here's a message!" onConfirm={this.hideAlert} />
 					)
 				});
 				break;
@@ -191,7 +191,7 @@ var DemoHome = React.createClass({
 			case 3:
 				this.setState({
 					alert: (
-						<SweetAlert 
+						<SweetAlert
 							warning
 							showCancel
 							confirmBtnText="Yes, delete it!"
@@ -212,12 +212,13 @@ var DemoHome = React.createClass({
 						<SweetAlert
 							custom
 							showCancel
+							showCloseButton
 							confirmBtnText="Yes"
 							cancelBtnText="No"
 							confirmBtnBsStyle="primary"
 							cancelBtnBsStyle="default"
 							customIcon="thumbs-up.jpg"
-							title="Do you like thumbs?" 
+							title="Do you like thumbs?"
 							onConfirm={this.hideAlert}
 							onCancel={this.hideAlert}
 						>
@@ -229,8 +230,8 @@ var DemoHome = React.createClass({
 			case 5:
 				this.setState({
 					alert: (
-						<SweetAlert 
-							title={<span>HTML <small>Title</small>!</span>} 
+						<SweetAlert
+							title={<span>HTML <small>Title</small>!</span>}
 							onConfirm={this.hideAlert}
 						>
 							<span>A custom <span style={{color:'#F8BB86'}}>html</span> message.</span>
@@ -331,6 +332,7 @@ var DemoHome = React.createClass({
 						<br/>
 						<span style={indent}>custom</span><br/>
 						<span style={indent}>showCancel</span><br/>
+						<span style={indent}>showCloseButton</span><br/>
 						<span style={indent}>confirmBtnText="Yes"</span><br/>
 						<span style={indent}>cancelBtnText="No"</span><br/>
 						<span style={indent}>confirmBtnBsStyle="primary"</span><br/>
@@ -410,8 +412,8 @@ var DemoHome = React.createClass({
 				<Row>
 					<Col sm={2} className="text-center">
 						<p>
-							<Button 
-								bsStyle="primary" 
+							<Button
+								bsStyle="primary"
 								onClick={this.runExample.bind(null, i)}>
 								Try It
 							</Button>
@@ -479,7 +481,7 @@ var DemoHome = React.createClass({
 						<Row>
 							<Col sm={2} className="text-center">
 								<p>
-									<Button 
+									<Button
 										bsStyle="primary"
 										onClick={this.runInputExample}>
 										Run it!
@@ -492,7 +494,7 @@ var DemoHome = React.createClass({
 									ref="jsxInput"
 									defaultValue={this.state.textareaValue}
 									style={{
-										height: 300, 
+										height: 300,
 										width: '100%',
 										display: 'block',
 									    padding: 9.5,
@@ -525,47 +527,47 @@ var DemoHome = React.createClass({
 					<h2>Examples</h2>
 
 					<h4>Different types</h4>
-					
+
 					<Row>
 						<Col sm={12} className="text-center">
-							<Button 
-								style={{marginRight:8}} 
+							<Button
+								style={{marginRight:8}}
 								bsStyle="primary"
 								onClick={this.buttonExample.bind(null, 'primary')}>
 								Primary
 							</Button>
-							<Button 
-								style={{marginRight:8}} 
+							<Button
+								style={{marginRight:8}}
 								bsStyle="info"
 								onClick={this.buttonExample.bind(null, 'info')}>
 								Info
 							</Button>
-							<Button 
-								style={{marginRight:8}} 
+							<Button
+								style={{marginRight:8}}
 								bsStyle="success"
 								onClick={this.buttonExample.bind(null, 'success')}>
 								Success
 							</Button>
-							<Button 
-								style={{marginRight:8}} 
+							<Button
+								style={{marginRight:8}}
 								bsStyle="warning"
 								onClick={this.buttonExample.bind(null, 'warning')}>
 								Warning
 							</Button>
-							<Button 
-								style={{marginRight:8}} 
+							<Button
+								style={{marginRight:8}}
 								bsStyle="danger"
 								onClick={this.buttonExample.bind(null, 'danger')}>
 								Danger
 							</Button>
-							<Button 
-								style={{marginRight:8}} 
+							<Button
+								style={{marginRight:8}}
 								bsStyle="default"
 								onClick={this.buttonExample.bind(null, 'custom')}>
 								Custom
 							</Button>
-							<Button 
-								style={{marginRight:8}} 
+							<Button
+								style={{marginRight:8}}
 								bsStyle="default"
 								onClick={this.buttonExample.bind(null, 'input')}>
 								Input
@@ -576,7 +578,7 @@ var DemoHome = React.createClass({
 					{examples.map(this.renderExample)}
 
 				</div>
-    
+
 			    <footer>
 			      <ul className="links">
 			        <li><a href="http://github.com/djorg83"><i className="fa fa-github"></i> GitHub</a></li>
