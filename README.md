@@ -99,7 +99,7 @@ A success message!:
 A warning message, with Cancel and Confirm callbacks:
 
 ```javascript
-<SweetAlert 
+<SweetAlert
 	warning
 	showCancel
 	confirmBtnText="Yes, delete it!"
@@ -124,7 +124,7 @@ A message with a custom icon:
 	confirmBtnBsStyle="primary"
 	cancelBtnBsStyle="default"
 	customIcon="thumbs-up.jpg"
-	title="Do you like thumbs?" 
+	title="Do you like thumbs?"
 	onConfirm={this.hideAlert}
 	onCancel={this.hideAlert}
 >
@@ -135,8 +135,8 @@ A message with a custom icon:
 An HTML message:
 
 ```javascript
-<SweetAlert 
-	title={<span>HTML <small>Title</small>!</span>} 
+<SweetAlert
+	title={<span>HTML <small>Title</small>!</span>}
 	onConfirm={this.hideAlert}
 >
 	<span>A custom <span style={{color:'#F8BB86'}}>html</span> message.</span>
@@ -198,6 +198,7 @@ Configuration
 | cancelBtnBsStyle       | no           | string       | 'link'                     | Bootstrap style of cancel button. Allowed values: 'default', 'primary', 'link', 'info', 'success', 'warning', 'danger' |
 | cancelBtnCssClass          | no           | string         | ''                       | CSS class added to cancel button. |
 | cancelBtnStyle          | no           | object         | {}                       | Inline style added to cancel button. |
+| showCloseButton        | no           | bool         | undefined
 | customIcon             | no           | string, node | undefined                  | Either a string url for an image to use as the icon, or JSX/ReactNode. |
 | placeholder            | no           | string       | undefined                  | If type is input, this is the placeholder for the input field. |
 | show                   | no           | bool         | true                       | If false, the alert will not be rendered. |
@@ -237,4 +238,3 @@ Development
 ``` bash
 yarn dev && open http://localhost:3000
 ```
-
