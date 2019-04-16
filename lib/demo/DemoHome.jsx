@@ -24,7 +24,12 @@ const examples = [{
 	title: 'Password Prompt'
 }, {
 	title: 'Custom style'
+}, {
+	title: 'Long message'
 }];
+
+const longMessageTitle = "Here's a long message!";
+const longMessage = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio ipsa, libero id, ducimus aperiam similique dolorum nisi laborum, voluptatibus deleniti animi expedita odio tenetur dolores. Totam voluptatem reprehenderit quisquam sed? Dolorem quasi ab molestiae tempore aut, sunt sint veritatis, natus hic totam pariatur eveniet aperiam quos, fugiat quod odio voluptatibus nesciunt fugit minus? Blanditiis, iure quidem eius exercitationem sapiente optio! Placeat obcaecati alias commodi aut quisquam exercitationem voluptatibus vel sunt esse, distinctio quibusdam delectus consectetur officia, explicabo saepe quidem suscipit qui sint itaque tenetur velit libero non accusantium? Voluptatibus, ipsam? Reprehenderit consequatur nobis recusandae eum esse nemo! Iure autem exercitationem et, expedita temporibus quisquam fuga, natus necessitatibus doloribus quasi illum culpa impedit error officia accusamus, nobis dicta earum nemo pariatur? Delectus officiis, optio natus corrupti hic deleniti totam ut illum eligendi iure magni quod nam dicta magnam aperiam vero aliquam, ad blanditiis. Illo ratione id accusantium esse est ex adipisci! Quisquam eos officia animi voluptatibus? Fugit alias, mollitia iste hic illum aliquam et numquam nesciunt! Iste, quas? Ducimus, excepturi. Voluptate deserunt eius consequuntur a aliquid voluptatibus adipisci repellat molestias expedita. Assumenda voluptatum in consequuntur alias asperiores suscipit fugit at numquam, ullam animi quia tempora architecto nulla ducimus veritatis minus! Nesciunt quam quod est deserunt saepe quos. Exercitationem vel obcaecati molestias. Odio amet maiores laboriosam fugit, doloribus illo magni eos. Minima hic perferendis harum, dolore tempore enim. Repellendus labore nulla omnis maiores eligendi ipsum quisquam, voluptatem est ut nemo veniam dolorem. Eveniet ipsum est accusamus dolorum eius libero provident, aspernatur magnam deleniti soluta iusto, dicta unde ipsam optio earum corrupti commodi harum pariatur odio minima deserunt suscipit delectus ex. Vel, numquam. Aut modi, in cum, accusamus distinctio sint illo dignissimos esse sunt ratione ex magnam quisquam consequatur nulla amet architecto possimus quos eveniet? Cupiditate error unde nesciunt tempora quo, soluta itaque!';
 
 var DemoHome = React.createClass({
 
@@ -278,6 +283,15 @@ var DemoHome = React.createClass({
 					)
 				});
 				break;
+			case 9:
+				this.setState({
+					alert: (
+						<SweetAlert title={longMessageTitle} onConfirm={this.hideAlert}>
+							{longMessage}
+						</SweetAlert>
+					)
+				});
+				break;
 		}
 	},
 
@@ -397,6 +411,14 @@ var DemoHome = React.createClass({
 						<span style={indent}>onConfirm=&#123;this.onConfirm&#125;</span><br/>
 						&gt;<br/>
 						<span style={indent}>It's blue!</span><br/>
+						&lt;/SweetAlert&gt;
+					</pre>
+				);
+			case 9:
+				return (
+					<pre>
+						&lt;SweetAlert title="{longMessageTitle}" onConfirm=&#123;this.onConfirm&#125;&gt;<br/>
+						<span style={indent}>{longMessage}</span><br/>
 						&lt;/SweetAlert&gt;
 					</pre>
 				);
