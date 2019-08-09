@@ -90,7 +90,7 @@ var DemoHome = React.createClass({
 							cancelBtnBsStyle="default"
 							title="An input!"
 							placeholder="Write something"
-							onConfirm={this.onRecieveInput}
+							onConfirm={(response) => this.onReceiveInput(response)}
 							onCancel={this.hideAlert}
 						>
 							Write something interesting:
@@ -156,7 +156,7 @@ var DemoHome = React.createClass({
 		});
 	},
 
-	onRecieveInput: function(value) {
+	onReceiveInput: function(value) {
 		this.setState({
 			alert: (
 				<SweetAlert success title="Nice!" onConfirm={this.hideAlert}>
@@ -252,7 +252,7 @@ var DemoHome = React.createClass({
 							cancelBtnBsStyle="default"
 							title="An input!"
 							placeHolder="Write something"
-							onConfirm={this.onRecieveInput}
+							onConfirm={this.onReceiveInput}
 							onCancel={this.hideAlert}
 						>
 							Write something interesting:
@@ -380,7 +380,7 @@ var DemoHome = React.createClass({
 						<span style={indent}>cancelBtnBsStyle="default"</span><br/>
 						<span style={indent}>title="An input!"</span><br/>
 						<span style={indent}>placeHolder="Write something"</span><br/>
-						<span style={indent}>onConfirm=&#123;this.onRecieveInput&#125;</span><br/>
+						<span style={indent}>onConfirm=&#123;(response) => this.onReceiveInput(response)&#125;</span><br/>
 						<span style={indent}>onCancel=&#123;this.onCancel&#125;</span><br/>
 						&gt;<br/>
 						<span style={indent}>Write something interesting:</span><br/>

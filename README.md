@@ -36,23 +36,12 @@ yarn add react-bootstrap-sweetalert
 const SweetAlert = require('react-bootstrap-sweetalert');
 ```
 
-### Usage of input with onConfirm
+### Receiving the input value
 
-If you're using `input` type, and you wish to retrieve the value in the onConfirm callback, note that the value will be passed as the first argument.
+If you're using `input` type, the value of the input will be sent to the `onConfirm` callback as the first argument.
 
-```
-<SweetAlert
-          input
-          title="Void this: Are you sure?"
-          onConfirm={(input_value) => console.log(input_value}
-          onCancel={() => this.hideAlert()}
-          confirmBtnText="Yes, void it!"
-          cancelBtnText="No, I change my mind"
-          required
-          validationMsg="You must enter a reason!"
-          placeholder="Enter the void reason before confirming"
-          showCancel
->
+``` js
+onConfirm={(response) => this.onRecieveInput(response)}
 ```
 
 Changes in version 4.4
@@ -171,7 +160,7 @@ A replacement for the "prompt" function:
 	cancelBtnBsStyle="default"
 	title="An input!"
 	placeholder="Write something"
-	onConfirm={this.onRecieveInput}
+	onConfirm={(response) => this.onRecieveInput(response)}
 	onCancel={this.hideAlert}
 >
 	Write something interesting:
