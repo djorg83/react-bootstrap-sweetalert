@@ -84,7 +84,7 @@ var DemoHome = React.createClass({
 							showCancel
 							cancelBtnBsStyle="default"
 							title="An input!"
-							placeHolder="Write something"
+							placeholder="Write something"
 							onConfirm={this.onRecieveInput}
 							onCancel={this.hideAlert}
 						>
