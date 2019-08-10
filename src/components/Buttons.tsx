@@ -1,7 +1,6 @@
-'use strict';
-import React        from 'react';
-import PropTypes    from 'prop-types';
-import styles       from '../styles/SweetAlertStyles';
+import React       from 'react';
+import PropTypes   from 'prop-types';
+import * as styles from '../styles/SweetAlertStyles';
 
 export default class Buttons extends React.Component {
 

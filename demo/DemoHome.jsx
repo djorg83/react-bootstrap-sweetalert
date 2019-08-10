@@ -1,5 +1,5 @@
 import React from 'react';
-import SweetAlert from '../dist/SweetAlert';
+import SweetAlert from '../src/dist/SweetAlert';
 import reactTools from 'react-tools';
 import { Button, Row, Col, Alert } from 'react-bootstrap';
 

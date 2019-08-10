@@ -1,6 +1,5 @@
-'use strict';
 import React  from 'react';
-import styles from '../styles/SweetAlertStyles';
+import * as styles from '../styles/SweetAlertStyles';
 
 export default class Input extends React.Component {
 
