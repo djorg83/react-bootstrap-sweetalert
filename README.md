@@ -44,40 +44,14 @@ If you're using `input` type, the value of the input will be sent to the `onConf
 onConfirm={(response) => this.onRecieveInput(response)}
 ```
 
-Changes in version 4.4
+Changes in version 5.0
 -----
 
-* Added `props.validationRegex` for validating input. default: `/^.+$/`
+* Added `props.showCloseButton` for displaying an X close button in the top right.
+* Added `props.closeButtonStyle` for overriding the styles of the close button.
+* Added support for long content that requires scrolling, and moved ESC key listener to the overlay.
 
-Changes in version 4.3
------
-
-* Added `props.timeout` which calls onConfirm to close the alert automatically after a certain number of milliseconds. default: `0`
-
-Changes in version 4.2
------
-
-* Fixed auto-focus on confirm button
-* Removed outline css from alert
-* Updated examples to not show deprecated params
-* Added `props.focusConfirmBtn` to control whether you want to focus on the button automatically. default: `true`
-
-Changes in version 4.1
------
-
-* Added `props.closeOnClickOutside` to trigger onClose when clicking outside. default=true
-* Added `props.btnSize` to allow custom button size
-* Added `props.confirmBtnCssClass` to allow custom class on confirm button
-* Added `props.cancelBtnCssClass` to allow custom class on cancel button
-* Added `props.confirmBtnStyle` to allow custom inline style on confirm button
-* Added `props.cancelBtnStyle` to allow custom inline style on cancel button
-
-Changes in version 4.0
------
-
-* Added `prop-types` as peer dependency
-* Added `props.showConfirm` to allow hiding the confirm button
-* Added `props.show` to allow hiding the confirm button
+For more see `CHANGE_LOG.md`
 
 Examples
 --------
@@ -107,7 +81,7 @@ A success message!:
 A warning message, with Cancel and Confirm callbacks:
 
 ```javascript
-<SweetAlert 
+<SweetAlert
 	warning
 	showCancel
 	confirmBtnText="Yes, delete it!"
@@ -132,7 +106,7 @@ A message with a custom icon:
 	confirmBtnBsStyle="primary"
 	cancelBtnBsStyle="default"
 	customIcon="thumbs-up.jpg"
-	title="Do you like thumbs?" 
+	title="Do you like thumbs?"
 	onConfirm={this.hideAlert}
 	onCancel={this.hideAlert}
 >
@@ -143,8 +117,8 @@ A message with a custom icon:
 An HTML message:
 
 ```javascript
-<SweetAlert 
-	title={<span>HTML <small>Title</small>!</span>} 
+<SweetAlert
+	title={<span>HTML <small>Title</small>!</span>}
 	onConfirm={this.hideAlert}
 >
 	<span>A custom <span style={{color:'#F8BB86'}}>html</span> message.</span>
@@ -197,15 +171,16 @@ Configuration
 | title                  | yes          | string, node | undefined                  | The text to display for the title. JSX/ReactNode allowed. |
 | onCancel               | no           | func         | undefined                  | Invoked when user clicks cancel button. Also invoked if allowEscape is true and user hits ESCAPE key. |
 | onConfirm              | yes          | func         | undefined                  | Invoked when user clicks confirm button. Also invoked if user hits ENTER key. |
-| btnSize          | no           | string         | 'lg'                       | Allow custom button size. `lg`, `sm`, `xs`. |
+| btnSize                | no           | string       | 'lg'                       | Allow custom button size. `lg`, `sm`, `xs`. |
 | confirmBtnText         | no           | string, node | 'OK'                       | Text of confirm button, or JSX/ReactNode. |
 | confirmBtnBsStyle      | no           | string       | 'primary'                  | Bootstrap style of confirm button. Allowed values: 'default', 'primary', 'link', 'info', 'success', 'warning', 'danger' |
-| confirmBtnCssClass          | no           | string         | ''                       | CSS class added to confirm button. |
-| confirmBtnStyle          | no           | object         | {}                       | Inline style added to confirm button. |
+| confirmBtnCssClass     | no           | string       | ''                         | CSS class added to confirm button. |
+| confirmBtnStyle        | no           | object       | {}                         | Inline style added to confirm button. |
 | cancelBtnText          | no           | string, node | 'Cancel'                   | Text of cancel button, or JSX/ReactNode. |
 | cancelBtnBsStyle       | no           | string       | 'link'                     | Bootstrap style of cancel button. Allowed values: 'default', 'primary', 'link', 'info', 'success', 'warning', 'danger' |
-| cancelBtnCssClass          | no           | string         | ''                       | CSS class added to cancel button. |
-| cancelBtnStyle          | no           | object         | {}                       | Inline style added to cancel button. |
+| cancelBtnCssClass      | no           | string       | ''                         | CSS class added to cancel button. |
+| cancelBtnStyle         | no           | object       | {}                         | Inline style added to cancel button. |
+| showCloseButton        | no           | bool         | false                      | If set to true, then an X close button will be shown in the top right of the alert. |
 | customIcon             | no           | string, node | undefined                  | Either a string url for an image to use as the icon, or JSX/ReactNode. |
 | placeholder            | no           | string       | undefined                  | If type is input, this is the placeholder for the input field. |
 | show                   | no           | bool         | true                       | If false, the alert will not be rendered. |
@@ -215,7 +190,8 @@ Configuration
 | validationRegex        | no           | object       | `/^.+$/`                   | Used to validate input value. |
 | defaultValue           | no           | string       | undefined                  | If type is input, this is the default value for the input field. |
 | inputType              | no           | string       | 'text'                     | If type is input, this is the input type (text, textarea, password, number, etc...) |
-| style                  | no           | object       | undefined                  | Style overrides applied to the sweetalert wrapper. |
+| style                  | no           | object       | {}                         | Style overrides applied to the sweetalert wrapper. |
+| closeBtnStyle          | no           | object       | {}                         | Style overrides applied to the X close button. |
 | customClass            | no           | string       | undefined                  | Custom CSS class applied to the sweetalert wrapper. |
 | showConfirm            | no           | bool         | true                       | If false, the confirm button will not show. |
 | showCancel             | no           | bool         | false                      | If true, the cancel button will show. |
@@ -245,4 +221,3 @@ Development
 ``` bash
 yarn dev && open http://localhost:3000
 ```
-
