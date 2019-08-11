@@ -1,8 +1,8 @@
 import React from 'react';
-import SweetAlert, { SweetAlertType } from '../sweet-alert-src/src/components/SweetAlert';
+import SweetAlert, { SweetAlertType } from '../../components/SweetAlert';
 import reactTools from 'react-tools';
 import { Button, Row, Col, Alert } from 'react-bootstrap';
-import {samples, Sample} from './samples';
+import {examples, Example} from './examples';
 
 // @ts-ignore
 window.React = React;
@@ -27,7 +27,7 @@ const defaultTextAreaValue: string = `
 </SweetAlert>
 `.trim();
 
-export default class DemoHome extends React.Component<{}, DemoState> {
+export default class Demo extends React.Component<{}, DemoState> {
 
 	state: DemoState = {
 		alert: null,
@@ -146,7 +146,7 @@ export default class DemoHome extends React.Component<{}, DemoState> {
 		});
 	};
 
-	runExample = ({ snippet }: Sample) => this.setState({ alert: this.evalJsxSnippet(snippet) });
+	runExample = ({ snippet }: Example) => this.setState({ alert: this.evalJsxSnippet(snippet) });
 
 	private jsxInputElement: HTMLTextAreaElement = null;
 
@@ -274,7 +274,7 @@ export default class DemoHome extends React.Component<{}, DemoState> {
 						</Col>
 					</Row>
 
-					{samples.map((example: Sample, index: number) => (
+					{examples.map((example: Example, index: number) => (
 						<div key={'example-' + index}>
 							<h4>{example.title}</h4>
 							<Row>

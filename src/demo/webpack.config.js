@@ -2,9 +2,9 @@ const path = require('path');
 
 module.exports = {
   mode: 'production',
-  entry: "./src/demo.tsx", // bundle's entry point
+  entry: "./src/index.tsx", // bundle's entry point
   output: {
-    path: path.resolve(__dirname, 'dist'), // output directory
+    path: path.resolve(__dirname, '../../demo'), // output directory
     filename: "demo.bundle.js" // name of the generated bundle
   },
   module: {
@@ -13,6 +13,10 @@ module.exports = {
         test: /\.tsx?$/,
         use: 'ts-loader',
         exclude: /node_modules/
+      },
+      {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader'],
       }
     ]
   },

@@ -21,20 +21,3 @@ gulp.task('inject-css', async () => {
     }))
     .pipe(gulp.dest('./dist/components'));
 });
-
-gulp.task('inject-css-demo', async () => {
-  return gulp.src('./demo/sweet-alert-src/src/components/SweetAlert.tsx')
-    .pipe(inject({
-      pattern: '<Inject><filename></Inject>',
-      transform: (content) => {
-        // remove whitespace
-        return content.replace(/[\r\t\n]/g, '');
-      }
-    }))
-    .pipe(gulp.dest('./demo/sweet-alert-src/src/components'));
-});
-
-gulp.task('copy-to-demo', async () => {
-  return gulp.src('./src/**/*')
-    .pipe(gulp.dest('./demo/sweet-alert-src/src'));
-});

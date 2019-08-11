@@ -18,7 +18,6 @@ import Overlay from './Overlay';
 // other
 import * as styles from '../styles/SweetAlertStyles';
 import * as Patterns from '../constants/patterns';
-import Timeout = NodeJS.Timeout;
 
 let style = styles.sweetAlert;
 
@@ -94,7 +93,7 @@ export interface SweetAlertState {
   focusConfirmBtn?: boolean;
   inputValue?: string;
   showValidationMessage?: boolean;
-  timer?: Timeout;
+  timer?: any;
 }
 
 export default class SweetAlert extends React.Component<SweetAlertProps, SweetAlertState> {
@@ -240,7 +239,7 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
     }
 
     if (props.timeout && props.timeout > 0) {
-      const timer: Timeout = setTimeout(() => props.onConfirm(), props.timeout);
+      const timer: any = setTimeout(() => props.onConfirm(), props.timeout);
 
       this.setState({ timer });
     }

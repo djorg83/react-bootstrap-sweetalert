@@ -1,6 +1,3 @@
 node_modules/
 .vscode/
 dist/
-!demo/dist/
-sweet-alert-src/
-demo/dist/src/

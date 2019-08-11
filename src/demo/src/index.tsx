@@ -1,8 +1,9 @@
 import React from 'react';
 import { render } from 'react-dom';
-import DemoHome from './DemoHome';
+import Demo from './Demo';
+import '../../css/animations.css';
 
 render(
-  <DemoHome />,
+  <Demo />,
   document.getElementById('content')
 );
