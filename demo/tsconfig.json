@@ -12,7 +12,7 @@
   },
   "include": [
     "./src/**/*",
-    "./build-output/**/*",
+    "./sweet-alert-src/**/*",
     "./index.d.ts"
   ]
 }

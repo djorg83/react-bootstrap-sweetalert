@@ -71,7 +71,7 @@ A title with text under:
 
 ```javascript
 <SweetAlert title="Here's a message!" onConfirm={this.hideAlert}>
-	It's pretty, isn't it?
+  It's pretty, isn't it?
 </SweetAlert>
 ```
 
@@ -79,7 +79,7 @@ A success message!:
 
 ```javascript
 <SweetAlert success title="Good job!" onConfirm={this.hideAlert}>
-	You clicked the button!
+  You clicked the button!
 </SweetAlert>
 ```
 
@@ -87,14 +87,14 @@ A warning message, with Cancel and Confirm callbacks:
 
 ```javascript
 <SweetAlert
-	warning
-	showCancel
-	confirmBtnText="Yes, delete it!"
-	confirmBtnBsStyle="danger"
-	cancelBtnBsStyle="default"
-	title="Are you sure?"
-	onConfirm={this.deleteFile}
-	onCancel={this.cancelDelete}
+  warning
+  showCancel
+  confirmBtnText="Yes, delete it!"
+  confirmBtnBsStyle="danger"
+  cancelBtnBsStyle="default"
+  title="Are you sure?"
+  onConfirm={this.deleteFile}
+  onCancel={this.cancelDelete}
 >
 	You will not be able to recover this imaginary file!
 </SweetAlert>
@@ -104,16 +104,16 @@ A message with a custom icon:
 
 ```javascript
 <SweetAlert
-	custom
-	showCancel
-	confirmBtnText="Yes"
-	cancelBtnText="No"
-	confirmBtnBsStyle="primary"
-	cancelBtnBsStyle="default"
-	customIcon="thumbs-up.jpg"
-	title="Do you like thumbs?"
-	onConfirm={this.hideAlert}
-	onCancel={this.hideAlert}
+  custom
+  showCancel
+  confirmBtnText="Yes"
+  cancelBtnText="No"
+  confirmBtnBsStyle="primary"
+  cancelBtnBsStyle="default"
+  customIcon="thumbs-up.jpg"
+  title="Do you like thumbs?"
+  onConfirm={this.hideAlert}
+  onCancel={this.hideAlert}
 >
 	You will find they are up!
 </SweetAlert>
@@ -123,10 +123,10 @@ An HTML message:
 
 ```javascript
 <SweetAlert
-	title={<span>HTML <small>Title</small>!</span>}
-	onConfirm={this.hideAlert}
+  title={<span>HTML <small>Title</small>!</span>}
+  onConfirm={this.hideAlert}
 >
-	<span>A custom <span style={{color:'#F8BB86'}}>html</span> message.</span>
+  <span>A custom <span style={{color:'#F8BB86'}}>html</span> message.</span>
 </SweetAlert>
 ```
 
@@ -134,13 +134,13 @@ A replacement for the "prompt" function:
 
 ```javascript
 <SweetAlert
-	input
-	showCancel
-	cancelBtnBsStyle="default"
-	title="An input!"
-	placeholder="Write something"
-	onConfirm={(response) => this.onRecieveInput(response)}
-	onCancel={this.hideAlert}
+  input
+  showCancel
+  cancelBtnBsStyle="default"
+  title="An input!"
+  placeholder="Write something"
+  onConfirm={(response) => this.onRecieveInput(response)}
+  onCancel={this.hideAlert}
 >
 	Write something interesting:
 </SweetAlert>
@@ -150,12 +150,12 @@ Password Prompt:
 
 ```javascript
 <SweetAlert
-	input
-	inputType="password"
-	title="Enter Password"
-	required
-    validationMsg="You must enter your password!"
-	onConfirm={this.hideAlert}
+  input
+  inputType="password"
+  title="Enter Password"
+  required
+  validationMsg="You must enter your password!"
+  onConfirm={this.hideAlert}
 />
 ```
 
@@ -163,7 +163,7 @@ Custom Styles:
 
 ```javascript
 <SweetAlert style={{backgroundColor:'blue'}} title="Yay!" onConfirm={this.hideAlert}>
-	Its blue!
+  Its blue!
 </SweetAlert>
 ```
 

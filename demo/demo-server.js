@@ -5,6 +5,7 @@ const path = require('path');
 const app = express();
 
 app.use('/assets', express.static(path.join(__dirname, '/assets')));
+app.use('/demo/assets', express.static(path.join(__dirname, '/assets')));
 app.use('/js', express.static(path.join(__dirname, '/dist')));
 
 app.get('/', (req, res) => {

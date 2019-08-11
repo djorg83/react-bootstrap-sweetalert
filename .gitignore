@@ -2,5 +2,5 @@ node_modules/
 .vscode/
 dist/
 !demo/dist/
-build-output/
+sweet-alert-src/
 demo/dist/src/

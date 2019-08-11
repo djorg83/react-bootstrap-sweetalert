@@ -90,9 +90,10 @@ export default class Buttons extends React.Component<SweetAlertProps> {
     if (bsStyle === 'error') bsStyle = 'danger';
     if (this.buttonStyles[bsStyle] == null) {
       const style = Buttons.styles[bsStyle] || Buttons.styles.default;
-      const borderColor = `borderColor: ${style.borderColor} !important`;
-      const boxShadow = `boxShadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px ${style.shadowColor} !important;`;
-      this.buttonStyles[bsStyle] = ` ${borderColor} ${boxShadow}`;
+      this.buttonStyles[bsStyle] = {
+        borderColor: `${style.borderColor}`,
+        boxShadow: `inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px ${style.shadowColor}`,
+      };
     }
     return this.buttonStyles[bsStyle];
   };
@@ -105,15 +106,26 @@ export default class Buttons extends React.Component<SweetAlertProps> {
     const cancelBtnBsStyle = this.props.cancelBtnBsStyle === 'error' ? 'danger' : this.props.cancelBtnBsStyle;
     const confirmBtnBsStyle = this.props.confirmBtnBsStyle === 'error' ? 'danger' : this.props.confirmBtnBsStyle;
 
+    const cancelButtonStyle = Object.assign(
+      {},
+      styles.button,
+      this.props.cancelBtnStyle || {}
+    );
+
+    const confirmButtonStyle = Object.assign(
+      {},
+      styles.button,
+      this.getButtonStyle(confirmBtnBsStyle),
+      this.props.confirmBtnStyle || {}
+    );
+
     return (
       <p style={{marginTop: 20}}>
+
         {this.props.showCancel && (
           <span>
-            <style type="text/css" scoped>
-              {'button { outline: 0 !important; ' + this.getButtonStyle(cancelBtnBsStyle) + '}'}
-            </style>
             <button
-              style={Object.assign({}, styles.button, this.props.cancelBtnStyle)}
+              style={cancelButtonStyle}
               className={`btn btn-${this.props.btnSize} btn-${cancelBtnBsStyle} ${this.props.cancelBtnCssClass}`}
               onClick={() => this.props.onCancel()}
               type="button"
@@ -124,13 +136,10 @@ export default class Buttons extends React.Component<SweetAlertProps> {
         )}
         {this.props.showConfirm && (
           <span>
-            <style type="text/css" scoped>
-              {'button { outline: 0 !important; ' + this.getButtonStyle(confirmBtnBsStyle) + '}'}
-            </style>
             <button
               ref={this.setConfirmButtonElementRef}
               disabled={this.props.disabled}
-              style={Object.assign({}, styles.button, this.props.confirmBtnStyle)}
+              style={confirmButtonStyle}
               className={`btn btn-${this.props.btnSize} btn-${confirmBtnBsStyle} ${this.props.confirmBtnCssClass}`}
               onClick={() => this.props.onConfirm()}
               type="button"

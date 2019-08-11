@@ -226,7 +226,7 @@ export const iconCustom: CSSProperties = {
 };
 
 export const button: CSSProperties = {
-	marginRight: 8
+	marginRight: 8,
 };
 
 export const validationMessage: CSSProperties = {

@@ -365,11 +365,14 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
 
         <style type="text/css" dangerouslySetInnerHTML={{ __html: `
             body.sweetalert-overflow-hidden {
-                overflow: hidden;
+              overflow: hidden;
+            }
+            body .sweet-alert button {
+              outline: none !important;
             }
         ` }} />
 
-        <style type="text/css" scoped>
+        <style type="text/css">
           {`<Inject>../css/animations.css</Inject>`}
         </style>
 
