@@ -1,3 +1,6 @@
 node_modules/
 .vscode/
-src/dist
+dist/
+!demo/dist/
+build-output/
+demo/dist/src/

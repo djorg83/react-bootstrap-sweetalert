@@ -1,10 +1,15 @@
 import React from 'react';
-import SweetAlert from '../src/dist/SweetAlert';
+import SweetAlert, { SweetAlertType } from '../build-output/src/components/SweetAlert';
 import reactTools from 'react-tools';
 import { Button, Row, Col, Alert } from 'react-bootstrap';
 
+// @ts-ignore
 window.React = React;
+// @ts-ignore
 window.SweetAlert = SweetAlert;
+
+// @ts-ignore
+let hideAlert: Function = () => {};
 
 const examples = [{
 	title: 'A basic message'
@@ -31,16 +36,19 @@ const examples = [{
 const longMessageTitle = "Here's a long message!";
 const longMessage = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio ipsa, libero id, ducimus aperiam similique dolorum nisi laborum, voluptatibus deleniti animi expedita odio tenetur dolores. Totam voluptatem reprehenderit quisquam sed? Dolorem quasi ab molestiae tempore aut, sunt sint veritatis, natus hic totam pariatur eveniet aperiam quos, fugiat quod odio voluptatibus nesciunt fugit minus? Blanditiis, iure quidem eius exercitationem sapiente optio! Placeat obcaecati alias commodi aut quisquam exercitationem voluptatibus vel sunt esse, distinctio quibusdam delectus consectetur officia, explicabo saepe quidem suscipit qui sint itaque tenetur velit libero non accusantium? Voluptatibus, ipsam? Reprehenderit consequatur nobis recusandae eum esse nemo! Iure autem exercitationem et, expedita temporibus quisquam fuga, natus necessitatibus doloribus quasi illum culpa impedit error officia accusamus, nobis dicta earum nemo pariatur? Delectus officiis, optio natus corrupti hic deleniti totam ut illum eligendi iure magni quod nam dicta magnam aperiam vero aliquam, ad blanditiis. Illo ratione id accusantium esse est ex adipisci! Quisquam eos officia animi voluptatibus? Fugit alias, mollitia iste hic illum aliquam et numquam nesciunt! Iste, quas? Ducimus, excepturi. Voluptate deserunt eius consequuntur a aliquid voluptatibus adipisci repellat molestias expedita. Assumenda voluptatum in consequuntur alias asperiores suscipit fugit at numquam, ullam animi quia tempora architecto nulla ducimus veritatis minus! Nesciunt quam quod est deserunt saepe quos. Exercitationem vel obcaecati molestias. Odio amet maiores laboriosam fugit, doloribus illo magni eos. Minima hic perferendis harum, dolore tempore enim. Repellendus labore nulla omnis maiores eligendi ipsum quisquam, voluptatem est ut nemo veniam dolorem. Eveniet ipsum est accusamus dolorum eius libero provident, aspernatur magnam deleniti soluta iusto, dicta unde ipsam optio earum corrupti commodi harum pariatur odio minima deserunt suscipit delectus ex. Vel, numquam. Aut modi, in cum, accusamus distinctio sint illo dignissimos esse sunt ratione ex magnam quisquam consequatur nulla amet architecto possimus quos eveniet? Cupiditate error unde nesciunt tempora quo, soluta itaque!';
 
-var DemoHome = React.createClass({
+interface DemoState {
+	alert: React.ReactNode;
+	textareaValue: string;
+}
 
-	getInitialState: function() {
-		return {
-			alert: null,
-			textareaValue: '<SweetAlert \n\t success \n\t title="Woot!" \n\t onConfirm={this.hideAlert} \n> \n \tI did it! \n </SweetAlert>'
-		};
-	},
+export default class DemoHome extends React.Component<{}, DemoState> {
 
-	renderHeader: function() {
+	state: DemoState = {
+		alert: null,
+		textareaValue: '<SweetAlert \n\t success \n\t title="Woot!" \n\t onConfirm={() => hideAlert()} \n> \n \tI did it! \n </SweetAlert>'
+	};
+
+	renderHeader = () => {
 		return (
 			<div className="jumbotron">
 				<h1>SweetAlert for React/Bootstrap</h1>
@@ -51,15 +59,15 @@ var DemoHome = React.createClass({
 				</p>
 				<p>
 					<a className="btn btn-outline btn-lg" href="https://github.com/djorg83/react-bootstrap-sweetalert">
-						<span className="fa fa-github"></span> View on GitHub
+						<span className="fa fa-github" /> View on GitHub
 					</a>
 				</p>
-				<iframe src="http://ghbtns.com/github-btn.html?user=djorg83&amp;repo=react-bootstrap-sweetalert&amp;type=watch&amp;count=true" className="social-share"></iframe>
+				<iframe src="http://ghbtns.com/github-btn.html?user=djorg83&amp;repo=react-bootstrap-sweetalert&amp;type=watch&amp;count=true" className="social-share" />
 			</div>
 		);
-	},
+	};
 
-	buttonExample: function(type) {
+	buttonExample = (type: SweetAlertType) => {
 		switch (type) {
 			case 'custom':
 				this.setState({
@@ -90,7 +98,7 @@ var DemoHome = React.createClass({
 							cancelBtnBsStyle="default"
 							title="An input!"
 							placeholder="Write something"
-							onConfirm={(response) => this.onReceiveInput(response)}
+							onConfirm={(response: string) => this.onReceiveInput(response)}
 							onCancel={this.hideAlert}
 						>
 							Write something interesting:
@@ -100,7 +108,7 @@ var DemoHome = React.createClass({
 				break;
 			default:
 				this.setState({
-				alert: (
+					alert: (
 						<SweetAlert
 							showCancel
 							confirmBtnText="Continue"
@@ -116,27 +124,27 @@ var DemoHome = React.createClass({
 				});
 				break;
 		}
-	},
+	};
 
-	hideAlert: function() {
+	hideAlert = () => {
 		this.setState({
 			alert: null
 		});
-	},
+	};
 
-	onConfirm: function() {
+	onConfirm = () => {
 		this.setState({
 			alert: null
 		});
-	},
+	};
 
-	onCancel: function() {
+	onCancel = () => {
 		this.setState({
 			alert: null
 		});
-	},
+	};
 
-	deleteFile: function() {
+	deleteFile = () => {
 		this.setState({
 			alert: (
 				<SweetAlert success title="Deleted!" onConfirm={this.hideAlert}>
@@ -144,9 +152,9 @@ var DemoHome = React.createClass({
 				</SweetAlert>
 			)
 		});
-	},
+	};
 
-	cancelDelete: function() {
+	cancelDelete = () => {
 		this.setState({
 			alert: (
 				<SweetAlert danger title="Cancelled" onConfirm={this.hideAlert}>
@@ -154,9 +162,9 @@ var DemoHome = React.createClass({
 				</SweetAlert>
 			)
 		});
-	},
+	};
 
-	onReceiveInput: function(value) {
+	onReceiveInput = (value: string) => {
 		this.setState({
 			alert: (
 				<SweetAlert success title="Nice!" onConfirm={this.hideAlert}>
@@ -164,9 +172,9 @@ var DemoHome = React.createClass({
 				</SweetAlert>
 			)
 		});
-	},
+	};
 
-	runExample: function(i) {
+	runExample = (i: number) => {
 		switch (i) {
 			case 0:
 				this.setState({
@@ -252,7 +260,7 @@ var DemoHome = React.createClass({
 							showCancel
 							cancelBtnBsStyle="default"
 							title="An input!"
-							placeHolder="Write something"
+							placeholder="Write something"
 							onConfirm={this.onReceiveInput}
 							onCancel={this.hideAlert}
 						>
@@ -294,10 +302,10 @@ var DemoHome = React.createClass({
 				});
 				break;
 		}
-	},
+	};
 
-	renderCodeSnippet: function(i) {
-		var indent = {marginLeft:30};
+	renderCodeSnippet = (i: number) => {
+		const indent = {marginLeft:30};
 		switch (i) {
 			case 0:
 				return (
@@ -424,10 +432,12 @@ var DemoHome = React.createClass({
 						&lt;/SweetAlert&gt;
 					</pre>
 				);
+			default:
+				return (<div>Whoops! This is embarrassing.</div>);
 		}
-	},
+	};
 
-	renderExample: function(example, i) {
+	renderExample = (example: { title: string }, i: number) => {
 		return (
 			<div key={'example-' + i}>
 				<h4>{example.title}</h4>
@@ -447,20 +457,31 @@ var DemoHome = React.createClass({
 				</Row>
 			</div>
 		);
-	},
+	};
 
-	runInputExample: function() {
+	private jsxInputElement: HTMLTextAreaElement = null;
+
+	setJsxInputElement = (element: HTMLTextAreaElement) => {
+		this.jsxInputElement = element;
+	};
+
+	runInputExample = () => {
 
 		try {
-			var input = this.refs.jsxInput.value;
+			const input = this.jsxInputElement.value;
 			console.log(input);
-			var code = reactTools.transform(input);
+
+			const code = reactTools.transform(input);
+			console.log(code);
+
+			hideAlert = () => this.hideAlert();
+
 			this.setState({
-				alert: eval(code)
+				alert: eval(code),
 			});
 		} catch (e) {
 			console.log(e);
-			var hideAlert = this.hideAlert;
+			const hideAlert = this.hideAlert;
 			this.setState({
 				alert: (
 					<SweetAlert
@@ -474,9 +495,9 @@ var DemoHome = React.createClass({
 			});
 		}
 
-	},
+	};
 
-	render: function() {
+	render() {
 		return (
 			<div>
 				{this.renderHeader()}
@@ -490,8 +511,8 @@ var DemoHome = React.createClass({
 					<hr
 						style={{
 							marginTop: 50,
-						    marginBottom: 50,
-						    borderTopColor: '#BBBBBB'
+							marginBottom: 50,
+							borderTopColor: '#BBBBBB'
 						}}
 					/>
 
@@ -512,8 +533,8 @@ var DemoHome = React.createClass({
 							</Col>
 							<Col sm={10}>
 								<textarea
-									spellCheck="false"
-									ref="jsxInput"
+									spellCheck={false}
+									ref={this.setJsxInputElement}
 									defaultValue={this.state.textareaValue}
 									style={{
 										height: 300,
@@ -533,7 +554,7 @@ var DemoHome = React.createClass({
 	    								whiteSpace: 'pre',
 	    								resize: 'none'
 									}}
-								></textarea>
+								/>
 							</Col>
 						</Row>
 					</div>
@@ -603,7 +624,7 @@ var DemoHome = React.createClass({
 
 			    <footer>
 			      <ul className="links">
-			        <li><a href="http://github.com/djorg83"><i className="fa fa-github"></i> GitHub</a></li>
+			        <li><a href="http://github.com/djorg83"><i className="fa fa-github" /> GitHub</a></li>
 			      </ul>
 			    </footer>
 
@@ -611,6 +632,4 @@ var DemoHome = React.createClass({
 			</div>
 		);
 	}
-});
-
-module.exports = DemoHome;
+}

@@ -1,21 +1,38 @@
 import React  from "react";
-import * as styles from "../styles/SweetAlertStyles";
+import { overlay as overlayStyle } from "../styles/SweetAlertStyles";
 
-export default class Overlay extends React.Component {
+export default class Overlay extends React.Component<{
+  show: boolean;
+  onClick: Function;
+  onKeyDown: Function;
+}> {
+
+  private overlayElement: HTMLDivElement = null;
+
   componentDidMount() {
-    if (this.refs.overlay) {
-      this.refs.overlay.scrollTop = 0;
+    if (this.overlayElement) {
+      this.overlayElement.scrollTop = 0;
     }
   }
+
+  setOverlayElementRef = (element: HTMLDivElement) => {
+    this.overlayElement = element;
+  };
 
   render() {
     const { show, onClick, onKeyDown, children } = this.props
     return show ? (
-      <div ref="overlay" style={styles.overlay} onClick={onClick} tabIndex="0" onKeyDown={onKeyDown}>
+      <div
+        ref={this.setOverlayElementRef}
+        style={overlayStyle}
+        onClick={(e) => onClick(e)}
+        tabIndex={0}
+        onKeyDown={(e) => onKeyDown(e)}
+      >
         {children}
       </div>
     ) : (
-      <div tabIndex="0" onKeyDown={onKeyDown}>
+      <div tabIndex={0} onKeyDown={(e) => onKeyDown(e)}>
         {children}
       </div>
     )

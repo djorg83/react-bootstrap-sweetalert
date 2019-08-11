@@ -1,6 +1,5 @@
 // third-party
-import React, {ChangeEvent} from 'react';
-import {CSSProperties} from "react";
+import React, {CSSProperties} from 'react';
 import PropTypes from 'prop-types';
 
 // components
@@ -30,55 +29,57 @@ if (typeof window !== 'undefined') {
 }
 
 export interface SweetAlertOptionalPropsWithDefaults {
-  allowEscape: boolean;
-  closeOnClickOutside: boolean;
-  inputType: string;
-  customClass: string;
-  validationMsg: string;
-  validationRegex: RegExp;
-  hideOverlay: boolean;
-  show: boolean;
-  required: boolean;
-  disabled: boolean;
-  focusConfirmBtn: boolean;
-  showCloseButton: boolean;
-  beforeMount: Function;
-  afterMount: Function;
-  beforeUpdate: Function;
-  afterUpdate: Function;
-  beforeUnmount: Function;
-  style: CSSProperties;
-  closeBtnStyle: CSSProperties;
-  timeout: number;
+  allowEscape?: boolean;
+  closeOnClickOutside?: boolean;
+  inputType?: string;
+  customClass?: string;
+  validationMsg?: string;
+  validationRegex?: RegExp;
+  hideOverlay?: boolean;
+  show?: boolean;
+  required?: boolean;
+  disabled?: boolean;
+  focusConfirmBtn?: boolean;
+  showCloseButton?: boolean;
+  beforeMount?: Function;
+  afterMount?: Function;
+  beforeUpdate?: Function;
+  afterUpdate?: Function;
+  beforeUnmount?: Function;
+  style?: CSSProperties;
+  closeBtnStyle?: CSSProperties;
+  timeout?: number;
 }
 
+export type SweetAlertType = 'default'|'info'|'success'|'warning'|'danger'|'error'|'input'|'custom';
+
 export interface SweetAlertOptionalProps extends  SweetAlertOptionalPropsWithDefaults {
-  type: 'default'|'info'|'success'|'warning'|'danger'|'error'|'input'|'custom',
+  type?: SweetAlertType,
 
   // shortcut props
-  info: boolean;
-  success: boolean;
-  warning: boolean;
-  danger: boolean;
-  error: boolean;
-  input: boolean;
-  custom: boolean;
+  info?: boolean;
+  success?: boolean;
+  warning?: boolean;
+  danger?: boolean;
+  error?: boolean;
+  input?: boolean;
+  custom?: boolean;
 
-  onCancel: Function,
-  confirmBtnText: React.ReactNode|string,
-  confirmBtnBsStyle: string,
-  confirmBtnCssClass: string,
-  confirmBtnStyle: CSSProperties,
-  cancelBtnText: React.ReactNode|string,
-  cancelBtnBsStyle: string,
-  cancelBtnCssClass: string,
-  cancelBtnStyle: CSSProperties,
-  btnSize: string,
-  customIcon: React.ReactNode|string,
-  placeholder: string,
-  defaultValue: string,
-  showConfirm: boolean,
-  showCancel: boolean,
+  onCancel?: Function,
+  confirmBtnText?: React.ReactNode|string,
+  confirmBtnBsStyle?: string,
+  confirmBtnCssClass?: string,
+  confirmBtnStyle?: CSSProperties,
+  cancelBtnText?: React.ReactNode|string,
+  cancelBtnBsStyle?: string,
+  cancelBtnCssClass?: string,
+  cancelBtnStyle?: CSSProperties,
+  btnSize?: string,
+  customIcon?: React.ReactNode|string,
+  placeholder?: string,
+  defaultValue?: string,
+  showConfirm?: boolean,
+  showCancel?: boolean,
 }
 
 export interface SweetAlertProps extends SweetAlertOptionalProps {
@@ -89,7 +90,7 @@ export interface SweetAlertProps extends SweetAlertOptionalProps {
 type SweetAlertPropsTypes = { [key in keyof SweetAlertProps]: any };
 
 export interface SweetAlertState {
-  type?: 'default'|'info'|'success'|'warning'|'danger'|'error'|'input'|'custom';
+  type?: SweetAlertType;
   focusConfirmBtn?: boolean;
   inputValue?: string;
   showValidationMessage?: boolean;
@@ -363,20 +364,24 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
       <div>
 
         <style type="text/css" dangerouslySetInnerHTML={{ __html: `
-                    body.sweetalert-overflow-hidden {
-                        overflow: hidden;
-                    }
-                ` }} />
+            body.sweetalert-overflow-hidden {
+                overflow: hidden;
+            }
+        ` }} />
 
         <style type="text/css" scoped>
           {`<Inject>../css/animations.css</Inject>`}
         </style>
 
-        <Overlay show={!this.props.hideOverlay} onClick={this.onClickOutside} onKeyDown={this.onKeyDown}>
+        <Overlay
+          show={!this.props.hideOverlay}
+          onClick={this.onClickOutside}
+          onKeyDown={this.onKeyDown}
+        >
 
           <div
             style={Object.assign({}, style, this.props.style)}
-            tabIndex="0"
+            tabIndex={0}
             ref="container"
             onKeyDown={this.onKeyDown}
             onClick={this.onClickInside}

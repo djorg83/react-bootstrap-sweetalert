@@ -1,6 +1,6 @@
 node_modules/
-lib/demo/
-lib/components/
+demo/
+src/
 server.js
 webpack.config.js
 gulpfile.js

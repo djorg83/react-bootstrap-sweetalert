@@ -1,7 +1,0 @@
-{
-    "verbose": true,
-    "watch": [
-        "lib/components/*.js"
-    ],
-    "ext": "js"
-}

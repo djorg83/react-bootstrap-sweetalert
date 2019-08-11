@@ -14,6 +14,9 @@ SweetAlert for React/Bootstrap
 
 An awesome replacement for JavaScript's alert.
 
+### Update:
+    I'm wrapping up a major update now. You can expect 5.0 to publish soon.  See change log below for more details.
+
 Demo
 ----
 
@@ -47,9 +50,11 @@ onConfirm={(response) => this.onRecieveInput(response)}
 Changes in version 5.0
 -----
 
+* Converted source code to typescript, added index.d.ts.
 * Added `props.showCloseButton` for displaying an X close button in the top right.
 * Added `props.closeButtonStyle` for overriding the styles of the close button.
 * Added support for long content that requires scrolling, and moved ESC key listener to the overlay.
+* Removed strict match on bootstrap button variation.
 
 For more see `CHANGE_LOG.md`
 
