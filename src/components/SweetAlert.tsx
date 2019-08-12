@@ -20,12 +20,7 @@ import * as styles from '../styles/SweetAlertStyles';
 import * as Patterns from '../constants/patterns';
 
 let style = styles.sweetAlert;
-
-if (typeof window !== 'undefined') {
-  if (window && window.innerWidth && window.innerWidth < 767) {
-    style = Object.assign({}, style, styles.sweetAlertMobile);
-  }
-}
+let containerStyle = styles.sweetAlertContainer;
 
 export interface SweetAlertOptionalPropsWithDefaults {
   allowEscape?: boolean;
@@ -375,54 +370,58 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
           {`<Inject>../css/animations.css</Inject>`}
         </style>
 
-        <Overlay
-          show={!this.props.hideOverlay}
-          onClick={this.onClickOutside}
-          onKeyDown={this.onKeyDown}
-        >
+        <div style={Object.assign({}, containerStyle, this.props.style)}>
 
-          <div
-            style={Object.assign({}, style, this.props.style)}
-            tabIndex={0}
-            ref="container"
+          <Overlay
+            show={!this.props.hideOverlay}
+            onClick={this.onClickOutside}
             onKeyDown={this.onKeyDown}
-            onClick={this.onClickInside}
-            className={'sweet-alert ' + this.props.customClass}
           >
-            {(this.props.showCloseButton && this.props.onCancel)&& <span
-              className='btn'
-              style={Object.assign({}, styles.closeButton, this.props.style)}
-              onClick={() => this.props.onCancel()}
-            >x</span>}
 
-            {this.getIcon()}
+            <div
+              style={Object.assign({}, style, this.props.style)}
+              tabIndex={0}
+              ref="container"
+              onKeyDown={this.onKeyDown}
+              onClick={this.onClickInside}
+              className={'sweet-alert ' + this.props.customClass}
+            >
+              {(this.props.showCloseButton && this.props.onCancel)&& <span
+                className='btn'
+                style={Object.assign({}, styles.closeButton, this.props.style)}
+                onClick={() => this.props.onCancel()}
+              >x</span>}
 
-            <Title>{this.props.title}</Title>
+              {this.getIcon()}
 
-            <Content>{this.props.children}</Content>
+              <Title>{this.props.title}</Title>
 
-            {this.state.type === 'input' && (
-              <Input
+              <Content>{this.props.children}</Content>
+
+              {this.state.type === 'input' && (
+                <Input
+                  {...this.props}
+                  {...this.state}
+                  type={this.state.type}
+                  onInputKeyDown={this.onInputKeyDown}
+                  onChangeInput={this.onChangeInput}
+                />
+              )}
+
+              {this.state.showValidationMessage && <ValidationMessage {...this.props} />}
+
+              <Buttons
                 {...this.props}
-                {...this.state}
                 type={this.state.type}
-                onInputKeyDown={this.onInputKeyDown}
-                onChangeInput={this.onChangeInput}
+                onConfirm={this.onConfirm}
+                focusConfirmBtn={this.state.focusConfirmBtn}
               />
-            )}
 
-            {this.state.showValidationMessage && <ValidationMessage {...this.props} />}
+            </div>
 
-            <Buttons
-              {...this.props}
-              type={this.state.type}
-              onConfirm={this.onConfirm}
-              focusConfirmBtn={this.state.focusConfirmBtn}
-            />
+          </Overlay>
 
-          </div>
-
-        </Overlay>
+        </div>
 
       </div>
     );

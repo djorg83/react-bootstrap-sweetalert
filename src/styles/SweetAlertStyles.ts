@@ -11,30 +11,33 @@ export const overlay: CSSProperties = {
   zIndex: 5000
 };
 
+export const sweetAlertContainer: CSSProperties = {
+  display: "flex",
+  position: "fixed",
+  top: 0,
+  right: 0,
+  left: 0,
+  bottom: 0,
+  flexDirection: "row",
+  alignItems: "center",
+  justifyContent: "center",
+  padding: ".625em",
+  overflowX: "hidden",
+  zIndex: 5500
+};
+
 export const sweetAlert: CSSProperties = {
   backgroundColor: "#fff",
   outline: "none",
-  width: 478,
-  padding: 17,
-  borderRadius: 5,
+  width: "32em",
+  padding: ".25rem",
+  borderRadius: ".3125em",
   textAlign: "center",
-  position: "absolute",
-  left: "50%",
-  top: "50%",
-  marginLeft: -256,
-  marginTop: -200,
-  marginBottom: 200,
-  overflow: "hidden",
-  zIndex: 5500,
-  animation: "showSweetAlert 0.3s"
-};
-
-export const sweetAlertMobile: CSSProperties = {
-  width: "auto",
-  marginLeft: 0,
-  marginRight: 0,
-  left: 15,
-  right: 15
+  position: "relative",
+  animation: "showSweetAlert 0.3s",
+  flexDirection: "column",
+  justifyContent: "center",
+  maxWidth: "100%"
 };
 
 export const icon: CSSProperties = {
