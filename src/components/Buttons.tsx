@@ -1,6 +1,7 @@
 import React from 'react';
 import * as styles from '../styles/SweetAlertStyles';
 import {SweetAlertProps} from "./SweetAlert";
+import {actions as actionsStyle } from "../styles/SweetAlertStyles";
 
 export default class Buttons extends React.Component<SweetAlertProps> {
 
@@ -120,7 +121,7 @@ export default class Buttons extends React.Component<SweetAlertProps> {
     );
 
     return (
-      <p style={{marginTop: 20}}>
+      <p style={actionsStyle}>
 
         {this.props.showCancel && (
           <span>

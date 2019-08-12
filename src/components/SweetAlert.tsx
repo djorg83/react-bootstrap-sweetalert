@@ -20,7 +20,6 @@ import * as styles from '../styles/SweetAlertStyles';
 import * as Patterns from '../constants/patterns';
 
 let style = styles.sweetAlert;
-let containerStyle = styles.sweetAlertContainer;
 
 export interface SweetAlertOptionalPropsWithDefaults {
   allowEscape?: boolean;
@@ -45,12 +44,13 @@ export interface SweetAlertOptionalPropsWithDefaults {
   timeout?: number;
 }
 
-export type SweetAlertType = 'default'|'info'|'success'|'warning'|'danger'|'error'|'input'|'custom';
+export type SweetAlertType = 'default'|'secondary'|'info'|'success'|'warning'|'danger'|'error'|'input'|'custom';
 
 export interface SweetAlertOptionalProps extends  SweetAlertOptionalPropsWithDefaults {
   type?: SweetAlertType,
 
   // shortcut props
+  secondary?: boolean;
   info?: boolean;
   success?: boolean;
   warning?: boolean;
@@ -251,6 +251,7 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
 
   getTypeFromProps = (props: SweetAlertProps) => {
     if (props.type) return props.type;
+    if (props.secondary) return 'secondary';
     if (props.info) return 'info';
     if (props.success) return 'success';
     if (props.warning) return 'warning';
@@ -370,58 +371,54 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
           {`<Inject>../css/animations.css</Inject>`}
         </style>
 
-        <div style={Object.assign({}, containerStyle, this.props.style)}>
+        <Overlay
+          show={!this.props.hideOverlay}
+          onClick={this.onClickOutside}
+          onKeyDown={this.onKeyDown}
+        >
 
-          <Overlay
-            show={!this.props.hideOverlay}
-            onClick={this.onClickOutside}
+          <div
+            style={Object.assign({}, style, this.props.style)}
+            tabIndex={0}
+            ref="container"
             onKeyDown={this.onKeyDown}
+            onClick={this.onClickInside}
+            className={'sweet-alert ' + this.props.customClass}
           >
+            {(this.props.showCloseButton && this.props.onCancel)&& <span
+              className='btn'
+              style={Object.assign({}, styles.closeButton, this.props.style)}
+              onClick={() => this.props.onCancel()}
+            >x</span>}
 
-            <div
-              style={Object.assign({}, style, this.props.style)}
-              tabIndex={0}
-              ref="container"
-              onKeyDown={this.onKeyDown}
-              onClick={this.onClickInside}
-              className={'sweet-alert ' + this.props.customClass}
-            >
-              {(this.props.showCloseButton && this.props.onCancel)&& <span
-                className='btn'
-                style={Object.assign({}, styles.closeButton, this.props.style)}
-                onClick={() => this.props.onCancel()}
-              >x</span>}
+            {this.getIcon()}
 
-              {this.getIcon()}
+            <Title>{this.props.title}</Title>
 
-              <Title>{this.props.title}</Title>
+            <Content>{this.props.children}</Content>
 
-              <Content>{this.props.children}</Content>
-
-              {this.state.type === 'input' && (
-                <Input
-                  {...this.props}
-                  {...this.state}
-                  type={this.state.type}
-                  onInputKeyDown={this.onInputKeyDown}
-                  onChangeInput={this.onChangeInput}
-                />
-              )}
-
-              {this.state.showValidationMessage && <ValidationMessage {...this.props} />}
-
-              <Buttons
+            {this.state.type === 'input' && (
+              <Input
                 {...this.props}
+                {...this.state}
                 type={this.state.type}
-                onConfirm={this.onConfirm}
-                focusConfirmBtn={this.state.focusConfirmBtn}
+                onInputKeyDown={this.onInputKeyDown}
+                onChangeInput={this.onChangeInput}
               />
+            )}
 
-            </div>
+            {this.state.showValidationMessage && <ValidationMessage {...this.props} />}
 
-          </Overlay>
+            <Buttons
+              {...this.props}
+              type={this.state.type}
+              onConfirm={this.onConfirm}
+              focusConfirmBtn={this.state.focusConfirmBtn}
+            />
 
-        </div>
+          </div>
+
+        </Overlay>
 
       </div>
     );
