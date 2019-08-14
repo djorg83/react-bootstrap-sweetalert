@@ -2,7 +2,6 @@ import {CSSProperties} from "react";
 
 export const overlay: CSSProperties = {
   backgroundColor: "rgba(0, 0, 0, 0.4)",
-  overflow: "scroll",
   position: "fixed",
   left: 0,
   right: 0,
@@ -11,30 +10,71 @@ export const overlay: CSSProperties = {
   zIndex: 5000
 };
 
-export const sweetAlert: CSSProperties = {
-  backgroundColor: "#fff",
-  outline: "none",
-  width: 478,
-  padding: 17,
-  borderRadius: 5,
-  textAlign: "center",
-  position: "absolute",
-  left: "50%",
-  top: "50%",
-  marginLeft: -256,
-  marginTop: -200,
-  marginBottom: 200,
-  overflow: "hidden",
-  zIndex: 5500,
-  animation: "showSweetAlert 0.3s"
+export const sweetAlertContainer: CSSProperties = {
+  display: "flex",
+  position: "fixed",
+  top: 0,
+  right: 0,
+  left: 0,
+  bottom: 0,
+  flexDirection: "row",
+  alignItems: "center",
+  justifyContent: "center",
+  padding: ".625em",
+  overflowX: "hidden",
+  overflowY: "auto",
+  zIndex: 5400
 };
 
-export const sweetAlertMobile: CSSProperties = {
-  width: "auto",
-  marginLeft: 0,
-  marginRight: 0,
-  left: 15,
-  right: 15
+export const sweetAlert: CSSProperties = {
+  display: "flex",
+  backgroundColor: "#fff",
+  outline: "none",
+  width: "32em",
+  padding: "1.25rem",
+  margin: "auto",
+  borderRadius: ".3125em",
+  textAlign: "center",
+  position: "relative",
+  animation: "showSweetAlert 0.3s",
+  flexDirection: "column",
+  justifyContent: "center",
+  maxWidth: "100%",
+  zIndex: 5600
+};
+
+export const title: CSSProperties = {
+  position: "relative",
+  maxWidth: "100%",
+  margin: "0 0 .4em",
+  padding: 0,
+  color: "#595959",
+  fontSize: "1.875em",
+  fontWeight: 600,
+  textAlign: "center",
+  textTransform: "none",
+  wordWrap: "break-word"
+};
+export const contentContainer: CSSProperties = {
+  zIndex: 1,
+  justifyContent: "center",
+  margin: 0,
+  padding: 0,
+  color: "#545454",
+  fontSize: "1.125em",
+  fontWeight: 300,
+  lineHeight: "normal",
+  textAlign: "center",
+  wordWrap: "break-word"
+};
+export const actions: CSSProperties = {
+  display: "flex",
+  zIndex: 1,
+  flexWrap: "wrap",
+  alignItems: "center",
+  justifyContent: "center",
+  width: "100%",
+  margin: "1.25em auto 0"
 };
 
 export const icon: CSSProperties = {

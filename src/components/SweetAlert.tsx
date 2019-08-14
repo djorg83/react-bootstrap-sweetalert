@@ -21,12 +21,6 @@ import * as Patterns from '../constants/patterns';
 
 let style = styles.sweetAlert;
 
-if (typeof window !== 'undefined') {
-  if (window && window.innerWidth && window.innerWidth < 767) {
-    style = Object.assign({}, style, styles.sweetAlertMobile);
-  }
-}
-
 export interface SweetAlertOptionalPropsWithDefaults {
   allowEscape?: boolean;
   closeOnClickOutside?: boolean;
@@ -50,12 +44,13 @@ export interface SweetAlertOptionalPropsWithDefaults {
   timeout?: number;
 }
 
-export type SweetAlertType = 'default'|'info'|'success'|'warning'|'danger'|'error'|'input'|'custom';
+export type SweetAlertType = 'default'|'secondary'|'info'|'success'|'warning'|'danger'|'error'|'input'|'custom';
 
 export interface SweetAlertOptionalProps extends  SweetAlertOptionalPropsWithDefaults {
   type?: SweetAlertType,
 
   // shortcut props
+  secondary?: boolean;
   info?: boolean;
   success?: boolean;
   warning?: boolean;
@@ -256,6 +251,7 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
 
   getTypeFromProps = (props: SweetAlertProps) => {
     if (props.type) return props.type;
+    if (props.secondary) return 'secondary';
     if (props.info) return 'info';
     if (props.success) return 'success';
     if (props.warning) return 'warning';
