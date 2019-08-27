@@ -1,4 +1,4 @@
-import {Example} from "./index";
+import {Example} from "./Example";
 
 const title: string = "A basic message";
 

@@ -2,7 +2,8 @@ import React from 'react';
 import SweetAlert, { SweetAlertType } from '../../components/SweetAlert';
 import reactTools from 'react-tools';
 import { Button, Row, Col, Alert } from 'react-bootstrap';
-import {examples, Example} from './examples';
+import {examples} from './examples';
+import {Example} from './examples/Example';
 
 // @ts-ignore
 window.React = React;

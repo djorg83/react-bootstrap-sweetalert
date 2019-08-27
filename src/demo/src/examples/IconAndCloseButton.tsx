@@ -1,4 +1,4 @@
-import {Example} from "./index";
+import {Example} from "./Example";
 
 const title: string = "A message with a custom icon and close button";
 
