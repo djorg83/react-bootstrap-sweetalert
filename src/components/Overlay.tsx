@@ -1,5 +1,5 @@
 import React  from "react";
-import { overlay as overlayStyle } from "../styles/SweetAlertStyles";
+import { overlay as overlayStyle, sweetAlertContainer as containerStyle } from "../styles/SweetAlertStyles";
 
 export default class Overlay extends React.Component<{
   show: boolean;
@@ -20,11 +20,11 @@ export default class Overlay extends React.Component<{
   };
 
   render() {
-    const { show, onClick, onKeyDown, children } = this.props
+    const { show, onClick, onKeyDown, children } = this.props;
     return show ? (
       <div
         ref={this.setOverlayElementRef}
-        style={overlayStyle}
+        style={{...overlayStyle, ...containerStyle}}
         onClick={(e) => onClick(e)}
         tabIndex={0}
         onKeyDown={(e) => onKeyDown(e)}
@@ -32,7 +32,7 @@ export default class Overlay extends React.Component<{
         {children}
       </div>
     ) : (
-      <div tabIndex={0} onKeyDown={(e) => onKeyDown(e)}>
+      <div style={containerStyle} tabIndex={0} onKeyDown={(e) => onKeyDown(e)}>
         {children}
       </div>
     )
