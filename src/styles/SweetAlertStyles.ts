@@ -28,6 +28,7 @@ export const sweetAlertContainer: CSSProperties = {
 
 export const sweetAlert: CSSProperties = {
   display: "flex",
+  overflow: "hidden",
   backgroundColor: "#fff",
   outline: "none",
   width: "32em",
