@@ -273,8 +273,8 @@ export const button: CSSProperties = {
 export const validationMessage: CSSProperties = {
   display: "block",
   backgroundColor: "#f1f1f1",
-  marginLeft: -17,
-  marginRight: -17,
+  marginLeft: "-1.25rem",
+  marginRight: "-1.25rem",
   marginTop: 20,
   overflow: "hidden",
   padding: 10,
