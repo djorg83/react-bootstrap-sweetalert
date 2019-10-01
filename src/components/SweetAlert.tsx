@@ -186,7 +186,8 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
     timer: null,
   };
 
-  componentWillMount() {
+  constructor(props: SweetAlertProps) {
+    super(props);
 
     if (this.props.beforeUpdate) {
       this.unsupportedProp('beforeUpdate', 'use props.afterUpdate');
