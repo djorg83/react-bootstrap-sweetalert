@@ -159,7 +159,7 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
     showCloseButton     : false,
     beforeMount         : () => {},
     afterMount          : () => {},
-    beforeUpdate        : () => {},
+    beforeUpdate        : null,
     afterUpdate         : () => {},
     beforeUnmount       : () => {},
     style               : {},
@@ -187,6 +187,11 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
   };
 
   componentWillMount() {
+
+    if (this.props.beforeUpdate) {
+      this.unsupportedProp('beforeUpdate', 'use props.afterUpdate');
+    }
+
     if (this.props.defaultValue != null) {
       this.setState({
         inputValue: this.props.defaultValue
@@ -213,11 +218,10 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
     }
   }
 
-  componentWillUpdate(nextProps: SweetAlertProps, nextState: SweetAlertProps) {
-    this.props.beforeUpdate(nextProps, nextState);
-  }
-
   componentDidUpdate(prevProps: SweetAlertProps, prevState: SweetAlertProps) {
+    if(this.props.beforeUpdate)
+      this.props.beforeUpdate(prevProps, prevState);
+
     this.props.afterUpdate(prevProps, prevState);
   }
 
