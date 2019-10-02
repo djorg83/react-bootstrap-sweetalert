@@ -202,7 +202,7 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
     }
 
     this.setState(
-        SweetAlert.setStateFromProps(this.props, this.state)
+        SweetAlert.getStateFromProps(this.props)
     );
 
     this.props.beforeMount();
@@ -218,9 +218,9 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
   }
 
   static getDerivedStateFromProps(nextProps: SweetAlertProps, nextState: SweetAlertState) {
-    if (nextState.type !== SweetAlert.getTypeFromProps(nextProps, nextState.type)) {
+    if (nextState.type !== SweetAlert.getTypeFromProps(nextProps)) {
       return {
-        ...SweetAlert.setStateFromProps(nextProps, nextState), // Set new type and focusConfirmButton
+        ...SweetAlert.getStateFromProps(nextProps), // Set new type and focusConfirmButton
         ...SweetAlert.handleTimeout(nextProps, nextState.timer) // Set new timer
       };
     } else if (nextState.prevTimeout !== nextProps.timeout) {
@@ -259,15 +259,15 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
     return null;
   }
 
-  static setStateFromProps = (props: SweetAlertProps, state: SweetAlertState) => {
-    const type = SweetAlert.getTypeFromProps(props, state.type);
+  static getStateFromProps = (props: SweetAlertProps) => {
+    const type = SweetAlert.getTypeFromProps(props);
     return {
       type: type,
       focusConfirmBtn: props.focusConfirmBtn && type !== 'input',
     }
   };
 
-  static getTypeFromProps = (props: SweetAlertProps, stateType: SweetAlertType) => {
+  static getTypeFromProps = (props: SweetAlertProps) => {
     if (props.type) return props.type;
     if (props.secondary) return 'secondary';
     if (props.info) return 'info';
@@ -276,7 +276,7 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
     if (props.danger || props.error) return 'danger';
     if (props.input) return 'input';
     if (props.custom) return 'custom';
-    return stateType;
+    return 'default';
   };
 
   unsupportedProp = (oldProp: string, message: string) => {
