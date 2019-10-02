@@ -42,6 +42,7 @@ export interface SweetAlertOptionalPropsWithDefaults {
   style?: CSSProperties;
   closeBtnStyle?: CSSProperties;
   timeout?: number;
+  reverseButtons?: boolean;
 }
 
 export type SweetAlertType = 'default'|'secondary'|'info'|'success'|'warning'|'danger'|'error'|'input'|'custom';
@@ -142,6 +143,7 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
     afterUpdate: PropTypes.func,
     beforeUnmount: PropTypes.func,
     timeout: PropTypes.number,
+    reverseButtons: PropTypes.bool,
   };
 
   static defaultProps: SweetAlertOptionalPropsWithDefaults = {
@@ -165,6 +167,7 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
     style               : {},
     closeBtnStyle       : {},
     timeout             : 0,
+    reverseButtons      : false,
   };
 
   static SuccessIcon = SuccessIcon;

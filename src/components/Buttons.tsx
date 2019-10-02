@@ -17,6 +17,7 @@ export default class Buttons extends React.Component<SweetAlertProps> {
     focusConfirmBtn: true,
     showConfirm: true,
     showCancel: false,
+    reverseButtons: false,
     btnSize: 'lg',
   };
 
@@ -99,56 +100,78 @@ export default class Buttons extends React.Component<SweetAlertProps> {
     return this.buttonStyles[bsStyle];
   };
 
+
+  confirmButtonRender() {
+    if(!this.props.showConfirm)
+      return false;
+
+    const confirmBtnBsStyle = this.props.confirmBtnBsStyle === 'error' ? 'danger' : this.props.confirmBtnBsStyle;
+    const confirmButtonStyle = Object.assign(
+        {},
+        styles.button,
+        this.getButtonStyle(confirmBtnBsStyle),
+        this.props.confirmBtnStyle || {}
+    );
+
+    return (
+        <span>
+            <button
+                ref={this.setConfirmButtonElementRef}
+                disabled={this.props.disabled}
+                style={confirmButtonStyle}
+                className={`btn btn-${this.props.btnSize} btn-${confirmBtnBsStyle} ${this.props.confirmBtnCssClass}`}
+                onClick={() => this.props.onConfirm()}
+                type="button"
+            >
+                {this.props.confirmBtnText}
+            </button>
+        </span>
+    );
+  }
+
+  cancelButtonRender() {
+    if(!this.props.showCancel)
+      return false;
+
+    const cancelBtnBsStyle = this.props.cancelBtnBsStyle === 'error' ? 'danger' : this.props.cancelBtnBsStyle;
+    const cancelButtonStyle = Object.assign(
+        {},
+        styles.button,
+        this.props.cancelBtnStyle || {}
+    );
+
+    return (
+        <span>
+            <button
+                style={cancelButtonStyle}
+                className={`btn btn-${this.props.btnSize} btn-${cancelBtnBsStyle} ${this.props.cancelBtnCssClass}`}
+                onClick={() => this.props.onCancel()}
+                type="button"
+            >
+                { this.props.cancelBtnText }
+            </button>
+        </span>
+    );
+  }
+
   render() {
     if (!this.props.showConfirm && !this.props.showCancel) {
       return false;
     }
 
-    const cancelBtnBsStyle = this.props.cancelBtnBsStyle === 'error' ? 'danger' : this.props.cancelBtnBsStyle;
-    const confirmBtnBsStyle = this.props.confirmBtnBsStyle === 'error' ? 'danger' : this.props.confirmBtnBsStyle;
-
-    const cancelButtonStyle = Object.assign(
-      {},
-      styles.button,
-      this.props.cancelBtnStyle || {}
-    );
-
-    const confirmButtonStyle = Object.assign(
-      {},
-      styles.button,
-      this.getButtonStyle(confirmBtnBsStyle),
-      this.props.confirmBtnStyle || {}
-    );
-
     return (
       <p style={actionsStyle}>
-
-        {this.props.showCancel && (
-          <span>
-            <button
-              style={cancelButtonStyle}
-              className={`btn btn-${this.props.btnSize} btn-${cancelBtnBsStyle} ${this.props.cancelBtnCssClass}`}
-              onClick={() => this.props.onCancel()}
-              type="button"
-            >
-              {this.props.cancelBtnText}
-            </button>
-          </span>
-        )}
-        {this.props.showConfirm && (
-          <span>
-            <button
-              ref={this.setConfirmButtonElementRef}
-              disabled={this.props.disabled}
-              style={confirmButtonStyle}
-              className={`btn btn-${this.props.btnSize} btn-${confirmBtnBsStyle} ${this.props.confirmBtnCssClass}`}
-              onClick={() => this.props.onConfirm()}
-              type="button"
-            >
-              {this.props.confirmBtnText}
-            </button>
-        </span>
-        )}
+            { !this.props.reverseButtons ? (
+              <React.Fragment>
+                {this.cancelButtonRender()}
+                {this.confirmButtonRender()}
+              </React.Fragment>
+            ) : (
+              <React.Fragment>
+                {this.confirmButtonRender()}
+                {this.cancelButtonRender()}
+              </React.Fragment>
+            ) }
       </p>
     );
   }
