@@ -9,6 +9,7 @@ import Password from "./Password";
 import Success from "./Success";
 import TitleWithText from "./TitleWithText";
 import WarningWithCallbacks from "./WarningWithCallbacks";
+import CustomButtons from "./CustomButtons";
 
 export const examples: Example[] = [
   Basic,
@@ -21,4 +22,5 @@ export const examples: Example[] = [
   Password,
   CustomStyle,
   LongMessage,
+  CustomButtons,
 ];
