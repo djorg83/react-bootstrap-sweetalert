@@ -189,7 +189,7 @@ Configuration
 | customIcon             | no           | string, node | undefined                  | Either a string url for an image to use as the icon, or JSX/ReactNode. |
 | placeholder            | no           | string       | undefined                  | If type is input, this is the placeholder for the input field. |
 | show                   | no           | bool         | true                       | If false, the alert will not be rendered. |
-| focusConfirmBtn        | no           | bool         | true                       | If true (and type != input) the comfirm button will receive focus automatically. |
+| focusConfirmBtn        | no           | bool         | true                       | If true (and type != input) the confirm button will receive focus automatically. |
 | required               | no           | bool         | true                       | If true, requires the input field to have a value. |
 | validationMsg          | no           | string       | 'Please enter a response!' | If type is input, this is the message to diplay when the user clicks confirm without entering a value. |
 | validationRegex        | no           | object       | `/^.+$/`                   | Used to validate input value. |
@@ -206,7 +206,6 @@ Configuration
 | disabled               | no           | bool         | false                      | If true, then the confirm button will be disabled. (NOTE: This does not effect the allowEscape prop behavior.)|
 | beforeMount            | no           | func         | noop                       | Hook which is invoked during componentWillMount. |
 | afterMount             | no           | func         | noop                       | Hook which is invoked during componentDidMount. |
-| beforeUpdate           | no           | func         | noop                       | Hook which is invoked during componentWillUpdate. |
 | afterUpdate            | no           | func         | noop                       | Hook which is invoked during componentDidUpdate. |
 | beforeUnmount          | no           | func         | noop                       | Hook which is invoked during componentWillUnmount. |
 | timeout                | no           | number       | 0                          | Call props.onConfirm to close the alert automatically after a certain number of milliseconds. |
