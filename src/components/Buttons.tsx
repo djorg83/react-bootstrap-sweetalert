@@ -161,6 +161,10 @@ export default class Buttons extends React.Component<SweetAlertProps> {
 
     return (
       <p style={actionsStyle}>
+        { this.props.customActions? (
+            this.props.customActions
+        ) : (
+          <React.Fragment>
             { !this.props.reverseButtons ? (
               <React.Fragment>
                 {this.cancelButtonRender()}
@@ -172,6 +176,8 @@ export default class Buttons extends React.Component<SweetAlertProps> {
                 {this.cancelButtonRender()}
               </React.Fragment>
             ) }
+          </React.Fragment>
+        ) }
       </p>
     );
   }

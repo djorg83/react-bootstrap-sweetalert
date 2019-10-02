@@ -75,6 +75,7 @@ export interface SweetAlertOptionalProps extends  SweetAlertOptionalPropsWithDef
   defaultValue?: string,
   showConfirm?: boolean,
   showCancel?: boolean,
+  customActions?: React.ReactNode|string,
 }
 
 export interface SweetAlertProps extends SweetAlertOptionalProps {
@@ -144,6 +145,7 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
     beforeUnmount: PropTypes.func,
     timeout: PropTypes.number,
     reverseButtons: PropTypes.bool,
+    customActions: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
   };
 
   static defaultProps: SweetAlertOptionalPropsWithDefaults = {
