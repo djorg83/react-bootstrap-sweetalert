@@ -15,6 +15,7 @@ export default class Buttons extends React.Component<SweetAlertProps> {
     cancelBtnCssClass: '',
     cancelBtnStyle: {},
     focusConfirmBtn: true,
+    focusCancelBtn: false,
     showConfirm: true,
     showCancel: false,
     reverseButtons: false,
@@ -54,6 +55,7 @@ export default class Buttons extends React.Component<SweetAlertProps> {
 
   private buttonStyles = {};
   private confirmButtonElement: HTMLButtonElement = null;
+  private cancelButtonElement: HTMLButtonElement = null;
 
   componentDidMount() {
     this.focusButton();
@@ -77,9 +79,18 @@ export default class Buttons extends React.Component<SweetAlertProps> {
   setConfirmButtonElementRef = (element: HTMLButtonElement) => {
     this.confirmButtonElement = element;
   };
+  setCancelButtonElementRef = (element: HTMLButtonElement) => {
+    this.cancelButtonElement = element;
+  };
 
   focusButton() {
-    if (this.props.focusConfirmBtn && this.confirmButtonElement) {
+    if(this.props.focusCancelBtn && this.cancelButtonElement) {
+      try {
+        this.cancelButtonElement.focus();
+      } catch (e) {
+        // whoops
+      }
+    } else if (this.props.focusConfirmBtn && this.confirmButtonElement) {
       try {
         this.confirmButtonElement.focus();
       } catch (e) {
@@ -143,6 +154,7 @@ export default class Buttons extends React.Component<SweetAlertProps> {
     return (
         <span>
             <button
+                ref={this.setCancelButtonElementRef}
                 style={cancelButtonStyle}
                 className={`btn btn-${this.props.btnSize} btn-${cancelBtnBsStyle} ${this.props.cancelBtnCssClass}`}
                 onClick={() => this.props.onCancel()}

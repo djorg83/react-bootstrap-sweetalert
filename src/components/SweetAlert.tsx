@@ -33,6 +33,7 @@ export interface SweetAlertOptionalPropsWithDefaults {
   required?: boolean;
   disabled?: boolean;
   focusConfirmBtn?: boolean;
+  focusCancelBtn?: boolean;
   showCloseButton?: boolean;
   beforeMount?: Function;
   afterMount?: Function;
@@ -88,6 +89,7 @@ type SweetAlertPropsTypes = { [key in keyof SweetAlertProps]: any };
 export interface SweetAlertState {
   type?: SweetAlertType;
   focusConfirmBtn?: boolean;
+  focusCancelBtn?: boolean;
   inputValue?: string;
   showValidationMessage?: boolean;
   timer?: any;
@@ -138,6 +140,7 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
     hideOverlay: PropTypes.bool,
     disabled: PropTypes.bool,
     focusConfirmBtn: PropTypes.bool,
+    focusCancelBtn: PropTypes.bool,
     beforeMount: PropTypes.func,
     afterMount: PropTypes.func,
     beforeUpdate: PropTypes.func,
@@ -160,6 +163,7 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
     required            : true,
     disabled            : false,
     focusConfirmBtn     : true,
+    focusCancelBtn      : false,
     showCloseButton     : false,
     beforeMount         : () => {},
     afterMount          : () => {},
@@ -186,6 +190,7 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
   state: SweetAlertState = {
     type: 'default',
     focusConfirmBtn: true,
+    focusCancelBtn: false,
     inputValue: '',
     showValidationMessage: false,
     timer: null,
@@ -251,6 +256,7 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
     this.setState({
       type,
       focusConfirmBtn: props.focusConfirmBtn && type !== 'input',
+      focusCancelBtn: props.focusCancelBtn && type !== 'input',
     });
   };
 
@@ -419,6 +425,7 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
               type={this.state.type}
               onConfirm={this.onConfirm}
               focusConfirmBtn={this.state.focusConfirmBtn}
+              focusCancelBtn={this.state.focusCancelBtn}
             />
 
           </div>
