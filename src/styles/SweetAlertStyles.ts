@@ -36,7 +36,6 @@ export const sweetAlert: CSSProperties = {
   borderRadius: ".3125em",
   textAlign: "center",
   position: "relative",
-  animation: "showSweetAlert 0.3s",
   flexDirection: "column",
   justifyContent: "center",
   maxWidth: "100%",

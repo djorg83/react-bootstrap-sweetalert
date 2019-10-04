@@ -40,8 +40,8 @@
     -webkit-transform: scale(1);
   }
   100% {
-    transform: scale(0.5);
-    -webkit-transform: scale(0.5);
+    transform: scale(0.4);
+    -webkit-transform: scale(0.4);
   }
 }
 @keyframes hideSweetAlert {
@@ -50,8 +50,8 @@
     -webkit-transform: scale(1);
   }
   100% {
-    transform: scale(0.5);
-    -webkit-transform: scale(0.5);
+    transform: scale(0.4);
+    -webkit-transform: scale(0.4);
   }
 }
 @-webkit-keyframes animateSuccessTip {

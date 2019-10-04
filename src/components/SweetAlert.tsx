@@ -21,6 +21,11 @@ import * as Patterns from '../constants/patterns';
 
 let style = styles.sweetAlert;
 
+export interface SweetAlertAnimationProps {
+    name: string;
+    duration?: number;
+}
+
 export interface SweetAlertOptionalPropsWithDefaults {
   allowEscape?: boolean;
   closeOnClickOutside?: boolean;
@@ -42,6 +47,8 @@ export interface SweetAlertOptionalPropsWithDefaults {
   style?: CSSProperties;
   closeBtnStyle?: CSSProperties;
   timeout?: number;
+  openAnim?: boolean|SweetAlertAnimationProps;
+  closeAnim?: boolean|SweetAlertAnimationProps;
 }
 
 export type SweetAlertType = 'default'|'secondary'|'info'|'success'|'warning'|'danger'|'error'|'input'|'custom';
@@ -84,11 +91,13 @@ export interface SweetAlertProps extends SweetAlertOptionalProps {
 type SweetAlertPropsTypes = { [key in keyof SweetAlertProps]: any };
 
 export interface SweetAlertState {
+  show: boolean;
   type?: SweetAlertType;
   focusConfirmBtn?: boolean;
   inputValue?: string;
   showValidationMessage?: boolean;
   timer?: any;
+  animation?: string;
 }
 
 export default class SweetAlert extends React.Component<SweetAlertProps, SweetAlertState> {
@@ -142,6 +151,8 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
     afterUpdate: PropTypes.func,
     beforeUnmount: PropTypes.func,
     timeout: PropTypes.number,
+    openAnim: PropTypes.any,
+    closeAnim: PropTypes.any,
   };
 
   static defaultProps: SweetAlertOptionalPropsWithDefaults = {
@@ -165,6 +176,8 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
     style               : {},
     closeBtnStyle       : {},
     timeout             : 0,
+    openAnim            : {name: "showSweetAlert", duration: 300},
+    closeAnim           : false,
   };
 
   static SuccessIcon = SuccessIcon;
@@ -179,11 +192,13 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
   static Content = Content;
 
   state: SweetAlertState = {
+    show: false,
     type: 'default',
     focusConfirmBtn: true,
     inputValue: '',
     showValidationMessage: false,
     timer: null,
+    animation: "",
   };
 
   componentWillMount() {
@@ -193,6 +208,7 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
       });
     }
 
+    this.setState(this.handleAnimState());
     this.setStateFromProps();
 
     this.props.beforeMount();
@@ -205,6 +221,8 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
   }
 
   componentWillReceiveProps(nextProps: SweetAlertProps) {
+    this.setState(this.handleAnimState(nextProps));
+
     if (this.getTypeFromProps(this.props) !== this.getTypeFromProps(nextProps)) {
       this.setStateFromProps(nextProps);
       this.handleTimeout(nextProps);
@@ -213,11 +231,11 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
     }
   }
 
-  componentWillUpdate(nextProps: SweetAlertProps, nextState: SweetAlertProps) {
+  componentWillUpdate(nextProps: SweetAlertProps, nextState: SweetAlertState) {
     this.props.beforeUpdate(nextProps, nextState);
   }
 
-  componentDidUpdate(prevProps: SweetAlertProps, prevState: SweetAlertProps) {
+  componentDidUpdate(prevProps: SweetAlertProps, prevState: SweetAlertState) {
     this.props.afterUpdate(prevProps, prevState);
   }
 
@@ -239,6 +257,36 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
       this.setState({ timer });
     }
   }
+
+  handleAnimState = (props?: SweetAlertProps) => {
+      props = props || this.props;
+
+      let animation = "";
+      let show = this.state.show;
+      if(props.show != this.state.show) {
+          if(props.show) {
+              if(props.openAnim && typeof props.openAnim !== "boolean")
+                  animation = props.openAnim.name + " " + props.openAnim.duration + "ms";
+              show = true;
+          } else {
+              if(props.closeAnim && typeof props.closeAnim !== "boolean") {
+                  animation = props.closeAnim.name + " " + props.closeAnim.duration + "ms";
+                  setTimeout(() => {
+                      this.setState({
+                          show: false
+                      });
+                  }, props.closeAnim.duration);
+              } else {
+                  show = false;
+              }
+          }
+      }
+
+      return {
+          show,
+          animation
+      }
+  };
 
   setStateFromProps = (props?: SweetAlertProps) => {
     props = props || this.props;
@@ -352,7 +400,7 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
   };
 
   render() {
-    if (!this.props.show) {
+    if (!this.state.show) {
       return false;
     }
     return (
@@ -378,7 +426,7 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
         >
 
           <div
-            style={Object.assign({}, style, this.props.style)}
+            style={Object.assign({}, style, this.props.style, {animation: this.state.animation})}
             tabIndex={0}
             ref="container"
             onKeyDown={this.onKeyDown}
