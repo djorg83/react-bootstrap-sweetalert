@@ -210,6 +210,8 @@ Configuration
 | afterUpdate            | no           | func         | noop                       | Hook which is invoked during componentDidUpdate. |
 | beforeUnmount          | no           | func         | noop                       | Hook which is invoked during componentWillUnmount. |
 | timeout                | no           | number       | 0                          | Call props.onConfirm to close the alert automatically after a certain number of milliseconds. |
+| openAnim               | no           | bool, object | {name: "showSweetAlert", duration: 300} | Set a custom show animation or false to have no animation. To specify a custom animation you set the name to your css animation and duration to the animation duration in milliseconds. |
+| closeAnim              | no           | bool, object | false                       | Set a custom hide animation or false to have no animation. To specify a custom animation you set the name to your css animation and duration to the animation duration in milliseconds. |
 
 Related projects
 ----------------
