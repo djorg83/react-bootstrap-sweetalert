@@ -307,9 +307,10 @@ export default class Demo extends React.Component<{}, DemoState> {
 							</Col>
 							<Col sm={10}>
 								<pre>{"<SweetAlert show={this.state.showAnimExample} \n" +
-								"  title=\"Here's a message!\"\n" +
+								"  title=\"Here\'s a message!\"\n" +
 								"  closeAnim={{name: \"hideSweetAlert\", duration: 100}}\n" +
 								"  onConfirm={() => this.hideAlert()}\n" +
+								"  onCancel={() => this.hideAlert()}\n" +
 								">\n" +
 								"  Just close the SweetAlert to see the hide animation\n" +
 								"<SweetAlert/>"}</pre>
@@ -329,6 +330,7 @@ export default class Demo extends React.Component<{}, DemoState> {
 							title="Here's a message!"
 							closeAnim={{name: "hideSweetAlert", duration: 100}}
 							onConfirm={() => this.hideAlert()}
+							onCancel={() => this.hideAlert()}
 				>
 					Just close the SweetAlert to see the hide animation
 				</SweetAlert>
