@@ -89,6 +89,7 @@ export interface SweetAlertState {
   inputValue?: string;
   showValidationMessage?: boolean;
   timer?: any;
+  prevTimeout?: number;
 }
 
 export default class SweetAlert extends React.Component<SweetAlertProps, SweetAlertState> {
@@ -159,7 +160,7 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
     showCloseButton     : false,
     beforeMount         : () => {},
     afterMount          : () => {},
-    beforeUpdate        : () => {},
+    beforeUpdate        : null,
     afterUpdate         : () => {},
     beforeUnmount       : () => {},
     style               : {},
@@ -184,16 +185,25 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
     inputValue: '',
     showValidationMessage: false,
     timer: null,
+    prevTimeout: 0
   };
 
-  componentWillMount() {
+  constructor(props: SweetAlertProps) {
+    super(props);
+
+    if (this.props.beforeUpdate) {
+      this.unsupportedProp('beforeUpdate', 'use props.afterUpdate');
+    }
+
     if (this.props.defaultValue != null) {
       this.setState({
         inputValue: this.props.defaultValue
       });
     }
 
-    this.setStateFromProps();
+    this.setState(
+        SweetAlert.getStateFromProps(this.props)
+    );
 
     this.props.beforeMount();
   }
@@ -201,23 +211,32 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
   componentDidMount() {
     document.body.classList.add('sweetalert-overflow-hidden');
     this.props.afterMount();
-    this.handleTimeout();
+
+    this.setState(
+        SweetAlert.handleTimeout(this.props, this.state.timer)
+    );
   }
 
-  componentWillReceiveProps(nextProps: SweetAlertProps) {
-    if (this.getTypeFromProps(this.props) !== this.getTypeFromProps(nextProps)) {
-      this.setStateFromProps(nextProps);
-      this.handleTimeout(nextProps);
-    } else if (this.props.timeout !== nextProps.timeout) {
-      this.handleTimeout(nextProps);
+  static getDerivedStateFromProps(nextProps: SweetAlertProps, nextState: SweetAlertState) {
+    if (nextState.type !== SweetAlert.getTypeFromProps(nextProps)) {
+      return {
+        ...SweetAlert.getStateFromProps(nextProps), // Set new type and focusConfirmButton
+        ...SweetAlert.handleTimeout(nextProps, nextState.timer) // Set new timer
+      };
+    } else if (nextState.prevTimeout !== nextProps.timeout) {
+      return {
+        ...SweetAlert.handleTimeout(nextProps, nextState.timer) // Set new timer
+      };
     }
-  }
 
-  componentWillUpdate(nextProps: SweetAlertProps, nextState: SweetAlertProps) {
-    this.props.beforeUpdate(nextProps, nextState);
+    // No state change
+    return null;
   }
 
   componentDidUpdate(prevProps: SweetAlertProps, prevState: SweetAlertProps) {
+    if(this.props.beforeUpdate)
+      this.props.beforeUpdate(prevProps, prevState);
+
     this.props.afterUpdate(prevProps, prevState);
   }
 
@@ -226,30 +245,29 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
     this.props.beforeUnmount();
   }
 
-  handleTimeout(props?: SweetAlertProps) {
-    props = props || this.props;
-
-    if (this.state.timer) {
-      clearTimeout(this.state.timer);
+  static handleTimeout(props: SweetAlertProps, currentTimer: any) {
+    if (currentTimer) {
+      clearTimeout(currentTimer);
     }
 
     if (props.timeout && props.timeout > 0) {
       const timer: any = setTimeout(() => props.onConfirm(), props.timeout);
 
-      this.setState({ timer });
+      return { timer: timer };
     }
+
+    return null;
   }
 
-  setStateFromProps = (props?: SweetAlertProps) => {
-    props = props || this.props;
-    const type = this.getTypeFromProps(props);
-    this.setState({
-      type,
+  static getStateFromProps = (props: SweetAlertProps) => {
+    const type = SweetAlert.getTypeFromProps(props);
+    return {
+      type: type,
       focusConfirmBtn: props.focusConfirmBtn && type !== 'input',
-    });
+    }
   };
 
-  getTypeFromProps = (props: SweetAlertProps) => {
+  static getTypeFromProps = (props: SweetAlertProps) => {
     if (props.type) return props.type;
     if (props.secondary) return 'secondary';
     if (props.info) return 'info';
@@ -258,7 +276,7 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
     if (props.danger || props.error) return 'danger';
     if (props.input) return 'input';
     if (props.custom) return 'custom';
-    return this.state.type;
+    return 'default';
   };
 
   unsupportedProp = (oldProp: string, message: string) => {
