@@ -1,6 +1,6 @@
-import {Example} from "./Example";
 import Basic from "./Basic";
 import CustomStyle from "./CustomStyle";
+import {Example} from "./Example";
 import HTML from "./HTML";
 import IconAndCloseButton from "./IconAndCloseButton";
 import Input from "./Input";
@@ -10,6 +10,7 @@ import Success from "./Success";
 import TitleWithText from "./TitleWithText";
 import WarningWithCallbacks from "./WarningWithCallbacks";
 import CustomButtons from "./CustomButtons";
+import Timer from "./Timer";
 
 export const examples: Example[] = [
   Basic,
@@ -23,4 +24,5 @@ export const examples: Example[] = [
   CustomStyle,
   LongMessage,
   CustomButtons,
+  Timer,
 ];

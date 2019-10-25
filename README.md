@@ -14,9 +14,6 @@ SweetAlert for React/Bootstrap
 
 An awesome replacement for JavaScript's alert.
 
-### Update:
-    I'm wrapping up a major update now. You can expect 5.0 to publish soon.  See change log below for more details.
-
 Demo
 ----
 
@@ -209,7 +206,6 @@ Configuration
 | disabled               | no           | bool         | false                      | If true, then the confirm button will be disabled. (NOTE: This does not effect the allowEscape prop behavior.)|
 | beforeMount            | no           | func         | noop                       | Hook which is invoked during componentWillMount. |
 | afterMount             | no           | func         | noop                       | Hook which is invoked during componentDidMount. |
-| beforeUpdate           | no           | func         | noop                       | Hook which is invoked during componentWillUpdate. |
 | afterUpdate            | no           | func         | noop                       | Hook which is invoked during componentDidUpdate. |
 | beforeUnmount          | no           | func         | noop                       | Hook which is invoked during componentWillUnmount. |
 | timeout                | no           | number       | 0                          | Call props.onConfirm to close the alert automatically after a certain number of milliseconds. |
