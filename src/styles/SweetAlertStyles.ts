@@ -28,6 +28,7 @@ export const sweetAlertContainer: CSSProperties = {
 
 export const sweetAlert: CSSProperties = {
   display: "flex",
+  overflow: "hidden",
   backgroundColor: "#fff",
   outline: "none",
   width: "32em",
@@ -271,8 +272,8 @@ export const button: CSSProperties = {
 export const validationMessage: CSSProperties = {
   display: "block",
   backgroundColor: "#f1f1f1",
-  marginLeft: -17,
-  marginRight: -17,
+  marginLeft: "-1.25rem",
+  marginRight: "-1.25rem",
   marginTop: 20,
   overflow: "hidden",
   padding: 10,
