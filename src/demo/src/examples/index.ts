@@ -1,6 +1,6 @@
-import {Example} from "./Example";
 import Basic from "./Basic";
 import CustomStyle from "./CustomStyle";
+import {Example} from "./Example";
 import HTML from "./HTML";
 import IconAndCloseButton from "./IconAndCloseButton";
 import Input from "./Input";

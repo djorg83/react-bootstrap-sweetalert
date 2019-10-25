@@ -14,9 +14,6 @@ SweetAlert for React/Bootstrap
 
 An awesome replacement for JavaScript's alert.
 
-### Update:
-    I'm wrapping up a major update now. You can expect 5.0 to publish soon.  See change log below for more details.
-
 Demo
 ----
 
