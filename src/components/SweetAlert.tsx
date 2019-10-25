@@ -33,6 +33,7 @@ export interface SweetAlertOptionalPropsWithDefaults {
   required?: boolean;
   disabled?: boolean;
   focusConfirmBtn?: boolean;
+  focusCancelBtn?: boolean;
   showCloseButton?: boolean;
   beforeMount?: Function;
   afterMount?: Function;
@@ -42,6 +43,7 @@ export interface SweetAlertOptionalPropsWithDefaults {
   style?: CSSProperties;
   closeBtnStyle?: CSSProperties;
   timeout?: number;
+  reverseButtons?: boolean;
 }
 
 export type SweetAlertType = 'default'|'secondary'|'info'|'success'|'warning'|'danger'|'error'|'input'|'custom';
@@ -74,6 +76,7 @@ export interface SweetAlertOptionalProps extends  SweetAlertOptionalPropsWithDef
   defaultValue?: string,
   showConfirm?: boolean,
   showCancel?: boolean,
+  customActions?: React.ReactNode|string,
 }
 
 export interface SweetAlertProps extends SweetAlertOptionalProps {
@@ -86,6 +89,7 @@ type SweetAlertPropsTypes = { [key in keyof SweetAlertProps]: any };
 export interface SweetAlertState {
   type?: SweetAlertType;
   focusConfirmBtn?: boolean;
+  focusCancelBtn?: boolean;
   inputValue?: string;
   showValidationMessage?: boolean;
   timer?: any;
@@ -137,12 +141,15 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
     hideOverlay: PropTypes.bool,
     disabled: PropTypes.bool,
     focusConfirmBtn: PropTypes.bool,
+    focusCancelBtn: PropTypes.bool,
     beforeMount: PropTypes.func,
     afterMount: PropTypes.func,
     beforeUpdate: PropTypes.func,
     afterUpdate: PropTypes.func,
     beforeUnmount: PropTypes.func,
     timeout: PropTypes.number,
+    reverseButtons: PropTypes.bool,
+    customActions: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
   };
 
   static defaultProps: SweetAlertOptionalPropsWithDefaults = {
@@ -157,6 +164,7 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
     required            : true,
     disabled            : false,
     focusConfirmBtn     : true,
+    focusCancelBtn      : false,
     showCloseButton     : false,
     beforeMount         : () => {},
     afterMount          : () => {},
@@ -166,6 +174,7 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
     style               : {},
     closeBtnStyle       : {},
     timeout             : 0,
+    reverseButtons      : false,
   };
 
   static SuccessIcon = SuccessIcon;
@@ -182,6 +191,7 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
   state: SweetAlertState = {
     type: 'default',
     focusConfirmBtn: true,
+    focusCancelBtn: false,
     inputValue: '',
     showValidationMessage: false,
     timer: null,
@@ -264,7 +274,8 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
     return {
       type: type,
       focusConfirmBtn: props.focusConfirmBtn && type !== 'input',
-    }
+      focusCancelBtn: props.focusCancelBtn && type !== 'input',
+    });
   };
 
   static getTypeFromProps = (props: SweetAlertProps) => {
@@ -432,6 +443,7 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
               type={this.state.type}
               onConfirm={this.onConfirm}
               focusConfirmBtn={this.state.focusConfirmBtn}
+              focusCancelBtn={this.state.focusCancelBtn}
             />
 
           </div>

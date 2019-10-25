@@ -12,6 +12,8 @@ const snippet: string = `
   title="Are you sure?"
   onConfirm={this.deleteFile}
   onCancel={this.onCancel}
+  reverseButtons
+  focusCancelBtn
 >
   You will not be able to recover this imaginary file!
 </SweetAlert>
