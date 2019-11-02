@@ -48,7 +48,7 @@ It is recommended that you keep an alert in your state, and remove it when the `
 You can have stackable alerts by keeping an array of alerts in your data store, and always providing the first alert in
 the array as the visible alert.  When an alert is closed, remove it from the store.
 
-See `examples/redux` for a working example of how to implement stackable alerts with a Redux store.
+See [`examples/redux`](https://github.com/djorg83/react-bootstrap-sweetalert/tree/master/examples/redux) for a working example of how to implement stackable alerts with a Redux store.
 
 ----
 
