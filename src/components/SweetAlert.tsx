@@ -83,7 +83,7 @@ export interface SweetAlertOptionalProps extends  SweetAlertOptionalPropsWithDef
   defaultValue?: string,
   showConfirm?: boolean,
   showCancel?: boolean,
-  customActions?: React.ReactNode|string,
+  customButtons?: React.ReactNode,
 }
 
 export interface SweetAlertProps extends SweetAlertOptionalProps {
@@ -138,7 +138,7 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
     placeholder: PropTypes.string,
     validationMsg: PropTypes.string,
     validationRegex: PropTypes.object,
-    defaultValue: PropTypes.string,
+    defaultValue: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     inputType: PropTypes.string,
     style: PropTypes.object,
     closeBtnStyle: PropTypes.object,
@@ -161,7 +161,7 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
     openAnim: PropTypes.any,
     closeAnim: PropTypes.any,
     reverseButtons: PropTypes.bool,
-    customActions: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
+    customButtons: PropTypes.node,
   };
 
   static defaultProps: SweetAlertOptionalPropsWithDefaults = {
@@ -328,7 +328,7 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
           animation
       }
   };
-      
+
   static getStateFromProps = (props: SweetAlertProps) => {
     const type = SweetAlert.getTypeFromProps(props);
     return {

@@ -1,5 +1,14 @@
 # Change Log
 
+v5.1
+-----
+* Fixed deprecation warning from componentWillMount, componentWillUpdate and componentWillReceiveProps
+* Fixed Sweetalert input validation message overflowing container.
+* Added `props.focusCancelBtn` that focuses on the cancel button by default.
+* Added `props.reverseButtons` that reverses the cancel and confirm button order.
+* Added `props.customActions` that overrides the buttons in the alert message. In here it would be possible to create more buttons or add some custom behaviour.
+* Added support for custom show and hide animations with `props.openAnim` and `props.closeAnim`.
+
 v5.0
 -----
 

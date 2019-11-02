@@ -9,24 +9,19 @@
 
 [![NPM](https://nodei.co/npm/react-bootstrap-sweetalert.png?downloads=true&stars=true)](https://nodei.co/npm/react-bootstrap-sweetalert/)
 
-SweetAlert for React/Bootstrap
-==========
+# SweetAlert for React/Bootstrap
 
 An awesome replacement for JavaScript's alert.
 
-Demo
-----
+## Demo & Examples
 
 [See the demo site here, with basic examples, and a sandbox for testing your own!](http://djorg83.github.io/react-bootstrap-sweetalert/)
 
-Usage
------
-
-You can install SweetAlert through npm:
+## Getting Started
 
 ```bash
 # with npm
-npm install --save react-bootstrap-sweetalert
+npm i react-bootstrap-sweetalert
 
 # with yarn
 yarn add react-bootstrap-sweetalert
@@ -34,9 +29,13 @@ yarn add react-bootstrap-sweetalert
 
 ```javascript
 const SweetAlert = require('react-bootstrap-sweetalert');
+
+// or 
+
+import SweetAlert from 'react-bootstrap-sweetalert';
 ```
 
-### Receiving the input value
+## Tip: Receiving an input value
 
 If you're using `input` type, the value of the input will be sent to the `onConfirm` callback as the first argument.
 
@@ -44,176 +43,243 @@ If you're using `input` type, the value of the input will be sent to the `onConf
 onConfirm={(response) => this.onRecieveInput(response)}
 ```
 
-Changes in version 5.0
------
+## Changes in version 5.1
 
-* Converted source code to typescript, added index.d.ts.
-* Added `props.showCloseButton` for displaying an X close button in the top right.
-* Added `props.closeButtonStyle` for overriding the styles of the close button.
-* Added support for long content that requires scrolling, and moved ESC key listener to the overlay.
-* Removed strict match on bootstrap button variation.
+* Fixed deprecation warning from componentWillMount, componentWillUpdate and componentWillReceiveProps
+* Fixed Sweetalert input validation message overflowing container.
+* Added `props.focusCancelBtn` that focuses on the cancel button by default.
+* Added `props.reverseButtons` that reverses the cancel and confirm button order.
+* Added `props.customButtons` that overrides the buttons in the alert.
+* Added support for custom show and hide animations with `props.openAnim` and `props.closeAnim`.
 
-For more see `CHANGE_LOG.md`
+For more see [CHANGE_LOG.md](https://github.com/djorg83/react-bootstrap-sweetalert/blob/master/CHANGE_LOG.md)
 
-Examples
---------
 
-The most basic message:
+## Required Props
 
-```javascript
-<SweetAlert title="Here's a message!" onConfirm={this.hideAlert} />
-```
+### `props.title`
+The text to display for the title. JSX/ReactNode allowed.
+- `PropTypes.oneOfType([PropTypes.node, PropTypes.string])`
+- Default: `undefined`
+----
+### `props.onConfirm`
+Invoked when user clicks confirm button. Also invoked if user hits ENTER key.
+- `PropTypes.func`
+- Default: `undefined`
 
-A title with text under:
+## Optional Props
 
-```javascript
-<SweetAlert title="Here's a message!" onConfirm={this.hideAlert}>
-  It's pretty, isn't it?
-</SweetAlert>
-```
+### `props.onCancel`
+Invoked when user clicks cancel button. Also invoked if allowEscape is true and user hits ESCAPE key.
+- `PropTypes.func`
+- Default: `undefined`
+----
+### `props.type`
+The type of alert to display. 
+- `PropTypes.string`
+- Default: `'default'`
+- Allowed values: `'default'`, `'info'`, `'success'`, `'warning'`, `'danger'`, `'error'`, `'input'`, `'custom'`
+----
+### `props.btnSize`
+The type of alert to display. 
+- `PropTypes.string`
+- Default: `'lg'`
+- Allowed values: `'lg'`, `'sm'`, `'xs'`
+----
+### `props.confirmBtnText`
+Content of confirm button, or JSX/ReactNode.
+- `PropTypes.oneOfType([PropTypes.node, PropTypes.string])`
+- Default: `'OK'`
+----
+### `props.confirmBtnBsStyle`
+Bootstrap style of confirm button.
+- `PropTypes.string`
+- Default: `'OK'`
+- Recommended values: `'default'`, `'primary'`, `'link'`, `'info'`, `'success'`, `'warning'`, `'danger'`, `'secondary'`, `'outline-{variant}'`
+----
+### `props.confirmBtnCssClass`
+CSS class added to confirm button.
+- `PropTypes.string`
+- Default: `''`
+----
+### `props.confirmBtnStyle`
+Inline style added to confirm button.
+- `PropTypes.object`
+- Default: `{}`
+----
+### `props.cancelBtnText`
+Content of cancel button, or JSX/ReactNode.
+- `PropTypes.oneOfType([PropTypes.node, PropTypes.string])`
+- Default: `'Cancel'`
+----
+### `props.cancelBtnBsStyle`
+Text of cancel button, or JSX/ReactNode.
+- `PropTypes.string`
+- Default: `'link'`
+- Recommended values: `'default'`, `'primary'`, `'link'`, `'info'`, `'success'`, `'warning'`, `'danger'`, `'secondary'`, `'outline-{variant}'`
+----
+### `props.cancelBtnCssClass`
+CSS class added to cancel button.
+- `PropTypes.string`
+- Default: `''`
+----
+### `props.cancelBtnStyle`
+Inline style added to cancel button.
+- `PropTypes.object`
+- Default: `{}`
+----
+### `props.showCloseButton`
+If set to true, then an X close button will be shown in the top right of the alert.
+- `PropTypes.bool`
+- Default: `false`
+----
+### `props.reverseButtons`
+Reverses the order of the Confirm and Cancel buttons. Default positioning is [Cancel] [Confirm]
+- `PropTypes.bool`
+- Default: `false`
+----
+### `props.customButtons`
+Custom buttons to use in place of the default Confirm and Cancel buttons. Can render any JSX/ReactNodes here.
+- `PropTypes.node`
+- Default: `undefined`
+----
+### `props.customIcon`
+Either a string url for an image to use as the icon, or JSX/ReactNode.
+- `PropTypes.oneOfType([PropTypes.node, PropTypes.string])`
+- Default: `undefined`
+----
+### `props.customIcon`
+Either a string url for an image to use as the icon, or JSX/ReactNode.
+- `PropTypes.oneOfType([PropTypes.node, PropTypes.string])`
+- Default: `undefined`
+----
+### `props.placeholder`
+If `props.type` is `'input'`, this is the placeholder for the input field.
+- `PropTypes.string`
+- Default: `undefined`
+----
+### `props.show`
+If false, the alert will not be rendered.
+- `PropTypes.bool`
+- Default: `true`
+----
+### `props.focusConfirmBtn`
+If true the Confirm button will receive focus automatically.  NOTE: Does not apply when `props.type` is `'input'`
+- `PropTypes.bool`
+- Default: `true`
+----
+### `props.focusCancelBtn`
+If true the Cancel button will receive focus automatically.  NOTE: Does not apply when `props.type` is `'input'`
+- `PropTypes.bool`
+- Default: `false`
+----
+### `props.required`
+If `props.type` is `'input'`, this prop controls whether the input field is required to have a value.
+- `PropTypes.bool`
+- Default: `true`
+----
+### `props.validationMsg`
+If `props.type` is `'input'` and `props.required` is `true`, this is the message to display when the user clicks confirm without entering a value.
+- `PropTypes.string`
+- Default: `'Please enter a response!'`
+----
+### `props.validationRegex`
+If `props.type` is `'input'` and `props.required` is `true`, this Regex is used to validate input value.
+- `PropTypes.object`
+- Default: `/^.+$/`
+----
+### `props.defaultValue`
+If `props.type` is `'input'`, this is the default value for the input field.
+- `PropTypes.oneOfType([PropTypes.number, PropTypes.string])`
+- Default: `undefined`
+----
+### `props.inputType`
+If `props.type` is `'input'`, this is the default value for the input field.
+- `PropTypes.string`
+- Default: `'text'`
+- Recommended values: `'text'`, `'password'`, `'number'`, `'textarea'`
+----
+### `props.style`
+Style overrides applied to the sweetalert wrapper.
+- `PropTypes.object`
+- Default: `{}`
+----
+### `props.closeBtnStyle`
+Style overrides applied to the X close button.
+- `PropTypes.object`
+- Default: `{}`
+----
+### `props.customClass`
+Custom CSS class applied to the sweetalert wrapper.
+- `PropTypes.string`
+- Default: `''`
+----
+### `props.showConfirm`
+If `true`, the Confirm button will show.
+- `PropTypes.bool`
+- Default: `true`
+----
+### `props.showCancel`
+If `true`, the Cancel button will show.
+- `PropTypes.bool`
+- Default: `false`
+----
+### `props.allowEscape`
+If `true`, the `onCancel` function will be invoked when the user hits the `ESCAPE` key.
+- `PropTypes.bool`
+- Default: `true`
+----
+### `props.closeOnClickOutside`
+If `true`, the `onCancel` function will be invoked when clicking outside the modal.
+- `PropTypes.bool`
+- Default: `true`
+----
+### `props.hideOverlay`
+If `true`, then the modal overlay will not be rendered.
+- `PropTypes.bool`
+- Default: `false`
+----
+### `props.disabled`
+If `true`, then the Confirm button will be disabled. (NOTE: This does not effect the `props.allowEscape` behavior.)
+- `PropTypes.bool`
+- Default: `false`
+----
+### `props.beforeMount`
+Hook which is invoked at the end of the component `constructor` function.
+- `PropTypes.func`
+- Default: `() => {}`
+----
+### `props.afterMount`
+Hook which is invoked at the end of the `componentDidMount` method.
+- `PropTypes.func`
+- Default: `() => {}`
+----
+### `props.afterUpdate`
+Hook which is invoked at the end of the `componentDidUpdate` method.
+- `PropTypes.func`
+- Default: `() => {}`
+----
+### `props.beforeUnmount`
+Hook which is invoked at the end of the `componentWillUnmount` method.
+- `PropTypes.func`
+- Default: `() => {}`
+----
+### `props.timeout`
+If defined, and greater than `0`, `props.onConfirm` will be invoked to close the alert automatically after the specified number of milliseconds.
+- `PropTypes.number`
+- Default: `0`
+----
+### `props.openAnim`
+Provide custom show animation or false to have no animation. To specify a custom animation, provide the name of your css animation and duration of the animation in milliseconds.
+- `PropTypes.oneOfType([PropTypes.bool, PropTypes.object])`
+- Default: `{ name: 'showSweetAlert', duration: 300 }`
+----
+### `props.closeAnim`
+Provide custom hide animation or false to have no animation. To specify a custom animation, provide the name of your css animation and duration of the animation in milliseconds. For a simple hide animation you can use `{ name: 'hideSweetAlert', duration: 100 }`
+- `PropTypes.oneOfType([PropTypes.bool, PropTypes.object])`
+- Default: `false`
 
-A success message!:
-
-```javascript
-<SweetAlert success title="Good job!" onConfirm={this.hideAlert}>
-  You clicked the button!
-</SweetAlert>
-```
-
-A warning message, with Cancel and Confirm callbacks:
-
-```javascript
-<SweetAlert
-  warning
-  showCancel
-  confirmBtnText="Yes, delete it!"
-  confirmBtnBsStyle="danger"
-  cancelBtnBsStyle="default"
-  title="Are you sure?"
-  onConfirm={this.deleteFile}
-  onCancel={this.cancelDelete}
->
-	You will not be able to recover this imaginary file!
-</SweetAlert>
-```
-
-A message with a custom icon:
-
-```javascript
-<SweetAlert
-  custom
-  showCancel
-  confirmBtnText="Yes"
-  cancelBtnText="No"
-  confirmBtnBsStyle="primary"
-  cancelBtnBsStyle="default"
-  customIcon="thumbs-up.jpg"
-  title="Do you like thumbs?"
-  onConfirm={this.hideAlert}
-  onCancel={this.hideAlert}
->
-	You will find they are up!
-</SweetAlert>
-```
-
-An HTML message:
-
-```javascript
-<SweetAlert
-  title={<span>HTML <small>Title</small>!</span>}
-  onConfirm={this.hideAlert}
->
-  <span>A custom <span style={{color:'#F8BB86'}}>html</span> message.</span>
-</SweetAlert>
-```
-
-A replacement for the "prompt" function:
-
-```javascript
-<SweetAlert
-  input
-  showCancel
-  cancelBtnBsStyle="default"
-  title="An input!"
-  placeholder="Write something"
-  onConfirm={(response) => this.onRecieveInput(response)}
-  onCancel={this.hideAlert}
->
-	Write something interesting:
-</SweetAlert>
-```
-
-Password Prompt:
-
-```javascript
-<SweetAlert
-  input
-  inputType="password"
-  title="Enter Password"
-  required
-  validationMsg="You must enter your password!"
-  onConfirm={this.hideAlert}
-/>
-```
-
-Custom Styles:
-
-```javascript
-<SweetAlert style={{backgroundColor:'blue'}} title="Yay!" onConfirm={this.hideAlert}>
-  Its blue!
-</SweetAlert>
-```
-
-Configuration
--------------
-
-| Property               | Required?    | Prop Type    | Default Value              | Description |
-| :--------------------- | :----------- | :----------- | :------------------------- | :---------- |
-| type                   | no           | string       | 'default'                  | The type of alert to display. Allowed values: 'default', 'info', 'success', 'warning', 'danger', 'error', 'input', 'custom' |
-| title                  | yes          | string, node | undefined                  | The text to display for the title. JSX/ReactNode allowed. |
-| onCancel               | no           | func         | undefined                  | Invoked when user clicks cancel button. Also invoked if allowEscape is true and user hits ESCAPE key. |
-| onConfirm              | yes          | func         | undefined                  | Invoked when user clicks confirm button. Also invoked if user hits ENTER key. |
-| btnSize                | no           | string       | 'lg'                       | Allow custom button size. `lg`, `sm`, `xs`. |
-| confirmBtnText         | no           | string, node | 'OK'                       | Text of confirm button, or JSX/ReactNode. |
-| confirmBtnBsStyle      | no           | string       | 'primary'                  | Bootstrap style of confirm button. Allowed values: 'default', 'primary', 'link', 'info', 'success', 'warning', 'danger' |
-| confirmBtnCssClass     | no           | string       | ''                         | CSS class added to confirm button. |
-| confirmBtnStyle        | no           | object       | {}                         | Inline style added to confirm button. |
-| cancelBtnText          | no           | string, node | 'Cancel'                   | Text of cancel button, or JSX/ReactNode. |
-| cancelBtnBsStyle       | no           | string       | 'link'                     | Bootstrap style of cancel button. Allowed values: 'default', 'primary', 'link', 'info', 'success', 'warning', 'danger' |
-| cancelBtnCssClass      | no           | string       | ''                         | CSS class added to cancel button. |
-| cancelBtnStyle         | no           | object       | {}                         | Inline style added to cancel button. |
-| showCloseButton        | no           | bool         | false                      | If set to true, then an X close button will be shown in the top right of the alert. |
-| reverseButtons         | no           | bool         | false                      | Reverses the order of the buttons. |
-| customActions          | no           | string, node | undefined                  | Custom action buttons. Can make more than 2 action buttons or full custom style. JSX/ReactNode allowed. |
-| customIcon             | no           | string, node | undefined                  | Either a string url for an image to use as the icon, or JSX/ReactNode. |
-| placeholder            | no           | string       | undefined                  | If type is input, this is the placeholder for the input field. |
-| show                   | no           | bool         | true                       | If false, the alert will not be rendered. |
-| focusConfirmBtn        | no           | bool         | true                       | If true (and type != input) the comfirm button will receive focus automatically. |
-| focusCancelBtn         | no           | bool         | true                       | If true (and type != input) the cancel button will receive focus automatically. |
-| required               | no           | bool         | true                       | If true, requires the input field to have a value. |
-| validationMsg          | no           | string       | 'Please enter a response!' | If type is input, this is the message to display when the user clicks confirm without entering a value. |
-| validationRegex        | no           | object       | `/^.+$/`                   | Used to validate input value. |
-| defaultValue           | no           | string       | undefined                  | If type is input, this is the default value for the input field. |
-| inputType              | no           | string       | 'text'                     | If type is input, this is the input type (text, textarea, password, number, etc...) |
-| style                  | no           | object       | {}                         | Style overrides applied to the sweetalert wrapper. |
-| closeBtnStyle          | no           | object       | {}                         | Style overrides applied to the X close button. |
-| customClass            | no           | string       | undefined                  | Custom CSS class applied to the sweetalert wrapper. |
-| showConfirm            | no           | bool         | true                       | If false, the confirm button will not show. |
-| showCancel             | no           | bool         | false                      | If true, the cancel button will show. |
-| allowEscape            | no           | bool         | true                       | If true, the onCancel function will be invoked when the user hits the ESCAPE key. |
-| closeOnClickOutside    | no           | bool         | true                       | If true, clicking outside the modal will trigger `onCancel`. |
-| hideOverlay            | no           | bool         | false                      | If true, then the modal overlay will not be rendered. |
-| disabled               | no           | bool         | false                      | If true, then the confirm button will be disabled. (NOTE: This does not effect the allowEscape prop behavior.)|
-| beforeMount            | no           | func         | noop                       | Hook which is invoked during componentWillMount. |
-| afterMount             | no           | func         | noop                       | Hook which is invoked during componentDidMount. |
-| afterUpdate            | no           | func         | noop                       | Hook which is invoked during componentDidUpdate. |
-| beforeUnmount          | no           | func         | noop                       | Hook which is invoked during componentWillUnmount. |
-| timeout                | no           | number       | 0                          | Call props.onConfirm to close the alert automatically after a certain number of milliseconds. |
-| openAnim               | no           | bool, object | {name: "showSweetAlert", duration: 300} | Set a custom show animation or false to have no animation. To specify a custom animation you set the name to your css animation and duration to the animation duration in milliseconds. |
-| closeAnim              | no           | bool, object | false                       | Set a custom hide animation or false to have no animation. To specify a custom animation you set the name to your css animation and duration to the animation duration in milliseconds. For a simple hide animation you could use `{name: "hideSweetAlert", duration: 100}` |
-
-Related projects
-----------------
+## Related projects
 
 * [SweetAlert](https://github.com/t4t5/sweetalert)
 * [SweetAlert for Android](https://github.com/pedant/sweet-alert-dialog)
@@ -221,8 +287,7 @@ Related projects
 * [SweetAlert for AngularJS](https://github.com/oitozero/ngSweetAlert)
 * [SweetAlert for RubyOnRails](https://github.com/sharshenov/sweetalert-rails)
 
-Development
---------
+## Development
 
 ``` bash
 yarn dev && open http://localhost:3000
