@@ -94,7 +94,7 @@ Content of confirm button, or JSX/ReactNode.
 ### `props.confirmBtnBsStyle`
 Bootstrap style of confirm button.
 - `PropTypes.string`
-- Default: `'OK'`
+- Default: `'primary'`
 - Recommended values: `'default'`, `'primary'`, `'link'`, `'info'`, `'success'`, `'warning'`, `'danger'`, `'secondary'`, `'outline-{variant}'`
 ----
 ### `props.confirmBtnCssClass`
@@ -141,11 +141,6 @@ Reverses the order of the Confirm and Cancel buttons. Default positioning is [Ca
 ### `props.customButtons`
 Custom buttons to use in place of the default Confirm and Cancel buttons. Can render any JSX/ReactNodes here.
 - `PropTypes.node`
-- Default: `undefined`
-----
-### `props.customIcon`
-Either a string url for an image to use as the icon, or JSX/ReactNode.
-- `PropTypes.oneOfType([PropTypes.node, PropTypes.string])`
 - Default: `undefined`
 ----
 ### `props.customIcon`
@@ -241,6 +236,7 @@ If `true`, then the modal overlay will not be rendered.
 ----
 ### `props.disabled`
 If `true`, then the Confirm button will be disabled. (NOTE: This does not effect the `props.allowEscape` behavior.)
+If you set disabled to `true` but do not provide an `onCancel` function, then the `disabled` property will not be honored.
 - `PropTypes.bool`
 - Default: `false`
 ----
@@ -290,5 +286,5 @@ Provide custom hide animation or false to have no animation. To specify a custom
 ## Development
 
 ``` bash
-yarn dev && open http://localhost:3000
+yarn demo && open http://localhost:3000
 ```

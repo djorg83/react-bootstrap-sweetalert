@@ -54,8 +54,8 @@ export default class Buttons extends React.Component<SweetAlertProps> {
   };
 
   private buttonStyles = {};
-  private confirmButtonElement: HTMLButtonElement = null;
-  private cancelButtonElement: HTMLButtonElement = null;
+  private confirmButtonElement: HTMLAnchorElement = null;
+  private cancelButtonElement: HTMLAnchorElement = null;
 
   componentDidMount() {
     this.focusButton();
@@ -76,15 +76,16 @@ export default class Buttons extends React.Component<SweetAlertProps> {
     }
   }
 
-  setConfirmButtonElementRef = (element: HTMLButtonElement) => {
+  setConfirmButtonElementRef = (element: HTMLAnchorElement) => {
     this.confirmButtonElement = element;
   };
-  setCancelButtonElementRef = (element: HTMLButtonElement) => {
+
+  setCancelButtonElementRef = (element: HTMLAnchorElement) => {
     this.cancelButtonElement = element;
   };
 
   focusButton() {
-    if(this.props.focusCancelBtn && this.cancelButtonElement) {
+    if (this.props.focusCancelBtn && this.cancelButtonElement) {
       try {
         this.cancelButtonElement.focus();
       } catch (e) {
@@ -111,32 +112,39 @@ export default class Buttons extends React.Component<SweetAlertProps> {
     return this.buttonStyles[bsStyle];
   };
 
-
   confirmButtonRender() {
     if(!this.props.showConfirm)
       return false;
 
     const confirmBtnBsStyle = this.props.confirmBtnBsStyle === 'error' ? 'danger' : this.props.confirmBtnBsStyle;
     const confirmButtonStyle = Object.assign(
-        {},
-        styles.button,
-        this.getButtonStyle(confirmBtnBsStyle),
-        this.props.confirmBtnStyle || {}
+      {},
+      styles.button,
+      this.getButtonStyle(confirmBtnBsStyle),
+      this.props.confirmBtnStyle || {}
     );
 
+    /**
+     * These buttons are <a> anchor tags because for some reason React is triggering click events on <button>
+     * elements when an enter key event is fired from an input field in the alert.
+     * Please do not change this back to any other type of element.
+     */
     return (
-        <span>
-            <button
-                ref={this.setConfirmButtonElementRef}
-                disabled={this.props.disabled}
-                style={confirmButtonStyle}
-                className={`btn btn-${this.props.btnSize} btn-${confirmBtnBsStyle} ${this.props.confirmBtnCssClass}`}
-                onClick={() => this.props.onConfirm()}
-                type="button"
-            >
-                {this.props.confirmBtnText}
-            </button>
-        </span>
+      <a
+        ref={this.setConfirmButtonElementRef}
+        href={'#'}
+        style={confirmButtonStyle}
+        className={`btn btn-${this.props.btnSize} btn-${confirmBtnBsStyle} ${this.props.confirmBtnCssClass} ${this.props.disabled ? 'disabled' : ''}`}
+        onClick={(e) => {
+          e.stopPropagation();
+          e.preventDefault();
+          if (!this.props.disabled) {
+            this.props.onConfirm()
+          }
+        }}
+      >
+        {this.props.confirmBtnText}
+      </a>
     );
   }
 
@@ -146,23 +154,30 @@ export default class Buttons extends React.Component<SweetAlertProps> {
 
     const cancelBtnBsStyle = this.props.cancelBtnBsStyle === 'error' ? 'danger' : this.props.cancelBtnBsStyle;
     const cancelButtonStyle = Object.assign(
-        {},
-        styles.button,
-        this.props.cancelBtnStyle || {}
+      {},
+      styles.button,
+      this.props.cancelBtnStyle || {}
     );
 
+    /**
+     * These buttons are <a> anchor tags because for some reason React is triggering click events on <button>
+     * elements when an enter key event is fired from an input field in the alert.
+     * Please do not change this back to any other type of element.
+     */
     return (
-        <span>
-            <button
-                ref={this.setCancelButtonElementRef}
-                style={cancelButtonStyle}
-                className={`btn btn-${this.props.btnSize} btn-${cancelBtnBsStyle} ${this.props.cancelBtnCssClass}`}
-                onClick={() => this.props.onCancel()}
-                type="button"
-            >
-                { this.props.cancelBtnText }
-            </button>
-        </span>
+      <a
+        ref={this.setCancelButtonElementRef}
+        href={'#'}
+        style={cancelButtonStyle}
+        className={`btn btn-${this.props.btnSize} btn-${cancelBtnBsStyle} ${this.props.cancelBtnCssClass}`}
+        onClick={(e) => {
+          e.stopPropagation();
+          e.preventDefault();
+          this.props.onCancel()
+        }}
+      >
+        { this.props.cancelBtnText }
+      </a>
     );
   }
 

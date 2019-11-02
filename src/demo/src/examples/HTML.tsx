@@ -6,6 +6,7 @@ const snippet: string = `
 <SweetAlert
   title={<span>HTML <small>Title</small>!</span>}
   onConfirm={this.onConfirm}
+  onCancel={this.onCancel}
 >
   <span>A custom <span style={{color:'#F8BB86'}}>html</span> message.</span>
 </SweetAlert>

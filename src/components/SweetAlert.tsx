@@ -39,6 +39,8 @@ export interface SweetAlertOptionalPropsWithDefaults {
   disabled?: boolean;
   focusConfirmBtn?: boolean;
   focusCancelBtn?: boolean;
+  confirmBtnBsStyle?: string,
+  cancelBtnBsStyle?: string,
   showCloseButton?: boolean;
   beforeMount?: Function;
   afterMount?: Function;
@@ -55,7 +57,7 @@ export interface SweetAlertOptionalPropsWithDefaults {
 
 export type SweetAlertType = 'default'|'secondary'|'info'|'success'|'warning'|'danger'|'error'|'input'|'custom';
 
-export interface SweetAlertOptionalProps extends  SweetAlertOptionalPropsWithDefaults {
+export interface SweetAlertOptionalProps extends SweetAlertOptionalPropsWithDefaults {
   type?: SweetAlertType,
 
   // shortcut props
@@ -70,11 +72,9 @@ export interface SweetAlertOptionalProps extends  SweetAlertOptionalPropsWithDef
 
   onCancel?: Function,
   confirmBtnText?: React.ReactNode|string,
-  confirmBtnBsStyle?: string,
   confirmBtnCssClass?: string,
   confirmBtnStyle?: CSSProperties,
   cancelBtnText?: React.ReactNode|string,
-  cancelBtnBsStyle?: string,
   cancelBtnCssClass?: string,
   cancelBtnStyle?: CSSProperties,
   btnSize?: string,
@@ -94,6 +94,7 @@ export interface SweetAlertProps extends SweetAlertOptionalProps {
 type SweetAlertPropsTypes = { [key in keyof SweetAlertProps]: any };
 
 export interface SweetAlertState {
+  id: string;
   show: boolean;
   type?: SweetAlertType;
   focusConfirmBtn?: boolean;
@@ -104,7 +105,10 @@ export interface SweetAlertState {
   animation?: string;
   prevTimeout?: number;
   hideTimeoutHandlerFunc?: Function;
+  closingAction: 'confirm'|'cancel';
 }
+
+const _resetting: { [alertId:string]: boolean } = {};
 
 export default class SweetAlert extends React.Component<SweetAlertProps, SweetAlertState> {
 
@@ -172,12 +176,13 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
     validationMsg       : null,
     validationRegex     : null,
     hideOverlay         : false,
-    show                : true,
     required            : true,
     disabled            : false,
     focusConfirmBtn     : true,
     focusCancelBtn      : false,
     showCloseButton     : false,
+    confirmBtnBsStyle   : 'primary',
+    cancelBtnBsStyle    : 'link',
     beforeMount         : () => {},
     afterMount          : () => {},
     beforeUpdate        : null,
@@ -202,18 +207,9 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
   static Title = Title;
   static Content = Content;
 
-  state: SweetAlertState = {
-    show: false,
-    type: 'default',
-    focusConfirmBtn: true,
-    focusCancelBtn: false,
-    inputValue: '',
-    showValidationMessage: false,
-    timer: null,
-    animation: "",
-    prevTimeout: 0,
+  state: SweetAlertState = Object.assign(SweetAlert.getDefaultState(), {
     hideTimeoutHandlerFunc: this.hideTimeoutHandler.bind(this)
-  };
+  });
 
   constructor(props: SweetAlertProps) {
     super(props);
@@ -222,11 +218,13 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
       this.unsupportedProp('beforeUpdate', 'use props.afterUpdate');
     }
 
+    const newState: any = {};
+
     if (this.props.defaultValue != null) {
-      this.setState({
-        inputValue: this.props.defaultValue
-      });
+      newState.inputValue = this.props.defaultValue;
     }
+
+    this.setState(newState);
 
     this.props.beforeMount();
   }
@@ -237,11 +235,36 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
     this.props.afterMount();
   }
 
+  static generateId(): string {
+    return '' + Date.now() + Math.ceil(Math.random() * 10000000000) + Math.ceil(Math.random() * 10000000000);
+  }
+
+  static getDefaultState(): SweetAlertState {
+    return {
+      id: SweetAlert.generateId(),
+      show: true,
+      focusConfirmBtn: true,
+      focusCancelBtn: false,
+      inputValue: '',
+      showValidationMessage: false,
+      timer: null,
+      animation: "",
+      prevTimeout: 0,
+      closingAction: null,
+    }
+  }
+
   static getDerivedStateFromProps(nextProps: SweetAlertProps, nextState: SweetAlertState) {
+
+    if (_resetting[nextState.id]) {
+      return {};
+    }
+
     let newState = {};
+
     if (nextState.type !== SweetAlert.getTypeFromProps(nextProps)) {
       newState = {
-        ...SweetAlert.getStateFromProps(nextProps), // Set new type and focusConfirmButton
+        ...SweetAlert.getStateFromProps(nextProps), // Set new type, focusConfirmBtn, focusCancelBtn
         ...SweetAlert.handleTimeout(nextProps, nextState.timer) // Set new timer
       };
     } else if (nextState.prevTimeout !== nextProps.timeout) {
@@ -253,7 +276,7 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
     // No state change
     return {
       ...newState,
-      ...SweetAlert.handleAnimState(nextProps, nextState.show, nextState.hideTimeoutHandlerFunc),
+      ...SweetAlert.handleAnimState(nextProps, nextState, nextState.hideTimeoutHandlerFunc),
     };
   }
 
@@ -272,8 +295,25 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
 
   hideTimeoutHandler (time: number) {
     setTimeout(() => {
-      this.setState({
-        show: false
+      const closingAction = this.state.closingAction;
+
+      /**
+       * Removing the closing action (shouldn't trigger another animation timeout)
+       */
+      this.setState({ show: false, closingAction: null }, (): void => {
+
+        // handle the action that was started before the closing animation was started
+        switch (closingAction) {
+          case 'confirm':
+            this.onConfirm(false);
+            break;
+          case 'cancel':
+            this.onCancel(false);
+            break;
+          default:
+            break;
+        }
+
       });
     }, time);
   };
@@ -291,48 +331,52 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
     return null;
   }
 
-  static handleAnimState(props: SweetAlertProps, stateShow: boolean, hideTimeoutFunc: Function) {
-      let animation = "";
-      if(props.show != stateShow) {
-          if(props.show) {
-              if(props.openAnim) {
-                if((typeof props.openAnim === "boolean")) {
-                  if(props.openAnim && SweetAlert.defaultProps.openAnim && typeof SweetAlert.defaultProps.openAnim !== 'boolean')
-                    animation = SweetAlert.defaultProps.openAnim.name + " " + SweetAlert.defaultProps.openAnim.duration + "ms";
-                } else {
-                  animation = props.openAnim.name + " " + props.openAnim.duration + "ms";
-                }
-              }
-              stateShow = true;
-          } else {
-              if(props.closeAnim) {
-                  if((typeof props.closeAnim === "boolean")) {
-                    if(SweetAlert.defaultProps.closeAnim && typeof SweetAlert.defaultProps.closeAnim !== 'boolean') {
-                        animation = SweetAlert.defaultProps.closeAnim.name + " " + SweetAlert.defaultProps.closeAnim.duration + "ms";
-                        hideTimeoutFunc(SweetAlert.defaultProps.closeAnim.duration);
-                    } else {
-                        stateShow = false;
-                    }
-                  } else {
-                      animation = props.closeAnim.name + " " + props.closeAnim.duration + "ms";
-                      hideTimeoutFunc(props.closeAnim.duration);
-                  }
-              } else {
-                  stateShow = false;
-              }
-          }
+  static isAnimation(animProp?: boolean|SweetAlertAnimationProps): boolean {
+    return animProp && typeof animProp !== 'boolean';
+  }
+
+  static animationFromProp(animProp: SweetAlertAnimationProps) {
+    return animProp.name + ' ' + animProp.duration + 'ms';
+  }
+
+  static handleAnimState(props: SweetAlertProps, state: SweetAlertState, hideTimeout: Function) {
+
+    const userDefinedShow = typeof props.show === 'boolean';
+    let show = userDefinedShow ? props.show : state.show;
+
+    let animation = '';
+
+    if (show) {
+      if (props.openAnim) {
+        if (SweetAlert.isAnimation(props.openAnim)) {
+          animation = SweetAlert.animationFromProp(props.openAnim as SweetAlertAnimationProps);
+        } else if (SweetAlert.isAnimation(SweetAlert.defaultProps.openAnim)) {
+          animation = SweetAlert.animationFromProp(SweetAlert.defaultProps.openAnim as SweetAlertAnimationProps);
+        }
+      }
+    } else if (state.closingAction && props.closeAnim) {
+      let animProp: SweetAlertAnimationProps;
+
+      if (SweetAlert.isAnimation(props.closeAnim)) {
+        animProp = props.closeAnim as SweetAlertAnimationProps;
+      } else if (SweetAlert.isAnimation(SweetAlert.defaultProps.closeAnim)) {
+        animProp = SweetAlert.defaultProps.closeAnim as SweetAlertAnimationProps;
       }
 
-      return {
-          show: stateShow,
-          animation
+      if (animProp) {
+        animation = SweetAlert.animationFromProp(animProp);
+        hideTimeout(animProp.duration);
+        show = true;
       }
+    }
+
+    return { show, animation };
   };
 
   static getStateFromProps = (props: SweetAlertProps) => {
     const type = SweetAlert.getTypeFromProps(props);
     return {
-      type: type,
+      type,
       focusConfirmBtn: props.focusConfirmBtn && type !== 'input',
       focusCancelBtn: props.focusCancelBtn && type !== 'input',
     };
@@ -398,34 +442,90 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
     return regex.test(this.state.inputValue);
   };
 
-  onConfirm = () => {
-    if (this.state.type === 'input') {
-      if (this.isValidInput()) {
-        this.props.onConfirm(this.state.inputValue);
-      } else {
-        this.setState({
-          showValidationMessage: true
-        });
+  isDisabled = (): boolean => {
+    return this.props.onCancel && this.props.disabled;
+  };
+
+  onAlertClose = (callback: () => void) => {
+    _resetting[this.state.id] = true;
+    this.setState({
+      ...SweetAlert.getDefaultState(),
+      id: this.state.id,
+    }, () => {
+      _resetting[this.state.id] = false;
+      callback();
+    });
+  };
+
+  beforeCloseAlert = (closingAction: 'confirm'|'cancel', callback: () => void) => {
+
+    this.setState({ show: false, closingAction }, (): void => {
+      if (!this.state.show) {
+        callback();
       }
+    });
+  };
+
+  onConfirm = (handleCloseAnimations: boolean = true) => {
+
+    if (this.isDisabled()) {
+      return;
+    }
+
+    if (this.state.type === 'input' && !this.isValidInput()) {
+      this.setState({
+        showValidationMessage: true
+      });
+      return;
+    }
+
+    const confirm = (): void => {
+      if (this.state.type === 'input') {
+        this.onAlertClose(() => {
+          this.props.onConfirm(this.state.inputValue);
+        });
+      } else {
+        this.onAlertClose(() => this.props.onConfirm());
+      }
+    };
+
+    if (handleCloseAnimations) {
+      this.beforeCloseAlert('confirm', () => confirm());
     } else {
-      this.props.onConfirm();
+      confirm();
+    }
+
+  };
+
+  onCancel = (handleCloseAnimations: boolean = true) => {
+
+    const cancel = (): void => {
+      this.onAlertClose(() => {
+        if (this.props.onCancel) {
+          this.props.onCancel();
+        }
+      });
+    };
+
+    if (handleCloseAnimations) {
+      this.beforeCloseAlert('cancel', () => cancel());
+    } else {
+      cancel();
     }
   };
 
   onInputKeyDown = (e: React.KeyboardEvent) =>  {
     if (e.keyCode == 13) {
-      if (this.props.onConfirm) {
-        this.onConfirm();
-        e.stopPropagation();
-      }
+      e.stopPropagation();
+      this.onConfirm();
     }
   };
 
   onKeyDown = (e: React.KeyboardEvent) =>  {
     if (e.keyCode == 27) {
       if (this.props.allowEscape && this.props.onCancel) {
-        this.props.onCancel();
         e.stopPropagation();
+        this.onCancel();
       }
     }
   };
@@ -436,7 +536,7 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
 
   onClickOutside = () => {
     if (this.props.closeOnClickOutside && this.props.onCancel) {
-      this.props.onCancel();
+      this.onCancel();
     }
   };
 
@@ -444,17 +544,21 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
     if (!this.state.show) {
       return false;
     }
+
     return (
       <div>
 
-        <style type="text/css" dangerouslySetInnerHTML={{ __html: `
-            body.sweetalert-overflow-hidden {
-              overflow: hidden;
-            }
-            body .sweet-alert button {
-              outline: none !important;
-            }
-        ` }} />
+        <style type="text/css" dangerouslySetInnerHTML={{
+            __html: `
+              body.sweetalert-overflow-hidden {
+                overflow: hidden;
+              }
+              body .sweet-alert button {
+                outline: none !important;
+              }
+            `
+          }}
+        />
 
         <style type="text/css">
           {`<Inject>../css/animations.css</Inject>`}
@@ -477,7 +581,7 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
             {(this.props.showCloseButton && this.props.onCancel)&& <span
               className='btn'
               style={Object.assign({}, styles.closeButton, this.props.style)}
-              onClick={() => this.props.onCancel()}
+              onClick={() => this.onCancel()}
             >x</span>}
 
             {this.getIcon()}
@@ -502,8 +606,10 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
               {...this.props}
               type={this.state.type}
               onConfirm={this.onConfirm}
+              onCancel={this.onCancel}
               focusConfirmBtn={this.state.focusConfirmBtn}
               focusCancelBtn={this.state.focusCancelBtn}
+              disabled={this.isDisabled()}
             />
 
           </div>

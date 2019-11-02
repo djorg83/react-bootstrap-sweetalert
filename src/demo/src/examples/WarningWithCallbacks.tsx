@@ -8,11 +8,9 @@ const snippet: string = `
   showCancel
   confirmBtnText="Yes, delete it!"
   confirmBtnBsStyle="danger"
-  cancelBtnBsStyle="default"
   title="Are you sure?"
   onConfirm={this.deleteFile}
   onCancel={this.onCancel}
-  reverseButtons
   focusCancelBtn
 >
   You will not be able to recover this imaginary file!

@@ -15,7 +15,6 @@ window.SweetAlert = SweetAlert;
 
 interface DemoState {
 	alert: React.ReactNode;
-	showAnimExample: boolean;
 	textareaValue: string;
 }
 
@@ -33,7 +32,6 @@ export default class Demo extends React.Component<{}, DemoState> {
 
 	state: DemoState = {
 		alert: null,
-		showAnimExample: false,
 		textareaValue: defaultTextAreaValue,
 	};
 
@@ -84,7 +82,6 @@ export default class Demo extends React.Component<{}, DemoState> {
 						<SweetAlert
 							input
 							showCancel
-							cancelBtnBsStyle="default"
 							title="An input!"
 							placeholder="Write something"
 							onConfirm={(response: string) => this.onReceiveInput(response)}
@@ -115,7 +112,7 @@ export default class Demo extends React.Component<{}, DemoState> {
 		}
 	};
 
-	hideAlert = () => this.setState({ alert: null, showAnimExample: false });
+	hideAlert = () => this.setState({ alert: null });
 	onConfirm = () => this.hideAlert();
 	onCancel = () => this.hideAlert();
 
@@ -295,29 +292,6 @@ export default class Demo extends React.Component<{}, DemoState> {
 						</div>
 					))}
 
-					<div>
-						<h4>Hide Animation</h4>
-						<Row>
-							<Col sm={2} className="text-center">
-								<p>
-									<Button bsStyle="primary" onClick={() => this.setState({showAnimExample: true})} >
-										Try It
-									</Button>
-								</p>
-							</Col>
-							<Col sm={10}>
-								<pre>{"<SweetAlert show={this.state.showAnimExample} \n" +
-								"  title=\"Here\'s a message!\"\n" +
-								"  closeAnim={{name: \"hideSweetAlert\", duration: 100}}\n" +
-								"  onConfirm={() => this.hideAlert()}\n" +
-								"  onCancel={() => this.hideAlert()}\n" +
-								">\n" +
-								"  Just close the SweetAlert to see the hide animation\n" +
-								"<SweetAlert/>"}</pre>
-							</Col>
-						</Row>
-					</div>
-
 				</div>
 
 			    <footer>
@@ -325,15 +299,6 @@ export default class Demo extends React.Component<{}, DemoState> {
 			        <li><a href="http://github.com/djorg83"><i className="fa fa-github" /> GitHub</a></li>
 			      </ul>
 			    </footer>
-
-				<SweetAlert show={this.state.showAnimExample}
-							title="Here's a message!"
-							closeAnim={{name: "hideSweetAlert", duration: 100}}
-							onConfirm={() => this.hideAlert()}
-							onCancel={() => this.hideAlert()}
-				>
-					Just close the SweetAlert to see the hide animation
-				</SweetAlert>
 
 			    {this.state.alert}
 			</div>

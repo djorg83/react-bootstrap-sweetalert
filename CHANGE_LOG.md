@@ -51,4 +51,4 @@ v4.0
 
 * Added `prop-types` as peer dependency
 * Added `props.showConfirm` to allow hiding the confirm button
-* Added `props.show` to allow hiding the confirm button
+* Added `props.show` to allow hiding the alert

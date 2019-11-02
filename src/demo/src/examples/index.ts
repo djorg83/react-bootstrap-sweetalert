@@ -11,9 +11,14 @@ import TitleWithText from "./TitleWithText";
 import WarningWithCallbacks from "./WarningWithCallbacks";
 import CustomButtons from "./CustomButtons";
 import Timer from "./Timer";
+import SmallButtons from "./SmallButtons";
+import ReverseButtons from "./ReverseButtons";
+import FocusCancelButton from "./FocusCancelButton";
+import Animations from "./Animations";
 
 export const examples: Example[] = [
   Basic,
+  SmallButtons,
   TitleWithText,
   Success,
   WarningWithCallbacks,
@@ -23,6 +28,9 @@ export const examples: Example[] = [
   Password,
   CustomStyle,
   LongMessage,
+  ReverseButtons,
   CustomButtons,
+  FocusCancelButton,
   Timer,
+  Animations,
 ];

@@ -39,7 +39,8 @@ export default class Input extends React.Component<InputProps> {
             value={this.props.inputValue || ''}
             onChange={(e) => this.props.onChangeInput(e)}
             onKeyDown={(e) => this.props.onInputKeyDown(e)}
-            placeholder={this.props.placeholder}/>
+            placeholder={this.props.placeholder}
+          />
         ) : (
           <input
             type={this.props.inputType}
@@ -48,7 +49,8 @@ export default class Input extends React.Component<InputProps> {
             value={this.props.inputValue || ''}
             onChange={(e) => this.props.onChangeInput(e)}
             onKeyDown={(e) => this.props.onInputKeyDown(e)}
-            placeholder={this.props.placeholder}/>
+            placeholder={this.props.placeholder}
+          />
         )}
 
 

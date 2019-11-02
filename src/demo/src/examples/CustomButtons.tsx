@@ -7,6 +7,7 @@ const snippet: string = `
     success 
     title="Success Data!" 
     onConfirm={this.onConfirm} 
+    onCancel={this.onCancel}
     customButtons={
       <React.Fragment>
         <button onClick={this.onCancel}>Cancel</button>

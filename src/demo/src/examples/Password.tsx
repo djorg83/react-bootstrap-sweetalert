@@ -10,6 +10,7 @@ const snippet: string = `
   title="Enter Password"
   validationMsg="You must enter your password!"
   onConfirm={this.onConfirm}
+  onCancel={this.onCancel}
 />
 `;
 

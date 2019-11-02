@@ -1,16 +1,15 @@
 import {Example} from "./Example";
 
-const title: string = "Customized Styles";
+const title: string = "Reversed Buttons";
 
 const snippet: string = `
 <SweetAlert
-  title="Yay!"
-  style={{backgroundColor:'blue'}}
+  title="Here's a message!"
   onConfirm={this.onConfirm}
   onCancel={this.onCancel}
->
-  It's blue!
-</SweetAlert>
+  showCancel={true}
+  reverseButtons={true}
+/>
 `;
 
 export default new Example(title, snippet);
