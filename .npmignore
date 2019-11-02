@@ -2,6 +2,7 @@ node_modules/
 demo/
 examples/
 src/
+dist/demo/
 server.js
 webpack.config.js
 gulpfile.js
