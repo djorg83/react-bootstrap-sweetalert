@@ -13,9 +13,13 @@
 
 An awesome replacement for JavaScript's alert.
 
+----
+
 ## Demo & Examples
 
 [See the demo site here, with basic examples, and a sandbox for testing your own!](http://djorg83.github.io/react-bootstrap-sweetalert/)
+
+----
 
 ## Getting Started
 
@@ -34,6 +38,19 @@ const SweetAlert = require('react-bootstrap-sweetalert');
 
 import SweetAlert from 'react-bootstrap-sweetalert';
 ```
+
+----
+
+## Recommended Usage
+
+It is recommended that you keep an alert in your state, and remove it when the `onConfirm` or `onCancel` callbacks are invoked.
+
+You can have stackable alerts by keeping an array of alerts in your data store, and always providing the first alert in
+the array as the visible alert.  When an alert is closed, remove it from the store.
+
+See `examples/redux` for a working example of how to implement stackable alerts with a Redux store.
+
+----
 
 ## Tip: Receiving an input value
 
@@ -54,8 +71,67 @@ onConfirm={(response) => this.onRecieveInput(response)}
 
 For more see [CHANGE_LOG.md](https://github.com/djorg83/react-bootstrap-sweetalert/blob/master/CHANGE_LOG.md)
 
+## Props
 
-## Required Props
+- [title](#propstitle) (required)
+- [type](#propstype)
+- [onConfirm](#propsonconfirm) (required)
+- [onCancel](#propsoncancel)
+- [customIcon](#propscustomicon)
+- [allowEscape](#propsallowescape)
+- [closeOnClickOutside](#propscloseonclickoutside)
+- [hideOverlay](#propshideoverlay)
+- [timeout](#propstimeout)
+- [show](#propsshow)
+
+##### Buttons
+
+- [btnSize](#propsbtnsize)
+- [confirmBtnText](#propsconfirmbtntext)
+- [confirmBtnBsStyle](#propsconfirmbtnbsstyle)
+- [confirmBtnCssClass](#propsconfirmbtncssclass)
+- [confirmBtnStyle](#propsconfirmbtnstyle)
+- [cancelBtnText](#propscancelbtntext)
+- [cancelBtnBsStyle](#propscancelbtnbsstyle)
+- [cancelBtnCssClass](#propscancelbtncssclass)
+- [cancelBtnStyle](#propscancelbtnstyle)
+- [showCloseButton](#propsshowclosebutton)
+- [reverseButtons](#propsreversebuttons)
+- [customButtons](#propscustombuttons)
+- [focusConfirmBtn](#propsfocusconfirmbtn)
+- [focusCancelBtn](#propsfocuscancelbtn)
+- [closeBtnStyle](#propsclosebtnstyle)
+- [showConfirm](#propsshowconfirm)
+- [showCancel](#propsshowcancel)
+- [disabled](#propsdisabled)
+
+##### Input
+
+- [placeholder](#propsplaceholder)
+- [required](#propsrequired)
+- [validationMsg](#propsvalidationmsg)
+- [validationRegex](#propsvalidationregex)
+- [defaultValue](#propsdefaultvalue)
+- [inputType](#propsinputtype)
+
+##### Hooks
+
+- [beforeMount](#propsbeforemount)
+- [afterMount](#propsaftermount)
+- [afterUpdate](#propsafterupdate)
+- [beforeUnmount](#propsbeforeunmount)
+
+##### Styling
+
+- [style](#propsstyle)
+- [customClass](#propscustomclass)
+
+##### Animations
+
+- [openAnim](#propsopenanim)
+- [closeAnim](#propscloseanim)
+
+----
 
 ### `props.title`
 The text to display for the title. JSX/ReactNode allowed.
@@ -66,9 +142,7 @@ The text to display for the title. JSX/ReactNode allowed.
 Invoked when user clicks confirm button. Also invoked if user hits ENTER key.
 - `PropTypes.func`
 - Default: `undefined`
-
-## Optional Props
-
+----
 ### `props.onCancel`
 Invoked when user clicks cancel button. Also invoked if allowEscape is true and user hits ESCAPE key.
 - `PropTypes.func`
@@ -155,6 +229,9 @@ If `props.type` is `'input'`, this is the placeholder for the input field.
 ----
 ### `props.show`
 If false, the alert will not be rendered.
+Warning: Using this option should be a last resort, and is somewhat of an anti-pattern for this library.
+The recommended way to control visibility is to only render a `<SweetAlert/>` element when you want one to be displayed,
+and remove it when the `onConfirm` or `onCancel` methods are called.
 - `PropTypes.bool`
 - Default: `true`
 ----

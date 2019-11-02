@@ -8,5 +8,10 @@
     "trailing-comma": true,
     "object-literal-sort-keys": false,
     "max-classes-per-file": false
+  },
+  "linterOptions": {
+    "exclude": [
+      "examples"
+    ]
   }
 }

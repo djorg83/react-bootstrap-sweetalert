@@ -1,5 +1,6 @@
 node_modules/
 demo/
+examples/
 src/
 server.js
 webpack.config.js
