@@ -9,8 +9,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "tslint -c tslint.json 'src/**/*.ts' --fix",
     "build": "yarn lint && rm -rf ./dist && tsc && yarn inject-css",
-    "build-demo": "cd ./src/demo && NODE_ENV=dev webpack",
-    "start-demo": "node ./demo/demo-server.js",
+    "build-demo": "cd ./src/demo && NODE_ENV=development webpack",
+    "start-demo": "NODE_ENV=development node ./demo/demo-server.js",
     "demo": "yarn build-demo && yarn start-demo && yarn open",
     "inject-css": "gulp copy-css && gulp inject-css",
     "open": "open http://localhost:3000"
