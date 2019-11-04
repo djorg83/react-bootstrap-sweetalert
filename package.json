@@ -18,6 +18,7 @@
   "files": [
     "dist/css",
     "dist/components",
+    "dist/constants",
     "dist/css",
     "dist/styles",
     "dist/index.js",
