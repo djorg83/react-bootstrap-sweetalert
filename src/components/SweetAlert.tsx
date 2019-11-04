@@ -207,9 +207,7 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
   static Title = Title;
   static Content = Content;
 
-  state: SweetAlertState = Object.assign(SweetAlert.getDefaultState(), {
-    hideTimeoutHandlerFunc: this.hideTimeoutHandler.bind(this)
-  });
+  state: SweetAlertState;
 
   constructor(props: SweetAlertProps) {
     super(props);
@@ -218,13 +216,15 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
       this.unsupportedProp('beforeUpdate', 'use props.afterUpdate');
     }
 
-    const newState: any = {};
+    const newState: SweetAlertState = Object.assign(SweetAlert.getDefaultState(), {
+      hideTimeoutHandlerFunc: this.hideTimeoutHandler.bind(this)
+    });
 
     if (this.props.defaultValue != null) {
       newState.inputValue = this.props.defaultValue;
     }
 
-    this.setState(newState);
+    this.state = newState;
 
     this.props.beforeMount();
   }
