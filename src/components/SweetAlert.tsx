@@ -110,6 +110,11 @@ export interface SweetAlertState {
 
 const _resetting: { [alertId:string]: boolean } = {};
 
+const debugLogger = (...args: any[]): void => {
+  // uncomment the next line to get some debugging logs.  feel free to add more.
+  // console.log(...args);
+};
+
 export default class SweetAlert extends React.Component<SweetAlertProps, SweetAlertState> {
 
   static propTypes: SweetAlertPropsTypes = {
@@ -342,7 +347,7 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
   static handleAnimState(props: SweetAlertProps, state: SweetAlertState, hideTimeout: Function) {
 
     const userDefinedShow = typeof props.show === 'boolean';
-    let show = userDefinedShow ? props.show : state.show;
+    let show = (userDefinedShow && !state.closingAction) ? props.show : state.show;
 
     let animation = '';
 
@@ -448,6 +453,8 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
 
   onAlertClose = (callback: () => void) => {
     _resetting[this.state.id] = true;
+
+    debugLogger('onAlertClose resetting state');
     this.setState({
       ...SweetAlert.getDefaultState(),
       id: this.state.id,
@@ -459,8 +466,11 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
 
   beforeCloseAlert = (closingAction: 'confirm'|'cancel', callback: () => void) => {
 
+    debugLogger('in beforeCloseAlert: setting show to false');
     this.setState({ show: false, closingAction }, (): void => {
+      debugLogger('state updated', this.state.show);
       if (!this.state.show) {
+        debugLogger('invoking callback');
         callback();
       }
     });
@@ -480,6 +490,7 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
     }
 
     const confirm = (): void => {
+      debugLogger('in confirm callback');
       if (this.state.type === 'input') {
         this.onAlertClose(() => {
           this.props.onConfirm(this.state.inputValue);
@@ -490,6 +501,7 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
     };
 
     if (handleCloseAnimations) {
+      debugLogger('calling beforeCloseAlert');
       this.beforeCloseAlert('confirm', () => confirm());
     } else {
       confirm();

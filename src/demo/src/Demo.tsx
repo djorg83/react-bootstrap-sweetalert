@@ -15,6 +15,7 @@ window.SweetAlert = SweetAlert;
 
 interface DemoState {
 	alert: React.ReactNode;
+	showOtherAlert: boolean;
 	textareaValue: string;
 }
 
@@ -32,6 +33,7 @@ export default class Demo extends React.Component<{}, DemoState> {
 
 	state: DemoState = {
 		alert: null,
+		showOtherAlert: false,
 		textareaValue: defaultTextAreaValue,
 	};
 
@@ -292,6 +294,28 @@ export default class Demo extends React.Component<{}, DemoState> {
 						</div>
 					))}
 
+					<div>
+						<h4>Example Using props.show</h4>
+						<Row>
+							<Col sm={2} className="text-center">
+								<p>
+									<Button bsStyle="primary" onClick={() => this.setState({ showOtherAlert: true })} >
+										Try It
+									</Button>
+								</p>
+							</Col>
+							<Col sm={10}>
+								<pre>{`<SweetAlert
+ title={"Uses props.show"}
+ onConfirm={() => this.setState({ showOtherAlert: false })}
+ onCancel={() => this.setState({ showOtherAlert: false })}
+ show={this.state.showOtherAlert}
+/>
+`}</pre>
+							</Col>
+						</Row>
+					</div>
+
 				</div>
 
 			    <footer>
@@ -301,6 +325,13 @@ export default class Demo extends React.Component<{}, DemoState> {
 			    </footer>
 
 			    {this.state.alert}
+
+					<SweetAlert
+						title={"Uses props.show"}
+						onConfirm={() => this.setState({ showOtherAlert: false })}
+						onCancel={() => this.setState({ showOtherAlert: false })}
+						show={this.state.showOtherAlert}
+					/>
 			</div>
 		);
 	}
