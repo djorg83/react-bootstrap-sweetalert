@@ -8,7 +8,7 @@
     "postversion": "git push && git push --tags && npm publish",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "tslint -c tslint.json 'src/**/*.ts' --fix",
-    "build": "yarn lint && rm -rf ./dist && tsc && yarn inject-css",
+    "build": "yarn lint && rm -rf ./dist && tsc --declaration && yarn inject-css",
     "build-demo": "cd ./src/demo && NODE_ENV=development webpack",
     "start-demo": "NODE_ENV=development node ./demo/demo-server.js",
     "demo": "yarn build-demo && yarn start-demo && yarn open",
