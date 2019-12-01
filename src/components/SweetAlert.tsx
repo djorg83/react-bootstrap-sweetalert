@@ -482,7 +482,10 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
       return;
     }
 
-    if (this.state.type === 'input' && !this.isValidInput()) {
+    const isInput: boolean = this.state.type === 'input';
+    const inputValue: string = this.state.inputValue;
+
+    if (isInput && !this.isValidInput()) {
       this.setState({
         showValidationMessage: true
       });
@@ -491,9 +494,9 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
 
     const confirm = (): void => {
       debugLogger('in confirm callback');
-      if (this.state.type === 'input') {
+      if (isInput) {
         this.onAlertClose(() => {
-          this.props.onConfirm(this.state.inputValue);
+          this.props.onConfirm(inputValue);
         });
       } else {
         this.onAlertClose(() => this.props.onConfirm());
