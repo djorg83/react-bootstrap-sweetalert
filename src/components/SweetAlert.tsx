@@ -595,7 +595,7 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
           >
             {(this.props.showCloseButton && this.props.onCancel)&& <span
               className='btn'
-              style={Object.assign({}, styles.closeButton, this.props.style)}
+              style={Object.assign({}, styles.closeButton, this.props.closeBtnStyle)}
               onClick={() => this.onCancel()}
             >x</span>}
 
