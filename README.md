@@ -204,6 +204,10 @@ Inline style added to cancel button.
 ----
 ### `props.showCloseButton`
 If set to true, then an X close button will be shown in the top right of the alert.
+
+> NOTE: You must also implement `props.onCancel` in order for this props to work. This is because visibility of the
+> component is controlled externally through either `props.show` or by removing the `<SweetAlert />` in your render method.
+
 - `PropTypes.bool`
 - Default: `false`
 ----
