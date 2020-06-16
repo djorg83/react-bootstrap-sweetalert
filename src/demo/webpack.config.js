@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-  mode: 'production',
+  mode: 'development',
   entry: "./src/index.tsx", // bundle's entry point
   output: {
     path: path.resolve(__dirname, '../../demo'), // output directory

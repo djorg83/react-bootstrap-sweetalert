@@ -4,6 +4,6 @@ import Demo from './Demo';
 import '../../css/animations.css';
 
 render(
-  <Demo />,
+  <React.StrictMode><Demo /></React.StrictMode>,
   document.getElementById('content')
 );

@@ -264,8 +264,9 @@ export default class Demo extends React.Component<{}, DemoState> {
 								'Danger',
 								'Custom',
 								'Input',
-							].map((label: string) => (
+							].map((label: string, key) => (
 								<Button
+									key={key}
 									style={{marginRight:8}}
 									bsStyle={label === 'Input' || label === 'Custom' ? 'default' : label.toLowerCase()}
 									onClick={() => this.buttonExample(label.toLowerCase())}

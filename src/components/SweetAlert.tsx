@@ -588,7 +588,6 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
           <div
             style={Object.assign({}, style, this.props.style, {animation: this.state.animation})}
             tabIndex={0}
-            ref="container"
             onKeyDown={this.onKeyDown}
             onClick={this.onClickInside}
             className={'sweet-alert ' + this.props.customClass}
