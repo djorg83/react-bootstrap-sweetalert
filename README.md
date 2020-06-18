@@ -17,25 +17,33 @@ An awesome replacement for JavaScript's alert.
 
 ## Demo & Examples
 
-[See the demo site here, with basic examples, and a sandbox for testing your own!](http://djorg83.github.io/react-bootstrap-sweetalert/)
+See the demo, with basic examples, and a live editor.
 
+:alien: [TAKE ME TO YOUR DEMO](http://djorg83.github.io/react-bootstrap-sweetalert/) :alien:
+
+![Demo GIF](https://djorg83.github.io/react-bootstrap-sweetalert/demo/assets/demo.gif)
 ----
 
 ## Getting Started
 
-```bash
-# with npm
-npm i react-bootstrap-sweetalert
-
-# with yarn
-yarn add react-bootstrap-sweetalert
+### Installation
+```
+$ npm i react-bootstrap-sweetalert
 ```
 
-```javascript
+> or 
+
+```
+$ yarn add react-bootstrap-sweetalert
+```
+
+### Import
+```
 const SweetAlert = require('react-bootstrap-sweetalert');
+```
+> or 
 
-// or 
-
+```
 import SweetAlert from 'react-bootstrap-sweetalert';
 ```
 

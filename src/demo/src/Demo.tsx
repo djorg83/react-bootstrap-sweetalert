@@ -68,7 +68,7 @@ export default class Demo extends React.Component<{}, DemoState> {
 							cancelBtnText="No"
 							confirmBtnBsStyle="primary"
 							cancelBtnBsStyle="default"
-							customIcon="/demo/assets/thumbs-up.jpg"
+							customIcon="/react-bootstrap-sweetalert/demo/assets/thumbs-up.jpg"
 							title="Do you like thumbs?"
 							onConfirm={this.hideAlert}
 							onCancel={this.hideAlert}
