@@ -15,6 +15,11 @@
 
 An awesome replacement for JavaScript's alert.
 
+----
+
+## Support
+
+If you think I've done a good job, consider showing your support by buying me a beer.  Cheers! :beers:
 [![Buy me a beer](https://djorg83.github.io/react-bootstrap-sweetalert/demo/assets/bmab.png)](https://www.buymeacoffee.com/djorg83)
 
 ----
