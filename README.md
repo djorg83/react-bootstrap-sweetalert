@@ -9,7 +9,7 @@
 
 [![NPM](https://nodei.co/npm/react-bootstrap-sweetalert.png?downloads=true&stars=true)](https://nodei.co/npm/react-bootstrap-sweetalert/)
 
-[![openbase](https://djorg83.github.io/react-bootstrap-sweetalert/demo/assets/openbase.png)](https://openbase.io/js/react-bootstrap-sweetalert) Openbase Dashboard
+[![openbase](https://djorg83.github.io/react-bootstrap-sweetalert/demo/assets/openbase.png) Openbase Dashboard](https://openbase.io/js/react-bootstrap-sweetalert)
 # SweetAlert for React/Bootstrap
 
 An awesome replacement for JavaScript's alert.
