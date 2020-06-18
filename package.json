@@ -42,7 +42,7 @@
   "bugs": {
     "url": "https://github.com/djorg83/react-bootstrap-sweetalert/issues"
   },
-  "homepage": "https://github.com/djorg83/react-bootstrap-sweetalert#readme",
+  "homepage": "http://djorg83.github.io/react-bootstrap-sweetalert/",
   "peerDependencies": {
     "prop-types": ">=15.0.0",
     "react": ">=16.0.0"
