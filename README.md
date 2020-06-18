@@ -17,9 +17,9 @@ An awesome replacement for JavaScript's alert.
 
 ## Demo & Examples
 
-See the demo, with basic examples, and a live editor.
+See the demo with examples of common use cases and a live editor.
 
-:alien: [TAKE ME TO YOUR DEMO](http://djorg83.github.io/react-bootstrap-sweetalert/) :alien:
+:alien: <a href="http://djorg83.github.io/react-bootstrap-sweetalert/" target="_blank">TAKE ME TO YOUR DEMO</a> :alien:
 
 ![Demo GIF](https://djorg83.github.io/react-bootstrap-sweetalert/demo/assets/demo.gif)
 ----
