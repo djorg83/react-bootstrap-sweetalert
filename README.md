@@ -7,12 +7,15 @@
 [![license](https://img.shields.io/github/license/djorg83/react-bootstrap-sweetalert.svg?maxAge=2592000)](https://github.com/djorg83/react-bootstrap-sweetalert)
 [![GitHub stars](https://img.shields.io/github/stars/djorg83/react-bootstrap-sweetalert.svg?style=social&label=Star&maxAge=2592000)](https://github.com/djorg83/react-bootstrap-sweetalert)
 
+[![openbase](https://djorg83.github.io/react-bootstrap-sweetalert/demo/assets/openbase.png) Openbase Dashboard](https://openbase.io/js/react-bootstrap-sweetalert)
+
 [![NPM](https://nodei.co/npm/react-bootstrap-sweetalert.png?downloads=true&stars=true)](https://nodei.co/npm/react-bootstrap-sweetalert/)
 
-[![openbase](https://djorg83.github.io/react-bootstrap-sweetalert/demo/assets/openbase.png) Openbase Dashboard](https://openbase.io/js/react-bootstrap-sweetalert)
 # SweetAlert for React/Bootstrap
 
 An awesome replacement for JavaScript's alert.
+
+[![Buy me a beer](https://djorg83.github.io/react-bootstrap-sweetalert/demo/assets/bmab.png)](https://www.buymeacoffee.com/djorg83)
 
 ----
 
