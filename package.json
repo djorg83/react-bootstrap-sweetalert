@@ -43,6 +43,9 @@
     "url": "https://github.com/djorg83/react-bootstrap-sweetalert/issues"
   },
   "homepage": "http://djorg83.github.io/react-bootstrap-sweetalert/",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/",
+  },
   "peerDependencies": {
     "prop-types": ">=15.0.0",
     "react": ">=16.0.0"

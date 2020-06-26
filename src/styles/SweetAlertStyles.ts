@@ -338,5 +338,5 @@ export const closeButton: CSSProperties = {
   fontWeight: 900,
   color: "rgb(113, 113, 113)",
   zIndex: 1,
-  cursor: 'pointer'
+  cursor: "pointer"
 };
