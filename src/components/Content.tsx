@@ -1,8 +1,8 @@
 import React from 'react';
-import {contentContainer as contentConainerStyle} from "../styles/SweetAlertStyles";
+import {contentContainer as contentContainerStyle} from "../styles/SweetAlertStyles";
 
 const Content: React.FunctionComponent = ({ children }) => (
-  <div className="text-muted lead" style={contentConainerStyle}>
+  <div style={contentContainerStyle}>
       {children}
   </div>
 );

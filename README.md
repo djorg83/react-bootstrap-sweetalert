@@ -78,14 +78,54 @@ If you're using `input` type, the value of the input will be sent to the `onConf
 onConfirm={(response) => this.onRecieveInput(response)}
 ```
 
-## Changes in version 5.1
+## Custom Forms / Using Render Props
 
-* Fixed deprecation warning from componentWillMount, componentWillUpdate and componentWillReceiveProps
-* Fixed Sweetalert input validation message overflowing container.
-* Added `props.focusCancelBtn` that focuses on the cancel button by default.
-* Added `props.reverseButtons` that reverses the cancel and confirm button order.
-* Added `props.customButtons` that overrides the buttons in the alert.
-* Added support for custom show and hide animations with `props.openAnim` and `props.closeAnim`.
+If you want to build an alert that re-renders based on external state changes, or simply want to build a custom form,
+then you will find the render props pattern to be your best option.
+
+- For re-rendering based on external state changes, use [props.dependencies](#propsdependencies)
+- See the `SweetAlertRenderProps` interface in [types.ts](https://github.com/djorg83/react-bootstrap-sweetalert/blob/master/src/types.ts) for some information on the available render props.
+
+```typescript jsx
+<SweetAlert
+ title={"Uses render props"}
+ onConfirm={this.onConfirm}
+ onCancel={this.onCancel}
+ dependencies={[this.state.firstName, this.state.lastName]}
+>
+  {(renderProps: SweetAlertRenderProps) => (
+    <form>
+      Your name is: {this.state.firstName} {this.state.lastName}
+      <hr/>
+      <input
+        type={'text'}
+        ref={renderProps.setAutoFocusInputRef}
+        className="form-control"
+        value={this.state.firstName}
+        onKeyDown={renderProps.onEnterKeyDownConfirm}
+        onChange={(e) => this.setState({ firstName: e.target.value })}
+        placeholder={'First name'}
+      />
+      <br />
+      <input
+        type={'text'}
+        className="form-control"
+        value={this.state.lastName}
+        onKeyDown={renderProps.onEnterKeyDownConfirm}
+        onChange={(e) => this.setState({ lastName: e.target.value })}
+        placeholder={'Last name'}
+      />
+      <hr/>
+    </form>
+  )}
+</SweetAlert>
+```
+
+## Changes in version 5.2
+
+* Added `props.dependencies` that re-renders the alert whenever the provided Array of `dependencies` value changes.
+* Added new supported value of `'controlled'` for `props.type`.  If `props.type === 'controlled'` then `props.onConfirm` will return `props.dependencies`.
+* Added support for using a function as your alert content/children, aka render props.
 
 For more see [CHANGE_LOG.md](https://github.com/djorg83/react-bootstrap-sweetalert/blob/master/CHANGE_LOG.md)
 
@@ -101,6 +141,7 @@ For more see [CHANGE_LOG.md](https://github.com/djorg83/react-bootstrap-sweetale
 - [hideOverlay](#propshideoverlay)
 - [timeout](#propstimeout)
 - [show](#propsshow)
+- [dependencies](#propsdependencies)
 
 ##### Buttons
 
@@ -153,71 +194,73 @@ For more see [CHANGE_LOG.md](https://github.com/djorg83/react-bootstrap-sweetale
 
 ### `props.title`
 The text to display for the title. JSX/ReactNode allowed.
-- `PropTypes.oneOfType([PropTypes.node, PropTypes.string])`
+- Type: `ReactNode|string`
 - Default: `undefined`
 ----
 ### `props.onConfirm`
 Invoked when user clicks confirm button. Also invoked if user hits ENTER key.
-- `PropTypes.func`
+- Type: `(response?: any) => any`
 - Default: `undefined`
 ----
 ### `props.onCancel`
 Invoked when user clicks cancel button. Also invoked if allowEscape is true and user hits ESCAPE key.
-- `PropTypes.func`
+- Type: `() => any`
 - Default: `undefined`
 ----
 ### `props.type`
 The type of alert to display. 
-- `PropTypes.string`
+- Type: `'default'|'info'|'success'|'warning'|'danger'|'error'|'input'|'custom'|'controlled'`
 - Default: `'default'`
-- Allowed values: `'default'`, `'info'`, `'success'`, `'warning'`, `'danger'`, `'error'`, `'input'`, `'custom'`
+
+> NOTE
+> - If `props.type === 'controlled'` then `props.onConfirm` will receive `props.dependencies` as its first argument.
+> - If `props.type === 'input'` then `props.onConfirm` will receive `props.dependencies` as its first argument.
 ----
 ### `props.btnSize`
 The type of alert to display. 
-- `PropTypes.string`
+- Type: `'lg'|'sm'|'xs'`
 - Default: `'lg'`
 - Allowed values: `'lg'`, `'sm'`, `'xs'`
 ----
 ### `props.confirmBtnText`
 Content of confirm button, or JSX/ReactNode.
-- `PropTypes.oneOfType([PropTypes.node, PropTypes.string])`
+- Type: `ReactNode|string`
 - Default: `'OK'`
 ----
 ### `props.confirmBtnBsStyle`
 Bootstrap style of confirm button.
-- `PropTypes.string`
+- Type: `'default'|'primary'|'link'|'info'|'success'|'warning'|'danger'|'secondary'|'outline-{variant}'`
 - Default: `'primary'`
-- Recommended values: `'default'`, `'primary'`, `'link'`, `'info'`, `'success'`, `'warning'`, `'danger'`, `'secondary'`, `'outline-{variant}'`
 ----
 ### `props.confirmBtnCssClass`
 CSS class added to confirm button.
-- `PropTypes.string`
+- Type: `string`
 - Default: `''`
 ----
 ### `props.confirmBtnStyle`
 Inline style added to confirm button.
-- `PropTypes.object`
+- Type: `CSSProperties`
 - Default: `{}`
 ----
 ### `props.cancelBtnText`
 Content of cancel button, or JSX/ReactNode.
-- `PropTypes.oneOfType([PropTypes.node, PropTypes.string])`
+- Type: `ReactNode|string`
 - Default: `'Cancel'`
 ----
 ### `props.cancelBtnBsStyle`
 Text of cancel button, or JSX/ReactNode.
-- `PropTypes.string`
+- Type: `string`
 - Default: `'link'`
-- Recommended values: `'default'`, `'primary'`, `'link'`, `'info'`, `'success'`, `'warning'`, `'danger'`, `'secondary'`, `'outline-{variant}'`
+- Recommended values: `'default'|'primary'|'link'|'info'|'success'|'warning'|'danger'|'secondary'|'outline-{variant}'`
 ----
 ### `props.cancelBtnCssClass`
 CSS class added to cancel button.
-- `PropTypes.string`
+- Type: `string`
 - Default: `''`
 ----
 ### `props.cancelBtnStyle`
 Inline style added to cancel button.
-- `PropTypes.object`
+- Type: `CSSProperties`
 - Default: `{}`
 ----
 ### `props.showCloseButton`
@@ -226,27 +269,27 @@ If set to true, then an X close button will be shown in the top right of the ale
 > NOTE: You must also implement `props.onCancel` in order for this props to work. This is because visibility of the
 > component is controlled externally through either `props.show` or by removing the `<SweetAlert />` in your render method.
 
-- `PropTypes.bool`
+- Type: `boolean`
 - Default: `false`
 ----
 ### `props.reverseButtons`
 Reverses the order of the Confirm and Cancel buttons. Default positioning is [Cancel] [Confirm]
-- `PropTypes.bool`
+- Type: `boolean`
 - Default: `false`
 ----
 ### `props.customButtons`
 Custom buttons to use in place of the default Confirm and Cancel buttons. Can render any JSX/ReactNodes here.
-- `PropTypes.node`
+- Type: `ReactNode`
 - Default: `undefined`
 ----
 ### `props.customIcon`
 Either a string url for an image to use as the icon, or JSX/ReactNode.
-- `PropTypes.oneOfType([PropTypes.node, PropTypes.string])`
+- Type: `ReactNode|string`
 - Default: `undefined`
 ----
 ### `props.placeholder`
 If `props.type` is `'input'`, this is the placeholder for the input field.
-- `PropTypes.string`
+- Type: `string`
 - Default: `undefined`
 ----
 ### `props.show`
@@ -254,124 +297,144 @@ If false, the alert will not be rendered.
 Warning: Using this option should be a last resort, and is somewhat of an anti-pattern for this library.
 The recommended way to control visibility is to only render a `<SweetAlert/>` element when you want one to be displayed,
 and remove it when the `onConfirm` or `onCancel` methods are called.
-- `PropTypes.bool`
+- Type: `boolean`
 - Default: `true`
+----
+### `props.dependencies`
+If you have external state that should trigger your alert to re-render it's content, you can provide an `Array` of `dependencies`.
+Whenever the dependencies are changed, using `===` comparision, the content of the alert will be re-rendered.
+- Type: `any[]`
+- Default: `true`
+
+Example
+```typescript jsx
+const [firstName, setFirstName] = useState('');
+const [lastName, setLastName] = useState('');
+
+<SweetAlert dependencies={[firstName, lastName]}>
+  <div>
+    <h4>Hello {{firstName}} {{lastName}}</h4>
+    <input value={firstName} onChange={(e) => setFirstName(e.target.value)} />
+    <input value={lastName} onChange={(e) => setLastName(e.target.value)} />
+  </div>
+</SweetAlert>
+```
 ----
 ### `props.focusConfirmBtn`
 If true the Confirm button will receive focus automatically.  NOTE: Does not apply when `props.type` is `'input'`
-- `PropTypes.bool`
+- Type: `boolean`
 - Default: `true`
 ----
 ### `props.focusCancelBtn`
 If true the Cancel button will receive focus automatically.  NOTE: Does not apply when `props.type` is `'input'`
-- `PropTypes.bool`
+- Type: `boolean`
 - Default: `false`
 ----
 ### `props.required`
 If `props.type` is `'input'`, this prop controls whether the input field is required to have a value.
-- `PropTypes.bool`
+- Type: `boolean`
 - Default: `true`
 ----
 ### `props.validationMsg`
 If `props.type` is `'input'` and `props.required` is `true`, this is the message to display when the user clicks confirm without entering a value.
-- `PropTypes.string`
+- Type: `string`
 - Default: `'Please enter a response!'`
 ----
 ### `props.validationRegex`
 If `props.type` is `'input'` and `props.required` is `true`, this Regex is used to validate input value.
-- `PropTypes.object`
+- Type: `RegExp`
 - Default: `/^.+$/`
 ----
 ### `props.defaultValue`
 If `props.type` is `'input'`, this is the default value for the input field.
-- `PropTypes.oneOfType([PropTypes.number, PropTypes.string])`
+- Type: `number|string`
 - Default: `undefined`
 ----
 ### `props.inputType`
 If `props.type` is `'input'`, this is the default value for the input field.
-- `PropTypes.string`
+- Type: `string`
 - Default: `'text'`
-- Recommended values: `'text'`, `'password'`, `'number'`, `'textarea'`
+- Recommended values: `'text'|'password'|'number'|'textarea'`
 ----
 ### `props.style`
 Style overrides applied to the sweetalert wrapper.
-- `PropTypes.object`
+- Type: `CSSProperties`
 - Default: `{}`
 ----
 ### `props.closeBtnStyle`
 Style overrides applied to the X close button.
-- `PropTypes.object`
+- Type: `CSSProperties`
 - Default: `{}`
 ----
 ### `props.customClass`
 Custom CSS class applied to the sweetalert wrapper.
-- `PropTypes.string`
+- Type: `string`
 - Default: `''`
 ----
 ### `props.showConfirm`
 If `true`, the Confirm button will show.
-- `PropTypes.bool`
+- Type: `boolean`
 - Default: `true`
 ----
 ### `props.showCancel`
 If `true`, the Cancel button will show.
-- `PropTypes.bool`
+- Type: `boolean`
 - Default: `false`
 ----
 ### `props.allowEscape`
 If `true`, the `onCancel` function will be invoked when the user hits the `ESCAPE` key.
-- `PropTypes.bool`
+- Type: `boolean`
 - Default: `true`
 ----
 ### `props.closeOnClickOutside`
 If `true`, the `onCancel` function will be invoked when clicking outside the modal.
-- `PropTypes.bool`
+- Type: `boolean`
 - Default: `true`
 ----
 ### `props.hideOverlay`
 If `true`, then the modal overlay will not be rendered.
-- `PropTypes.bool`
+- Type: `boolean`
 - Default: `false`
 ----
 ### `props.disabled`
 If `true`, then the Confirm button will be disabled. (NOTE: This does not effect the `props.allowEscape` behavior.)
 If you set disabled to `true` but do not provide an `onCancel` function, then the `disabled` property will not be honored.
-- `PropTypes.bool`
+- Type: `boolean`
 - Default: `false`
 ----
 ### `props.beforeMount`
 Hook which is invoked at the end of the component `constructor` function.
-- `PropTypes.func`
+- Type: `() => any`
 - Default: `() => {}`
 ----
 ### `props.afterMount`
 Hook which is invoked at the end of the `componentDidMount` method.
-- `PropTypes.func`
+- Type: `() => any`
 - Default: `() => {}`
 ----
 ### `props.afterUpdate`
 Hook which is invoked at the end of the `componentDidUpdate` method.
-- `PropTypes.func`
+- Type: `() => any`
 - Default: `() => {}`
 ----
 ### `props.beforeUnmount`
 Hook which is invoked at the end of the `componentWillUnmount` method.
-- `PropTypes.func`
+- Type: `() => any`
 - Default: `() => {}`
 ----
 ### `props.timeout`
 If defined, and greater than `0`, `props.onConfirm` will be invoked to close the alert automatically after the specified number of milliseconds.
-- `PropTypes.number`
+- Type: `number`
 - Default: `0`
 ----
 ### `props.openAnim`
 Provide custom show animation or false to have no animation. To specify a custom animation, provide the name of your css animation and duration of the animation in milliseconds.
-- `PropTypes.oneOfType([PropTypes.bool, PropTypes.object])`
+- Type: `boolean|SweetAlertAnimationProps`
 - Default: `{ name: 'showSweetAlert', duration: 300 }`
 ----
 ### `props.closeAnim`
 Provide custom hide animation or false to have no animation. To specify a custom animation, provide the name of your css animation and duration of the animation in milliseconds. For a simple hide animation you can use `{ name: 'hideSweetAlert', duration: 100 }`
-- `PropTypes.oneOfType([PropTypes.bool, PropTypes.object])`
+- Type: `boolean|SweetAlertAnimationProps`
 - Default: `false`
 
 ## Related projects
@@ -385,5 +448,5 @@ Provide custom hide animation or false to have no animation. To specify a custom
 ## Development
 
 ``` bash
-yarn demo && open http://localhost:3000
+$ yarn demo && open http://localhost:3000
 ```

@@ -7,11 +7,14 @@
   "rules": {
     "trailing-comma": true,
     "object-literal-sort-keys": false,
-    "max-classes-per-file": false
+    "max-classes-per-file": false,
+    "no-empty": false,
+    "interface-name": false
   },
   "linterOptions": {
     "exclude": [
-      "examples"
+      "examples",
+      "*.md"
     ]
   }
 }

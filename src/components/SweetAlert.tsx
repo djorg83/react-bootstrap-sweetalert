@@ -1,6 +1,5 @@
 // third-party
-import React, {CSSProperties} from 'react';
-import PropTypes from 'prop-types';
+import React, { CSSProperties, ReactNode } from 'react';
 
 // components
 import SuccessIcon from './SuccessIcon';
@@ -18,189 +17,29 @@ import Overlay from './Overlay';
 // other
 import * as styles from '../styles/SweetAlertStyles';
 import * as Patterns from '../constants/patterns';
+import {
+  SweetAlertAnimationProps,
+  SweetAlertOptionalPropsWithDefaults,
+  SweetAlertProps,
+  SweetAlertPropsTypes, SweetAlertRenderProps,
+  SweetAlertState,
+} from '../types';
+import { SWEET_ALERT_PROP_TYPES } from '../prop-types';
+import { SWEET_ALERT_DEFAULT_PROPS } from '../default-props';
 
-let style = styles.sweetAlert;
-
-export interface SweetAlertAnimationProps {
-    name: string;
-    duration?: number;
-}
-
-export interface SweetAlertOptionalPropsWithDefaults {
-  allowEscape?: boolean;
-  closeOnClickOutside?: boolean;
-  inputType?: string;
-  customClass?: string;
-  validationMsg?: string;
-  validationRegex?: RegExp;
-  hideOverlay?: boolean;
-  show?: boolean;
-  required?: boolean;
-  disabled?: boolean;
-  focusConfirmBtn?: boolean;
-  focusCancelBtn?: boolean;
-  confirmBtnBsStyle?: string,
-  cancelBtnBsStyle?: string,
-  showCloseButton?: boolean;
-  beforeMount?: Function;
-  afterMount?: Function;
-  beforeUpdate?: Function;
-  afterUpdate?: Function;
-  beforeUnmount?: Function;
-  style?: CSSProperties;
-  closeBtnStyle?: CSSProperties;
-  timeout?: number;
-  openAnim?: boolean|SweetAlertAnimationProps;
-  closeAnim?: boolean|SweetAlertAnimationProps;
-  reverseButtons?: boolean;
-}
-
-export type SweetAlertType = 'default'|'secondary'|'info'|'success'|'warning'|'danger'|'error'|'input'|'custom';
-
-export interface SweetAlertOptionalProps extends SweetAlertOptionalPropsWithDefaults {
-  type?: SweetAlertType,
-
-  // shortcut props
-  secondary?: boolean;
-  info?: boolean;
-  success?: boolean;
-  warning?: boolean;
-  danger?: boolean;
-  error?: boolean;
-  input?: boolean;
-  custom?: boolean;
-
-  onCancel?: Function,
-  confirmBtnText?: React.ReactNode|string,
-  confirmBtnCssClass?: string,
-  confirmBtnStyle?: CSSProperties,
-  cancelBtnText?: React.ReactNode|string,
-  cancelBtnCssClass?: string,
-  cancelBtnStyle?: CSSProperties,
-  btnSize?: string,
-  customIcon?: React.ReactNode|string,
-  placeholder?: string,
-  defaultValue?: string,
-  showConfirm?: boolean,
-  showCancel?: boolean,
-  customButtons?: React.ReactNode,
-}
-
-export interface SweetAlertProps extends SweetAlertOptionalProps {
-  title: React.ReactNode|string;
-  onConfirm: Function;
-}
-
-type SweetAlertPropsTypes = { [key in keyof SweetAlertProps]: any };
-
-export interface SweetAlertState {
-  id: string;
-  show: boolean;
-  type?: SweetAlertType;
-  focusConfirmBtn?: boolean;
-  focusCancelBtn?: boolean;
-  inputValue?: string;
-  showValidationMessage?: boolean;
-  timer?: any;
-  animation?: string;
-  prevTimeout?: number;
-  hideTimeoutHandlerFunc?: Function;
-  closingAction: 'confirm'|'cancel';
-}
+const SWEET_ALERT_DEFAULT_STYLES = styles.sweetAlert;
 
 const _resetting: { [alertId:string]: boolean } = {};
 
 const debugLogger = (...args: any[]): void => {
-  // uncomment the next line to get some debugging logs.  feel free to add more.
+  // uncomment the next line to get some debugging logs.
   // console.log(...args);
 };
 
 export default class SweetAlert extends React.Component<SweetAlertProps, SweetAlertState> {
 
-  static propTypes: SweetAlertPropsTypes = {
-    type: PropTypes.oneOf(['default', 'info', 'success', 'warning', 'danger', 'error', 'input', 'custom']),
-
-    // shortcut props for type
-    info: PropTypes.bool,
-    success: PropTypes.bool,
-    warning: PropTypes.bool,
-    danger: PropTypes.bool,
-    error: PropTypes.bool,
-    input: PropTypes.bool,
-    custom: PropTypes.bool,
-
-    title: PropTypes.oneOfType([PropTypes.node, PropTypes.string]).isRequired,
-    onCancel: PropTypes.func,
-    onConfirm: PropTypes.func.isRequired,
-    confirmBtnText: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
-    confirmBtnBsStyle: PropTypes.string,
-    confirmBtnCssClass: PropTypes.string,
-    confirmBtnStyle: PropTypes.object,
-    cancelBtnText: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
-    cancelBtnBsStyle: PropTypes.string,
-    cancelBtnCssClass: PropTypes.string,
-    cancelBtnStyle: PropTypes.object,
-    btnSize: PropTypes.string,
-    customIcon: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
-    show: PropTypes.bool,
-    required: PropTypes.bool,
-    placeholder: PropTypes.string,
-    validationMsg: PropTypes.string,
-    validationRegex: PropTypes.object,
-    defaultValue: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    inputType: PropTypes.string,
-    style: PropTypes.object,
-    closeBtnStyle: PropTypes.object,
-    customClass: PropTypes.string,
-    showConfirm: PropTypes.bool,
-    showCancel: PropTypes.bool,
-    showCloseButton: PropTypes.bool,
-    allowEscape: PropTypes.bool,
-    closeOnClickOutside: PropTypes.bool,
-    hideOverlay: PropTypes.bool,
-    disabled: PropTypes.bool,
-    focusConfirmBtn: PropTypes.bool,
-    focusCancelBtn: PropTypes.bool,
-    beforeMount: PropTypes.func,
-    afterMount: PropTypes.func,
-    beforeUpdate: PropTypes.func,
-    afterUpdate: PropTypes.func,
-    beforeUnmount: PropTypes.func,
-    timeout: PropTypes.number,
-    openAnim: PropTypes.any,
-    closeAnim: PropTypes.any,
-    reverseButtons: PropTypes.bool,
-    customButtons: PropTypes.node,
-  };
-
-  static defaultProps: SweetAlertOptionalPropsWithDefaults = {
-    allowEscape         : true,
-    closeOnClickOutside : true,
-    inputType           : 'text',
-    customClass         : '',
-    validationMsg       : null,
-    validationRegex     : null,
-    hideOverlay         : false,
-    required            : true,
-    disabled            : false,
-    focusConfirmBtn     : true,
-    focusCancelBtn      : false,
-    showCloseButton     : false,
-    confirmBtnBsStyle   : 'primary',
-    cancelBtnBsStyle    : 'link',
-    beforeMount         : () => {},
-    afterMount          : () => {},
-    beforeUpdate        : null,
-    afterUpdate         : () => {},
-    beforeUnmount       : () => {},
-    style               : {},
-    closeBtnStyle       : {},
-    timeout             : 0,
-    openAnim            : {name: "showSweetAlert", duration: 300},
-    closeAnim           : false,
-    reverseButtons      : false,
-  };
-
+  static propTypes: SweetAlertPropsTypes = SWEET_ALERT_PROP_TYPES;
+  static defaultProps: SweetAlertOptionalPropsWithDefaults = SWEET_ALERT_DEFAULT_PROPS;
   static SuccessIcon = SuccessIcon;
   static ErrorIcon = ErrorIcon;
   static InfoIcon = InfoIcon;
@@ -212,7 +51,8 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
   static Title = Title;
   static Content = Content;
 
-  state: SweetAlertState;
+  readonly state: SweetAlertState;
+  private inputElement: HTMLInputElement|HTMLTextAreaElement = null;
 
   constructor(props: SweetAlertProps) {
     super(props);
@@ -236,8 +76,10 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
 
   componentDidMount() {
     document.body.classList.add('sweetalert-overflow-hidden');
-
-    this.props.afterMount();
+    this.focusInput();
+    if (this.props.afterMount) {
+      this.props.afterMount();
+    }
   }
 
   static generateId(): string {
@@ -256,6 +98,7 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
       animation: "",
       prevTimeout: 0,
       closingAction: null,
+      dependencies: [],
     }
   }
 
@@ -267,18 +110,27 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
 
     let newState = {};
 
-    if (nextState.type !== SweetAlert.getTypeFromProps(nextProps)) {
+    const typeChanged = nextState.type !== SweetAlert.getTypeFromProps(nextProps);
+    const dependenciesChanged = nextState.dependencies !== nextProps.dependencies;
+    const timeoutChanged = nextState.prevTimeout !== nextProps.timeout;
+
+    // if the type of the alert changed, or the dependencies changed, then update the state from props
+    if (typeChanged || dependenciesChanged) {
       newState = {
-        ...SweetAlert.getStateFromProps(nextProps), // Set new type, focusConfirmBtn, focusCancelBtn
-        ...SweetAlert.handleTimeout(nextProps, nextState.timer) // Set new timer
-      };
-    } else if (nextState.prevTimeout !== nextProps.timeout) {
-      newState = {
-        ...SweetAlert.handleTimeout(nextProps, nextState.timer) // Set new timer
+        ...newState,
+        ...SweetAlert.getStateFromProps(nextProps),
       };
     }
 
-    // No state change
+    // if the state is changing, or the timeout changed, then reset the timeout timer
+    if (JSON.stringify(newState) !== '{}' || timeoutChanged) {
+      newState = {
+        ...newState,
+        ...SweetAlert.handleTimeout(nextProps, nextState.timer)
+      };
+    }
+
+    // return the partially updated state
     return {
       ...newState,
       ...SweetAlert.handleAnimState(nextProps, nextState, nextState.hideTimeoutHandlerFunc),
@@ -286,19 +138,28 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
   }
 
   componentDidUpdate(prevProps: SweetAlertProps, prevState: SweetAlertState) {
-    if(this.props.beforeUpdate)
+    if (this.props.beforeUpdate) {
       this.props.beforeUpdate(prevProps, prevState);
+    }
 
-    this.props.afterUpdate(prevProps, prevState);
+    if (!prevState.show && this.state.show) {
+      this.focusInput();
+    }
+
+    this.props.afterUpdate(this.props, this.state);
   }
 
   componentWillUnmount() {
     document.body.classList.remove('sweetalert-overflow-hidden');
-    clearTimeout(this.state.timer);
-    this.props.beforeUnmount();
+    if (this.state.timer) {
+      clearTimeout(this.state.timer);
+    }
+    if (this.props.beforeUnmount) {
+      this.props.beforeUnmount();
+    }
   }
 
-  hideTimeoutHandler (time: number) {
+  hideTimeoutHandler(time: number) {
     setTimeout(() => {
       const closingAction = this.state.closingAction;
 
@@ -384,6 +245,7 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
       type,
       focusConfirmBtn: props.focusConfirmBtn && type !== 'input',
       focusCancelBtn: props.focusCancelBtn && type !== 'input',
+      dependencies: props.dependencies,
     };
   };
 
@@ -406,6 +268,19 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
       // do nothing
     }
   };
+
+  focusInput = () => {
+    debugLogger('inputElement', this.inputElement);
+    if (this.inputElement) {
+      debugLogger('inputElement trying to focus', this.inputElement);
+      try {
+        this.inputElement.focus();
+      } catch (e) {
+        debugLogger('inputElement focus error', e);
+        // whoops
+      }
+    }
+  }
 
   getIcon = (): React.ReactNode => {
     switch (this.state.type) {
@@ -482,8 +357,13 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
       return;
     }
 
+    // if this is an input alert, then we will send the input value to the props.onConfirm function
     const isInput: boolean = this.state.type === 'input';
     const inputValue: string = this.state.inputValue;
+
+    // if this is a controlled alert, then we will send the dependencies value to the props.onConfirm function
+    const isControlled: boolean = this.state.type === 'controlled';
+    const dependencies: any[] = [...this.state.dependencies];
 
     if (isInput && !this.isValidInput()) {
       this.setState({
@@ -497,6 +377,10 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
       if (isInput) {
         this.onAlertClose(() => {
           this.props.onConfirm(inputValue);
+        });
+      } else if (isControlled) {
+        this.onAlertClose(() => {
+          this.props.onConfirm(dependencies);
         });
       } else {
         this.onAlertClose(() => this.props.onConfirm());
@@ -555,81 +439,141 @@ export default class SweetAlert extends React.Component<SweetAlertProps, SweetAl
     }
   };
 
-  render() {
-    if (!this.state.show) {
-      return false;
+  setAutoFocusInputRef = (element: HTMLInputElement|HTMLTextAreaElement) => {
+    this.inputElement = element;
+  };
+
+  getComposedStyle = (): CSSProperties => {
+    return Object.assign(
+      {},
+      SWEET_ALERT_DEFAULT_STYLES,
+      this.props.style,
+      { animation: this.state.animation }
+    );
+  };
+
+  getAlertContent = (): ReactNode => {
+
+    // Support for render props for content of alert
+    if (typeof this.props.children === 'function') {
+      const renderProps: SweetAlertRenderProps = {
+        onEnterKeyDownConfirm: (event: React.KeyboardEvent) => {
+          if (event.key === 'Enter') {
+            event.preventDefault();
+            event.stopPropagation();
+            this.onConfirm();
+          }
+        },
+        confirm: () => this.onConfirm(),
+        cancel: () => this.onCancel(),
+        setAutoFocusInputRef: this.setAutoFocusInputRef.bind(this),
+      }
+      return this.props.children(renderProps);
     }
 
-    return (
-      <div>
+    return this.props.children;
+  };
 
+  getCloseButton = (): ReactNode => {
+    if (!this.props.showCloseButton || !this.props.onCancel) {
+      return null;
+    }
+    return (
+      <span
+        className='btn'
+        style={Object.assign({}, styles.closeButton, this.props.closeBtnStyle)}
+        onClick={() => this.onCancel()}
+      >x</span>
+    );
+  };
+
+  getInputField = (): ReactNode => {
+    if (this.state.type !== 'input') {
+      return null;
+    }
+    return (
+      <Input
+        {...this.props}
+        {...this.state}
+        type={this.state.type}
+        onInputKeyDown={this.onInputKeyDown}
+        onChangeInput={this.onChangeInput}
+      />
+    );
+  };
+
+  getValidationMessage = (): ReactNode => {
+    if (!this.state.showValidationMessage) {
+      return null;
+    }
+    return <ValidationMessage {...this.props} />;
+  };
+
+  getButtons = (): ReactNode => {
+    return (
+      <Buttons
+        {...this.props}
+        type={this.state.type}
+        onConfirm={this.onConfirm}
+        onCancel={this.onCancel}
+        focusConfirmBtn={this.state.focusConfirmBtn}
+        focusCancelBtn={this.state.focusCancelBtn}
+        disabled={this.isDisabled()}
+      />
+    );
+  };
+
+  getInjectedStyles = (): ReactNode => {
+    return (
+      <>
         <style type="text/css" dangerouslySetInnerHTML={{
             __html: `
-              body.sweetalert-overflow-hidden {
-                overflow: hidden;
-              }
-              body .sweet-alert button {
-                outline: none !important;
-              }
-            `
+                body.sweetalert-overflow-hidden {
+                  overflow: hidden;
+                }
+                body .sweet-alert button {
+                  outline: none !important;
+                }
+              `
           }}
         />
 
         <style type="text/css">
           {`<Inject>../css/animations.css</Inject>`}
         </style>
+      </>
+    );
+  };
 
+  render() {
+    if (!this.state.show) {
+      return null;
+    }
+
+    return (
+      <div>
+        {this.getInjectedStyles()}
         <Overlay
           show={!this.props.hideOverlay}
           onClick={this.onClickOutside}
           onKeyDown={this.onKeyDown}
         >
-
           <div
-            style={Object.assign({}, style, this.props.style, {animation: this.state.animation})}
+            style={this.getComposedStyle()}
             tabIndex={0}
             onKeyDown={this.onKeyDown}
             onClick={this.onClickInside}
             className={'sweet-alert ' + this.props.customClass}
           >
-            {(this.props.showCloseButton && this.props.onCancel)&& <span
-              className='btn'
-              style={Object.assign({}, styles.closeButton, this.props.closeBtnStyle)}
-              onClick={() => this.onCancel()}
-            >x</span>}
-
+            {this.getCloseButton()}
             {this.getIcon()}
-
             <Title>{this.props.title}</Title>
-
-            <Content>{this.props.children}</Content>
-
-            {this.state.type === 'input' && (
-              <Input
-                {...this.props}
-                {...this.state}
-                type={this.state.type}
-                onInputKeyDown={this.onInputKeyDown}
-                onChangeInput={this.onChangeInput}
-              />
-            )}
-
-            {this.state.showValidationMessage && <ValidationMessage {...this.props} />}
-
-            <Buttons
-              {...this.props}
-              type={this.state.type}
-              onConfirm={this.onConfirm}
-              onCancel={this.onCancel}
-              focusConfirmBtn={this.state.focusConfirmBtn}
-              focusCancelBtn={this.state.focusCancelBtn}
-              disabled={this.isDisabled()}
-            />
-
+            <Content>{this.getAlertContent()}</Content>
+            {this.getInputField()}
+            {this.getValidationMessage()}
+            {this.getButtons()}
           </div>
-
         </Overlay>
-
       </div>
     );
   }

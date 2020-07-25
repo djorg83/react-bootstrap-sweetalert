@@ -1,5 +1,11 @@
 # Change Log
 
+v5.2
+-----
+* Added `props.dependencies` that re-renders the alert whenever the provided Array of `dependencies` value changes.
+* Added new supported value of `'controlled'` for `props.type`.  If `props.type === 'controlled'` then `props.onConfirm` will return `props.dependencies`.
+* Added support for using a function as your alert content/children, aka render props.
+
 v5.1
 -----
 * Fixed deprecation warning from componentWillMount, componentWillUpdate and componentWillReceiveProps

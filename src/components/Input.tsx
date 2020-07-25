@@ -1,6 +1,6 @@
 import React from 'react';
 import * as styles from '../styles/SweetAlertStyles';
-import {SweetAlertProps, SweetAlertState} from "./SweetAlert";
+import {SweetAlertProps, SweetAlertState} from "../types";
 
 type PropsAndState = SweetAlertProps & SweetAlertState;
 

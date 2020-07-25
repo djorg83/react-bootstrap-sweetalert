@@ -1,9 +1,11 @@
 import React from 'react';
-import SweetAlert, { SweetAlertType } from '../../components/SweetAlert';
+import SweetAlert from '../../components/SweetAlert';
+import { SweetAlertType } from '../../types';
 import reactTools from 'react-tools';
 import { Button, Row, Col, Alert } from 'react-bootstrap';
 import {examples} from './examples';
 import {Example} from './examples/Example';
+import { SweetAlertRenderProps } from '../../types';
 
 // @ts-ignore
 window.React = React;
@@ -16,7 +18,12 @@ window.SweetAlert = SweetAlert;
 interface DemoState {
 	alert: React.ReactNode;
 	showOtherAlert: boolean;
+	showCounterAlert: boolean;
+	showRenderPropsAlert: boolean;
 	textareaValue: string;
+	counter: number;
+	firstName: string;
+	lastName: string;
 }
 
 const defaultTextAreaValue: string = `
@@ -34,7 +41,12 @@ export default class Demo extends React.Component<{}, DemoState> {
 	state: DemoState = {
 		alert: null,
 		showOtherAlert: false,
+		showCounterAlert: false,
+		showRenderPropsAlert: false,
 		textareaValue: defaultTextAreaValue,
+		counter: 0,
+		firstName: '',
+		lastName: '',
 	};
 
 	renderHeader = () => {
@@ -51,7 +63,7 @@ export default class Demo extends React.Component<{}, DemoState> {
 						<span className="fa fa-github" /> View on GitHub
 					</a>
 				</p>
-				<iframe src="http://ghbtns.com/github-btn.html?user=djorg83&amp;repo=react-bootstrap-sweetalert&amp;type=watch&amp;count=true" className="social-share" />
+				<iframe src="https://ghbtns.com/github-btn.html?user=djorg83&amp;repo=react-bootstrap-sweetalert&amp;type=watch&amp;count=true" className="social-share" />
 			</div>
 		);
 	};
@@ -67,8 +79,12 @@ export default class Demo extends React.Component<{}, DemoState> {
 							confirmBtnText="Yes"
 							cancelBtnText="No"
 							confirmBtnBsStyle="primary"
-							cancelBtnBsStyle="default"
-							customIcon="/react-bootstrap-sweetalert/demo/assets/thumbs-up.jpg"
+							cancelBtnBsStyle="light"
+							customIcon={
+								window.location.hostname === 'localhost'
+									? 'assets/thumbs-up.jpg'
+									: '/react-bootstrap-sweetalert/demo/assets/thumbs-up.jpg'
+							}
 							title="Do you like thumbs?"
 							onConfirm={this.hideAlert}
 							onCancel={this.hideAlert}
@@ -101,7 +117,7 @@ export default class Demo extends React.Component<{}, DemoState> {
 							showCancel
 							confirmBtnText="Continue"
 							confirmBtnBsStyle={type}
-							type={type as SweetAlertType}
+							type={['primary'].includes(type) ? 'default' : type as SweetAlertType}
 							title="Are you sure?"
 							onCancel={this.hideAlert}
 							onConfirm={this.hideAlert}
@@ -143,6 +159,20 @@ export default class Demo extends React.Component<{}, DemoState> {
 			alert: (
 				<SweetAlert success title="Nice!" onConfirm={this.hideAlert}>
 					You wrote: {value}
+				</SweetAlert>
+			)
+		});
+	};
+
+	showControlledResponse = (dependencies: any[]) => {
+		this.setState({
+			alert: (
+				<SweetAlert success title={`Hello! ${this.state.firstName} ${this.state.lastName}`} onConfirm={this.hideAlert}>
+					Response sent to onConfirm:
+					<br/>
+					<pre>
+						{JSON.stringify(dependencies, null, 4)}
+					</pre>
 				</SweetAlert>
 			)
 		});
@@ -201,14 +231,14 @@ export default class Demo extends React.Component<{}, DemoState> {
 
 					<h1>Sandbox</h1>
 
-					<Alert bsStyle="info">Modify the code below to make a SweetAlert. Be sure to use &#123;this.hideAlert&#125; for onConfirm and onCancel.</Alert>
+					<Alert variant="info">Modify the code below to make a SweetAlert. Be sure to use &#123;this.hideAlert&#125; for onConfirm and onCancel.</Alert>
 
 					<div>
 						<Row>
 							<Col sm={2} className="text-center">
 								<p>
 									<Button
-										bsStyle="primary"
+										variant="primary"
 										onClick={this.runInputExample}>
 										Run it!
 									</Button>
@@ -268,7 +298,7 @@ export default class Demo extends React.Component<{}, DemoState> {
 								<Button
 									key={key}
 									style={{marginRight:8}}
-									bsStyle={label === 'Input' || label === 'Custom' ? 'default' : label.toLowerCase()}
+									variant={['Input', 'Custom'].includes(label) ? 'light' : label.toLowerCase()}
 									onClick={() => this.buttonExample(label.toLowerCase())}
 								>
 									{label}
@@ -283,7 +313,7 @@ export default class Demo extends React.Component<{}, DemoState> {
 							<Row>
 								<Col sm={2} className="text-center">
 									<p>
-										<Button bsStyle="primary" onClick={() => this.runExample(example)} >
+										<Button variant="primary" onClick={() => this.runExample(example)} >
 											Try It
 										</Button>
 									</p>
@@ -300,7 +330,7 @@ export default class Demo extends React.Component<{}, DemoState> {
 						<Row>
 							<Col sm={2} className="text-center">
 								<p>
-									<Button bsStyle="primary" onClick={() => this.setState({ showOtherAlert: true })} >
+									<Button variant="primary" onClick={() => this.setState({ showOtherAlert: true })} >
 										Try It
 									</Button>
 								</p>
@@ -308,10 +338,95 @@ export default class Demo extends React.Component<{}, DemoState> {
 							<Col sm={10}>
 								<pre>{`<SweetAlert
  title={"Uses props.show"}
- onConfirm={() => this.setState({ showOtherAlert: false })}
- onCancel={() => this.setState({ showOtherAlert: false })}
- show={this.state.showOtherAlert}
+ onConfirm={() => this.setState({ showAlert: false })}
+ onCancel={() => this.setState({ showAlert: false })}
+ show={this.state.showAlert}
 />
+`}</pre>
+							</Col>
+						</Row>
+					</div>
+
+					<div>
+						<h4>Example Using props.dependencies</h4>
+						<Row>
+							<Col sm={2} className="text-center">
+								<p>
+									<Button variant="primary" onClick={() => this.setState({ showCounterAlert: true })} >
+										Try It
+									</Button>
+								</p>
+							</Col>
+							<Col sm={10}>
+								<pre>{`<SweetAlert
+ title={"Uses props.dependencies"}
+ onConfirm={this.onConfirm}
+ onCancel={this.onCancel}
+ type={'controlled'}
+ dependencies={[this.state.counter]}
+>
+  <div>
+    The counter value is: {this.state.counter}
+    <hr/>
+    <Button variant="success" onClick={() => this.setState({ counter: this.state.counter + 1 })} >
+      Increment
+    </Button>
+    &nbsp;
+    <Button variant="danger" onClick={() => this.setState({ counter: this.state.counter - 1 })} >
+      Decrement
+    </Button>
+    <hr/>
+  </div>
+</SweetAlert>
+`}</pre>
+							</Col>
+						</Row>
+					</div>
+
+					<div>
+						<h4>Example Using Render Props</h4>
+						<Row>
+							<Col sm={2} className="text-center">
+								<p>
+									<Button variant="primary" onClick={() => this.setState({ showRenderPropsAlert: true })} >
+										Try It
+									</Button>
+								</p>
+							</Col>
+							<Col sm={10}>
+								<pre>{`<SweetAlert
+ title={"Uses render props"}
+ onConfirm={this.onConfirm}
+ onCancel={this.onCancel}
+ type={'controlled'}
+ dependencies={[this.state.firstName, this.state.lastName]}
+>
+  {(renderProps: SweetAlertRenderProps) => (
+    <form>
+      Your name is: {this.state.firstName} {this.state.lastName}
+      <hr/>
+      <input
+        type={'text'}
+        ref={renderProps.setAutoFocusInputRef}
+        className="form-control"
+        value={this.state.firstName}
+        onKeyDown={renderProps.onEnterKeyDownConfirm}
+        onChange={(e) => this.setState({ firstName: e.target.value })}
+        placeholder={'First name'}
+      />
+      <br />
+      <input
+        type={'text'}
+        className="form-control"
+        value={this.state.lastName}
+        onKeyDown={renderProps.onEnterKeyDownConfirm}
+        onChange={(e) => this.setState({ lastName: e.target.value })}
+        placeholder={'Last name'}
+      />
+      <hr/>
+    </form>
+  )}
+</SweetAlert>
 `}</pre>
 							</Col>
 						</Row>
@@ -333,6 +448,68 @@ export default class Demo extends React.Component<{}, DemoState> {
 						onCancel={() => this.setState({ showOtherAlert: false })}
 						show={this.state.showOtherAlert}
 					/>
+
+					{this.state.showCounterAlert && (
+						<SweetAlert
+							show={this.state.showCounterAlert}
+							onConfirm={() => this.setState({ showCounterAlert: false })}
+							onCancel={() => this.setState({ showCounterAlert: false })}
+							title={"Uses props.dependencies"}
+							type={'controlled'}
+							dependencies={[this.state.counter]}
+						>
+							<div>
+								The counter value is: {this.state.counter}
+								<hr/>
+								<Button variant="success" onClick={() => this.setState({ counter: this.state.counter + 1 })} >
+									Increment
+								</Button>
+								&nbsp;
+								<Button variant="danger" onClick={() => this.setState({ counter: this.state.counter - 1 })} >
+									Decrement
+								</Button>
+								<hr/>
+							</div>
+						</SweetAlert>
+					)}
+
+					<SweetAlert
+						show={this.state.showRenderPropsAlert}
+						onConfirm={(dependencies: any[]) => {
+							this.setState({ showRenderPropsAlert: false })
+							this.showControlledResponse(dependencies);
+						}}
+						onCancel={() => this.setState({ showRenderPropsAlert: false })}
+						title={"Uses props.renderProps"}
+						type={'controlled'}
+						dependencies={[this.state.firstName, this.state.lastName]}
+					>
+						{(renderProps: SweetAlertRenderProps) => (
+							<form>
+								Your name is: {this.state.firstName} {this.state.lastName}
+								<hr/>
+								<input
+									type={'text'}
+									ref={renderProps.setAutoFocusInputRef}
+									className="form-control"
+									value={this.state.firstName}
+									onKeyDown={renderProps.onEnterKeyDownConfirm}
+									onChange={(e) => this.setState({ firstName: e.target.value })}
+									placeholder={'First name'}
+								/>
+								<br />
+								<input
+									type={'text'}
+									className="form-control"
+									value={this.state.lastName}
+									onKeyDown={renderProps.onEnterKeyDownConfirm}
+									onChange={(e) => this.setState({ lastName: e.target.value })}
+									placeholder={'Last name'}
+								/>
+								<hr/>
+							</form>
+						)}
+					</SweetAlert>
 			</div>
 		);
 	}

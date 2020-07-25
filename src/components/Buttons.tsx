@@ -1,6 +1,6 @@
 import React from 'react';
 import * as styles from '../styles/SweetAlertStyles';
-import {SweetAlertProps} from "./SweetAlert";
+import {SweetAlertProps} from "../types";
 import {actions as actionsStyle } from "../styles/SweetAlertStyles";
 
 export default class Buttons extends React.Component<SweetAlertProps> {

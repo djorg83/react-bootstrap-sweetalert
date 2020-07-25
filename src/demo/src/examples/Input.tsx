@@ -6,7 +6,7 @@ const snippet: string = `
 <SweetAlert
   input
   showCancel
-  cancelBtnBsStyle="default"
+  cancelBtnBsStyle="light"
   title="An input!"
   placeHolder="Write something"
   onConfirm={(response) => this.onReceiveInput(response)}

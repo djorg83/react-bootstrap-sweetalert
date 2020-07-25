@@ -1,6 +1,6 @@
 import React  from 'react';
 import * as styles from '../styles/SweetAlertStyles';
-import {SweetAlertProps} from "./SweetAlert";
+import {SweetAlertProps} from "../types";
 
 const defaultMessage = 'Please enter a response!';
 const emailMessage = 'Please enter a valid email!';

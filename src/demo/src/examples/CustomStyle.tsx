@@ -5,7 +5,8 @@ const title: string = "Customized Styles";
 const snippet: string = `
 <SweetAlert
   title="Yay!"
-  style={{backgroundColor:'blue'}}
+  style={{ backgroundColor:'blue', color: 'white' }}
+  confirmBtnBsStyle={'secondary'}
   onConfirm={this.onConfirm}
   onCancel={this.onCancel}
 >
