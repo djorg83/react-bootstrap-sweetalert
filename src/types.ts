@@ -79,6 +79,7 @@ export interface SweetAlertOptionalProps extends SweetAlertOptionalPropsWithDefa
 export interface SweetAlertProps extends SweetAlertOptionalProps {
   title: React.ReactNode|string;
   onConfirm: (response?: any) => any;
+  children: children: React.ReactNode|string;
 }
 
 export type SweetAlertPropsTypes = { [key in keyof SweetAlertProps]: any };
